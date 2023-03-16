@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Hotel Search</title>
+		<link rel="stylesheet" href="beaut.css">
+	</head>
+	<body>
+		<header>
+			<h1>Hotel Finder</h1>
+			<nav>
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="hotels.html">Hotels</a></li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<h2>Search for Hotels</h2>
+			<form>
+				<label for="location">Location:</label>
+				<input type="text" id="location" name="location" placeholder="Enter a location">
+
+				<label for="checkin">Check-in Date:</label>
+				<input type="date" id="checkin" name="checkin">
+
+				<label for="checkout">Check-out Date:</label>
+				<input type="date" id="checkout" name="checkout">
+
+				<label for="guests">Number of Guests:</label>
+				<select id="guests" name="guests">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+				</select>
+			</form>
+            <button type="submit">Search</button>
+			<section>
+				<h3>Search Results</h3>
+				<div class="hotel-list">
+					<!-- Results will be dynamically populated here -->
+				</div>
+			</section>
+		</main>
+		<footer>
+			<p>&copy; 2023 Hotel Finder. All rights reserved.</p>
+		</footer>
+	</body>
+</html>
