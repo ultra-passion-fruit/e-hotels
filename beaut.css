@@ -98,9 +98,11 @@ section {
 }
 
 form label {
-	display: block;
-	margin-bottom: 10px;
-	font-weight: bold;
+	display: inline-block;
+    width: 150px;
+    text-align: left;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
 form input {
