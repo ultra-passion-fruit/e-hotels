@@ -1,3 +1,4 @@
+/*
 drop table amenity;
 drop table problem;
 drop table room;
@@ -16,15 +17,7 @@ drop table hotel;
 drop table hotelchainphone;
 drop table hotelchainemail;
 drop table hotelchain;
-
-
-
-
-
-
-
-
-
+*/
 create table if not exists HotelChain(
 hotel_chain_code CHAR(4) PRIMARY KEY,
 name VARCHAR(50) NOT NULL,
@@ -75,7 +68,7 @@ primary key(hotel_chain_code, hotel_code, phone_number)
 );
 
 create table if not exists Employee(
-emp_ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+emp_ID INTEGER PRIMARY KEY,
 f_name VARCHAR(50) NOT NULL,
 l_name VARCHAR(50) NOT NULL,
 ssn INTEGER NOT NULL UNIQUE CHECK (ssn BETWEEN 0 AND 999999999),
@@ -106,7 +99,7 @@ primary key (emp_ID, position)
 
 
 create table if not exists Customer(
-cust_ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+cust_ID INTEGER PRIMARY KEY,
 f_name VARCHAR(50) NOT NULL,
 l_name VARCHAR(50) NOT NULL,
 ssn INTEGER NOT NULL UNIQUE CHECK (ssn BETWEEN 0 AND 999999999),
@@ -114,7 +107,7 @@ number_street VARCHAR(50) NOT NULL,
 city VARCHAR(50) NOT NULL,
 state_prov VARCHAR(50) NOT NULL,
 email VARCHAR(50) NOT NULL,
-registration_date DATETIME NOT NULL
+registration_date timestamp NOT NULL
 );
 
 create table if not exists CustomerPhone(
