@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home e-Hotels</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="beaut.css">
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="./hotels.html">Hotels</a></li>
+                <li><a href="signin.html">Sign In</a></li>
+			</ul>
+		</nav>
+		<h1>Book Your Hotel Stay</h1>
+		<p>Find the perfect hotel for your next trip</p>
+	</header>
+	<main>
+		<section>
+			<h2>Featured Hotels</h2>
+			<article>
+				<img src="hotel1.jpg" alt="Hotel 1">
+				<h3>Hotel 1</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, leo at lobortis tincidunt, mauris elit venenatis magna, quis sodales velit augue a odio.</p>
+				<button>Book Now</button>
+			</article>
+			<article>
+				<img src="hotel2.jpg" alt="Hotel 2">
+				<h3>Hotel 2</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, leo at lobortis tincidunt, mauris elit venenatis magna, quis sodales velit augue a odio.</p>
+				<button>Book Now</button>
+			</article>
+			<article>
+				<img src="hotel3.jpg" alt="Hotel 3">
+				<h3>Hotel 3</h3>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis accumsan, leo at lobortis tincidunt, mauris elit venenatis magna, quis sodales velit augue a odio.</p>
+				<button>Book Now</button>
+			</article>
+		</section>
+		<section>
+			<h2>Search for a Hotel</h2>
+			<form>
+				<label for="location">Location:</label>
+				<input type="text" id="location" name="location" required>
+				<label for="checkin">Check-in:</label>
+				<input type="date" id="checkin" name="checkin" required>
+				<label for="checkout">Check-out:</label>
+				<input type="date" id="checkout" name="checkout" required>
+				<label for="guests">Guests:</label>
+				<input type="number" id="guests" name="guests" min="1" max="10" required>
+				<button type="submit" formaction="search.html">Search</button>
+			</form>
+		</section>
+	</main>
+	<footer>
+		<p>&copy; 2023 Hotel Booking Website. All rights reserved.</p>
+	</footer>
+</body>
+</html>

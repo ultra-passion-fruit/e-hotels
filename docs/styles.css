@@ -1,0 +1,154 @@
+/* Global styles */
+
+body {
+    background-color: #ff00ff;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #00ffff;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #00ffff;
+    padding: 50px;
+}
+
+nav {
+    margin-bottom: 50px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav li {
+    margin-right: 50px;
+}
+
+nav a {
+    color: #ff00ff;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #00ffff;
+    background-color: #ff00ff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+    margin: 0;
+}
+
+h1 {
+    font-size: 80px;
+    text-align: center;
+    color: #deffde;
+    text-shadow: 5px 5px #ff00ff;
+}
+
+h2 {
+    font-size: 60px;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #fbc9fb;
+    text-shadow: 5px 5px #00ffff;
+}
+
+h3 {
+    font-size: 40px;
+    margin-bottom: 30px;
+    color: #00ffff;
+    text-shadow: 3px 3px #ff00ff;
+}
+
+p {
+    margin-bottom: 50px;
+    color: #e7ffff;
+    text-align: center;
+    text-shadow: 3px 3px #ff00ff;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 50px;
+    border: 5px solid #00ffff;
+}
+
+button {
+    background-color: #00ffff;
+    color: #ff00ff;
+    border: none;
+    padding: 20px 40px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+button:hover {
+    background-color: #eeb365;
+    color: #00ffff;
+}
+
+/* Page-specific styles */
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px;
+}
+
+section {
+    margin-bottom: 100px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 3px 3px #ff00ff;
+}
+
+form input {
+    padding: 20px;
+    border: 5px solid #ff00ff;
+    border-radius: 50px;
+    font-size: 24px;
+    margin-bottom: 50px;
+    width: 100%;
+    color: #ff00ff;
+    background-color: #00ffff;
+}
+
+form input[type="date"] {
+    padding: 20px;
+    border: 5px solid #ff00ff;
+    border-radius: 50px;
+    font-size: 24px;
+    margin-bottom: 50px;
+    width: 100%;
+    color: #ff00ff;
+    background-color: #00ffff;
+}
+
+form button[type="submit"] {
+    background-color: #00ffff;
+    color: #ff00ff;
+    border: none;
+    padding: 20px 40px;
+    font-size: 24px;
+    border-radius: 50px;
+}
