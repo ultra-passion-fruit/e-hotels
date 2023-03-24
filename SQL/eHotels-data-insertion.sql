@@ -38,9 +38,134 @@ update hotel set manager_ID = 1005 where hotel_code = 1006;
 update hotel set manager_ID = 1006 where hotel_code = 1007;
 update hotel set manager_ID = 1007 where hotel_code = 1008;
 
+-- hotel 1001
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1001, 101, 1, 100, 'Mountain', 'No', 'Cozy room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1001, 102, 2, 120, 'Sea', 'No', 'Bright room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1001, 201, 3, 180, 'Mountain', 'Yes', 'Spacious room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1001, 301, 4, 250, 'Sea', 'No', 'Luxurious room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1001, 401, 5, 350, 'Mountain', 'Yes', 'Grand room with mountain view', 'Available');
+
+-- hotel 1002
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1002, 101, 1, 200, 'Mountain', 'Yes', 'Cozy room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1002, 102, 2, 220, 'Sea', 'No', 'Bright room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1002, 201, 3, 280, 'Mountain', 'Yes', 'Spacious room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1002, 301, 4, 400, 'Sea', 'No', 'Luxurious room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1002, 401, 5, 550, 'Mountain', 'Yes', 'Grand room with mountain view', 'Available');
+
+-- hotel 1003
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1003, 101, 1, 180, 'Mountain', 'Yes', 'Cozy room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1003, 102, 2, 200, 'Sea', 'No', 'Bright room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1003, 201, 3, 260, 'Mountain', 'Yes', 'Spacious room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1003, 301, 4, 360, 'Sea', 'No', 'Luxurious room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1003, 401, 5, 500, 'Mountain', 'Yes', 'Grand room with mountain view', 'Available');
+
+-- hotel 1004
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1004, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1004, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1004, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1004, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1004, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
+
+-- hotel 1005
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1005, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1005, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1005, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1005, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1005, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
+
+-- hotel 1006
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1006, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1006, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1006, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1006, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1006, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
+
+-- hotel 1007
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1007, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1007, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1007, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1007, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1007, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
+
+-- hotel 1008
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1008, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1008, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1008, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1008, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available');
+
+INSERT INTO RoomInfo(hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES ('HILN', 1008, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
 
 
-
-
-            
