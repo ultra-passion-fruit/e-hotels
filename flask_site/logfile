@@ -1,0 +1,56 @@
+2023-03-21 09:48:06.987 EDT [37693] LOG:  starting PostgreSQL 12.9 on x86_64-apple-darwin13.4.0, compiled by clang version 12.0.0, 64-bit
+2023-03-21 09:48:06.990 EDT [37693] LOG:  could not bind IPv6 address "::1": Address already in use
+2023-03-21 09:48:06.990 EDT [37693] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 09:48:06.990 EDT [37693] LOG:  could not bind IPv4 address "127.0.0.1": Address already in use
+2023-03-21 09:48:06.990 EDT [37693] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 09:48:06.990 EDT [37693] WARNING:  could not create listen socket for "localhost"
+2023-03-21 09:48:06.990 EDT [37693] FATAL:  could not create any TCP/IP sockets
+2023-03-21 09:48:06.990 EDT [37693] LOG:  database system is shut down
+2023-03-21 10:16:18.374 EDT [40003] LOG:  starting PostgreSQL 12.9 on x86_64-apple-darwin13.4.0, compiled by clang version 12.0.0, 64-bit
+2023-03-21 10:16:18.377 EDT [40003] LOG:  could not bind IPv6 address "::1": Address already in use
+2023-03-21 10:16:18.377 EDT [40003] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 10:16:18.377 EDT [40003] LOG:  could not bind IPv4 address "127.0.0.1": Address already in use
+2023-03-21 10:16:18.377 EDT [40003] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 10:16:18.377 EDT [40003] WARNING:  could not create listen socket for "localhost"
+2023-03-21 10:16:18.377 EDT [40003] FATAL:  could not create any TCP/IP sockets
+2023-03-21 10:16:18.377 EDT [40003] LOG:  database system is shut down
+2023-03-21 10:18:49.482 EDT [40228] LOG:  starting PostgreSQL 12.9 on x86_64-apple-darwin13.4.0, compiled by clang version 12.0.0, 64-bit
+2023-03-21 10:18:49.484 EDT [40228] LOG:  could not bind IPv6 address "::1": Address already in use
+2023-03-21 10:18:49.484 EDT [40228] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 10:18:49.484 EDT [40228] LOG:  could not bind IPv4 address "127.0.0.1": Address already in use
+2023-03-21 10:18:49.484 EDT [40228] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 10:18:49.484 EDT [40228] WARNING:  could not create listen socket for "localhost"
+2023-03-21 10:18:49.485 EDT [40228] FATAL:  could not create any TCP/IP sockets
+2023-03-21 10:18:49.485 EDT [40228] LOG:  database system is shut down
+2023-03-21 10:26:00.070 EDT [40969] LOG:  starting PostgreSQL 12.9 on x86_64-apple-darwin13.4.0, compiled by clang version 12.0.0, 64-bit
+2023-03-21 10:26:00.072 EDT [40969] LOG:  could not bind IPv6 address "::1": Address already in use
+2023-03-21 10:26:00.072 EDT [40969] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 10:26:00.072 EDT [40969] LOG:  could not bind IPv4 address "127.0.0.1": Address already in use
+2023-03-21 10:26:00.072 EDT [40969] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 10:26:00.072 EDT [40969] WARNING:  could not create listen socket for "localhost"
+2023-03-21 10:26:00.072 EDT [40969] FATAL:  could not create any TCP/IP sockets
+2023-03-21 10:26:00.072 EDT [40969] LOG:  database system is shut down
+2023-03-21 10:30:48.205 EDT [41282] LOG:  starting PostgreSQL 12.9 on x86_64-apple-darwin13.4.0, compiled by clang version 12.0.0, 64-bit
+2023-03-21 10:30:48.207 EDT [41282] LOG:  could not bind IPv6 address "::1": Address already in use
+2023-03-21 10:30:48.207 EDT [41282] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 10:30:48.207 EDT [41282] LOG:  could not bind IPv4 address "127.0.0.1": Address already in use
+2023-03-21 10:30:48.207 EDT [41282] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 10:30:48.207 EDT [41282] WARNING:  could not create listen socket for "localhost"
+2023-03-21 10:30:48.207 EDT [41282] FATAL:  could not create any TCP/IP sockets
+2023-03-21 10:30:48.207 EDT [41282] LOG:  database system is shut down
+2023-03-21 10:32:02.797 EDT [41388] LOG:  starting PostgreSQL 12.9 on x86_64-apple-darwin13.4.0, compiled by clang version 12.0.0, 64-bit
+2023-03-21 10:32:02.800 EDT [41388] LOG:  could not bind IPv6 address "::1": Address already in use
+2023-03-21 10:32:02.800 EDT [41388] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 10:32:02.800 EDT [41388] LOG:  could not bind IPv4 address "127.0.0.1": Address already in use
+2023-03-21 10:32:02.800 EDT [41388] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 10:32:02.800 EDT [41388] WARNING:  could not create listen socket for "localhost"
+2023-03-21 10:32:02.800 EDT [41388] FATAL:  could not create any TCP/IP sockets
+2023-03-21 10:32:02.800 EDT [41388] LOG:  database system is shut down
+2023-03-21 15:34:50.411 EDT [53500] LOG:  starting PostgreSQL 12.9 on x86_64-apple-darwin13.4.0, compiled by clang version 12.0.0, 64-bit
+2023-03-21 15:34:50.413 EDT [53500] LOG:  could not bind IPv6 address "::1": Address already in use
+2023-03-21 15:34:50.413 EDT [53500] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 15:34:50.413 EDT [53500] LOG:  could not bind IPv4 address "127.0.0.1": Address already in use
+2023-03-21 15:34:50.413 EDT [53500] HINT:  Is another postmaster already running on port 5432? If not, wait a few seconds and retry.
+2023-03-21 15:34:50.413 EDT [53500] WARNING:  could not create listen socket for "localhost"
+2023-03-21 15:34:50.413 EDT [53500] FATAL:  could not create any TCP/IP sockets
+2023-03-21 15:34:50.413 EDT [53500] LOG:  database system is shut down
