@@ -21,14 +21,13 @@ insert into hotel values
                     
 insert into employee values
 			(1000, 'John', 'Smith', 123456789, '123 Main St.', 'San Francisco', 'California', '94102', 'john.smith@email.com','HILN',  1001),
-          
             (1001,'Samuel', 'Curtis', 145236852, '3883 Natoque Rd.', 'Beverly Hills', 'California', '90210','cras.dolor.dolor@hotmail.ca','HILN',  1002),
-			  (1002,'Aileen', 'Fisher',120254863,'9020 Eros Av.','Chicago', 'Illinois', '60611','integer.vitae@google.edu','HILN', 1003),
-			  (1003,'Armando', 'Macdonald',254875410,'7876 Cras Av.' ,'New York', 'NY', '10282','proin.non.massa@outlook.net','HILN', 1004),
-			  (1004,'Kelsie', 'Henderson',745120369,'355-1941 Primis Av.','New Orleans', 'Louisiana', '70130', 'morbi@yahoo.com','HILN', 1005),
-			  (1005,'Wallace', 'White',424158632,'426 Ullamcorper St.','Orlando', 'FL', '32821','lorem.vehicula@icloud.couk','HILN', 1006),
-              (1006,'Dorian', 'Hoover',854120365,'5042 Luctus Road', 'Honolulu', 'Hawaii', '96815','tempus.non@yahoo.net','HILN',1007),
-				(1007,'Orli', 'Ortiz',632104852,'9419 Venenatis St.','Los Cabos', 'California', '23447','dignissim@yahoo.couk','HILN',1008);
+			(1002,'Aileen', 'Fisher',120254863,'9020 Eros Av.','Chicago', 'Illinois', '60611','integer.vitae@google.edu','HILN', 1003),
+			(1003,'Armando', 'Macdonald',254875410,'7876 Cras Av.' ,'New York', 'NY', '10282','proin.non.massa@outlook.net','HILN', 1004),
+			(1004,'Kelsie', 'Henderson',745120369,'355-1941 Primis Av.','New Orleans', 'Louisiana', '70130', 'morbi@yahoo.com','HILN', 1005),
+			(1005,'Wallace', 'White',424158632,'426 Ullamcorper St.','Orlando', 'FL', '32821','lorem.vehicula@icloud.couk','HILN', 1006),
+			(1006,'Dorian', 'Hoover',854120365,'5042 Luctus Road', 'Honolulu', 'Hawaii', '96815','tempus.non@yahoo.net','HILN',1007),
+			(1007,'Orli', 'Ortiz',632104852,'9419 Venenatis St.','Los Cabos', 'California', '23447','dignissim@yahoo.couk','HILN',1008);
 
 update hotel set manager_ID = 1000 where hotel_code = 1001;
 update hotel set manager_ID = 1001 where hotel_code = 1002;
@@ -41,133 +40,127 @@ update hotel set manager_ID = 1007 where hotel_code = 1008;
 
 -- hotel 1001
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (1,'HILN', 1001, 101, 1, 100, 'Mountain', 'No', 'Cozy room with mountain view', 'Available');
+VALUES (1,'HILN', 1001, 101, 1, 100, 'Mountain', 'No', 'Cozy room with mountain view', 'Available'),
+(2,'HILN', 1001, 102, 2, 120, 'Sea', 'No', 'Bright room with sea view', 'Available'),
+(3,'HILN', 1001, 201, 3, 180, 'Mountain', 'Yes', 'Spacious room with mountain view', 'Available'),
+(4,'HILN', 1001, 301, 4, 250, 'Sea', 'No', 'Luxurious room with sea view', 'Available'),
+(5,'HILN', 1001, 401, 5, 350, 'Mountain', 'Yes', 'Grand room with mountain view', 'Available');
 
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (2,'HILN', 1001, 102, 2, 120, 'Sea', 'No', 'Bright room with sea view', 'Available');
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('HILN', 1001, 101, 1),
+('HILN', 1001, 102, 2),
+('HILN', 1001, 201, 3),
+('HILN', 1001, 301, 4),
+('HILN', 1001, 401, 5);
 
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (3,'HILN', 1001, 201, 3, 180, 'Mountain', 'Yes', 'Spacious room with mountain view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (4,'HILN', 1001, 301, 4, 250, 'Sea', 'No', 'Luxurious room with sea view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (5,'HILN', 1001, 401, 5, 350, 'Mountain', 'Yes', 'Grand room with mountain view', 'Available');
 
 -- hotel 1002
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (6,'HILN', 1002, 101, 1, 200, 'Mountain', 'Yes', 'Cozy room with mountain view', 'Available');
+VALUES (6,'HILN', 1002, 101, 1, 200, 'Mountain', 'Yes', 'Cozy room with mountain view', 'Available'),
+(7,'HILN', 1002, 102, 2, 220, 'Sea', 'No', 'Bright room with sea view', 'Available'),
+(8,'HILN', 1002, 201, 3, 280, 'Mountain', 'Yes', 'Spacious room with mountain view', 'Available'),
+(9,'HILN', 1002, 301, 4, 400, 'Sea', 'No', 'Luxurious room with sea view', 'Available'),
+(10,'HILN', 1002, 401, 5, 550, 'Mountain', 'Yes', 'Grand room with mountain view', 'Available');
 
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (7,'HILN', 1002, 102, 2, 220, 'Sea', 'No', 'Bright room with sea view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (8,'HILN', 1002, 201, 3, 280, 'Mountain', 'Yes', 'Spacious room with mountain view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (9,'HILN', 1002, 301, 4, 400, 'Sea', 'No', 'Luxurious room with sea view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (10,'HILN', 1002, 401, 5, 550, 'Mountain', 'Yes', 'Grand room with mountain view', 'Available');
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('HILN', 1002, 101, 6),
+('HILN', 1002, 102, 7),
+('HILN', 1002, 201, 8),
+('HILN', 1002, 301, 9),
+('HILN', 1002, 401, 10);
 
 -- hotel 1003
 
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (11,'HILN', 1003, 101, 1, 180, 'Mountain', 'Yes', 'Cozy room with mountain view', 'Available');
+VALUES (11,'HILN', 1003, 101, 1, 180, 'Mountain', 'Yes', 'Cozy room with mountain view', 'Available'),
+(12,'HILN', 1003, 102, 2, 200, 'Sea', 'No', 'Bright room with sea view', 'Available'),
+(13,'HILN', 1003, 201, 3, 260, 'Mountain', 'Yes', 'Spacious room with mountain view', 'Available'),
+(14,'HILN', 1003, 301, 4, 360, 'Sea', 'No', 'Luxurious room with sea view', 'Available'),
+(15,'HILN', 1003, 401, 5, 500, 'Mountain', 'Yes', 'Grand room with mountain view', 'Available');
 
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (12,'HILN', 1003, 102, 2, 200, 'Sea', 'No', 'Bright room with sea view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (13,'HILN', 1003, 201, 3, 260, 'Mountain', 'Yes', 'Spacious room with mountain view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (14,'HILN', 1003, 301, 4, 360, 'Sea', 'No', 'Luxurious room with sea view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (15,'HILN', 1003, 401, 5, 500, 'Mountain', 'Yes', 'Grand room with mountain view', 'Available');
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('HILN', 1003, 101, 11),
+('HILN', 1003, 102, 12),
+('HILN', 1003, 201, 13),
+('HILN', 1003, 301, 14),
+('HILN', 1003, 401, 15);
 
 -- hotel 1004
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (16,'HILN', 1004, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available');
+VALUES (16,'HILN', 1004, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available'),
+(17,'HILN', 1004, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available'),
+(18,'HILN', 1004, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available'),
+(19,'HILN', 1004, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
+(20,'HILN', 1004, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (17,'HILN', 1004, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available');
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('HILN', 1004, 101, 16),
+('HILN', 1004, 102, 17),
+('HILN', 1004, 201, 18),
+('HILN', 1004, 301, 19),
+('HILN', 1004, 401, 20);
 
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (18,'HILN', 1004, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (19,'HILN', 1004, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (20,'HILN', 1004, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
 -- hotel 1005
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (21,'HILN', 1005, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available');
+VALUES (21,'HILN', 1005, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available'),
+(22,'HILN', 1005, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available'),
+(23,'HILN', 1005, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available'),
+(24,'HILN', 1005, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
+(25,'HILN', 1005, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (22,'HILN', 1005, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available');
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('HILN', 1005, 101, 21),
+('HILN', 1005, 102, 22),
+('HILN', 1005, 201, 23),
+('HILN', 1005, 301, 24),
+('HILN', 1005, 401, 25);
 
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (23,'HILN', 1005, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (24,'HILN', 1005, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (25,'HILN', 1005, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
 -- hotel 1006
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (26,'HILN', 1006, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (27,'HILN', 1006, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (28,'HILN', 1006, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (29,'HILN', 1006, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (30,'HILN', 1006, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
+VALUES (26,'HILN', 1006, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available'),
+ (27,'HILN', 1006, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available'),
+ (28,'HILN', 1006, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available'),
+ (29,'HILN', 1006, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
+ (30,'HILN', 1006, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
+ 
+ INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('HILN', 1006, 101, 26),
+('HILN', 1006, 102, 27),
+('HILN', 1006, 201, 28),
+('HILN', 1006, 301, 29),
+('HILN', 1006, 401, 30);
 
 -- hotel 1007
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (31,'HILN', 1007, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available');
+VALUES (31,'HILN', 1007, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available'),
+(32,'HILN', 1007, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available'),
+(33,'HILN', 1007, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available'),
+(34,'HILN', 1007, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
+(35,'HILN', 1007, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (32,'HILN', 1007, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (33,'HILN', 1007, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (34,'HILN', 1007, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (35,'HILN', 1007, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('HILN', 1007, 101, 31),
+('HILN', 1007, 102, 32),
+('HILN', 1007, 201, 33),
+('HILN', 1007, 301, 34),
+('HILN', 1007, 401, 35);
 
 -- hotel 1008
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (36,'HILN', 1008, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available');
+VALUES (36,'HILN', 1008, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available'),
+(37,'HILN', 1008, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available'),
+(38,'HILN', 1008, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available'),
+(39,'HILN', 1008, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
+(40,'HILN', 1008, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (37,'HILN', 1008, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (38,'HILN', 1008, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (39,'HILN', 1008, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available');
-
-INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
-VALUES (40,'HILN', 1008, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
-
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('HILN', 1008, 101, 36),
+('HILN', 1008, 102, 37),
+('HILN', 1008, 201, 38),
+('HILN', 1008, 301, 39),
+('HILN', 1008, 401, 40);
 
 
 -- Hotel 2
@@ -186,37 +179,16 @@ VALUES
 ('MARR', 2008, 'Sheraton New Orleans Hotel', -1, 4, 1110, '500 Canal St', 'New Orleans', 'Louisiana', '70130', 'info@sheratonneworleanshotel.com');
 
 
--- Employee for MARR hotel 1001
+-- Employee for MARR hotel
 INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
-VALUES (2001, 'John', 'Doe', 123456780, '123 Main St', 'Chicago', 'Illinois', '60611', 'johndoe@marr.com', 'MARR', 2001);
-
--- Employee for MARR hotel 1002
-INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
-VALUES (2002, 'Jane', 'Doe', 987654321, '456 Oak St', 'Chicago', 'Illinois', '60611', 'janedoe@marr.com', 'MARR', 2002);
-
--- Employee for MARR hotel 1003
-INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
-VALUES (2003, 'Bob', 'Smith', 555555555, '789 Elm St', 'New York', 'NY', '10005', 'bobsmith@marr.com', 'MARR', 2003);
-
--- Employee for MARR hotel 1004
-INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
-VALUES (2004, 'Alice', 'Johnson', 111111111, '101 Broadway', 'New York', 'NY', '10007', 'alicejohnson@marr.com', 'MARR', 2004);
-
--- Employee for MARR hotel 1005
-INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
-VALUES (2005, 'Sam', 'Lee', 222222222, '200 Canal St', 'New Orleans', 'Louisiana', '70130', 'samlee@marr.com', 'MARR', 2005);
-
--- Employee for MARR hotel 1006
-INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
-VALUES (2006, 'Karen', 'Nguyen', 333333333, '300 Bourbon St', 'New Orleans', 'Louisiana', '70130', 'karennguyen@marr.com', 'MARR', 2006);
-
--- Employee for MARR hotel 1007
-INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
-VALUES (2007, 'Tom', 'Wilson', 444444444, '400 Chartres St', 'New Orleans', 'Louisiana', '70130', 'tomwilson@marr.com', 'MARR', 2007);
-
--- Employee for MARR hotel 1008
-INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
-VALUES (2008, 'Sara', 'Brown', 666666666, '500 Decatur St', 'New Orleans', 'Louisiana', '70130', 'sarabrown@marr.com', 'MARR', 2008);
+VALUES (2001, 'John', 'Doe', 123456780, '123 Main St', 'Chicago', 'Illinois', '60611', 'johndoe@marr.com', 'MARR', 2001),
+(2002, 'Jane', 'Doe', 987654321, '456 Oak St', 'Chicago', 'Illinois', '60611', 'janedoe@marr.com', 'MARR', 2002),
+(2003, 'Bob', 'Smith', 555555555, '789 Elm St', 'New York', 'NY', '10005', 'bobsmith@marr.com', 'MARR', 2003),
+(2004, 'Alice', 'Johnson', 111111111, '101 Broadway', 'New York', 'NY', '10007', 'alicejohnson@marr.com', 'MARR', 2004),
+(2005, 'Sam', 'Lee', 222222222, '200 Canal St', 'New Orleans', 'Louisiana', '70130', 'samlee@marr.com', 'MARR', 2005),
+(2006, 'Karen', 'Nguyen', 333333333, '300 Bourbon St', 'New Orleans', 'Louisiana', '70130', 'karennguyen@marr.com', 'MARR', 2006),
+(2007, 'Tom', 'Wilson', 444444444, '400 Chartres St', 'New Orleans', 'Louisiana', '70130', 'tomwilson@marr.com', 'MARR', 2007),
+(2008, 'Sara', 'Brown', 666666666, '500 Decatur St', 'New Orleans', 'Louisiana', '70130', 'sarabrown@marr.com', 'MARR', 2008);
 
 
 -- Set John Doe as the manager of hotel 1001
@@ -268,6 +240,14 @@ VALUES (41,'MARR', 2001, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'A
 (44,'MARR', 2001, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
 (45,'MARR', 2001, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('MARR', 2001, 101, 41),
+('MARR', 2001, 102, 42),
+('MARR',2001, 201, 43),
+('MARR', 2001, 301, 44),
+('MARR', 2001, 401, 45);
+
+
 -- hotel 2002
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
 VALUES (46,'MARR', 2002, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available'),
@@ -276,6 +256,12 @@ VALUES (46,'MARR', 2002, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'A
 (49,'MARR', 2002, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
 (50,'MARR', 2002, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('MARR', 2002, 101, 46),
+('MARR', 2002, 102, 47),
+('MARR',2002, 201, 48),
+('MARR', 2002, 301, 49),
+('MARR', 2002, 401, 50);
 
 -- hotel 2003
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
@@ -285,6 +271,13 @@ VALUES (51,'MARR', 2003, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'A
 (54,'MARR', 2003, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
 (55,'MARR', 2003, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('MARR', 2003, 101, 51),
+('MARR', 2003, 102, 52),
+('MARR',2003, 201, 53),
+('MARR', 2003, 301, 54),
+('MARR', 2003, 401, 55);
+
 -- hotel 2004
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
 VALUES (56,'MARR', 2004, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'Available'),
@@ -292,6 +285,13 @@ VALUES (56,'MARR', 2004, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'A
 (58,'MARR', 2004, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available'),
 (59,'MARR', 2004, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
  (60,'MARR', 2004, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
+ 
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('MARR', 2004, 101, 56),
+('MARR', 2004, 102, 57),
+('MARR',2004, 201, 58),
+('MARR', 2004, 301, 59),
+('MARR', 2004, 401, 60);
 
 
 -- hotel 2005
@@ -302,7 +302,12 @@ VALUES (61,'MARR', 2005, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'A
 (64,'MARR', 2005, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
 (65,'MARR', 2005, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
-
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('MARR', 2005, 101, 61),
+('MARR', 2005, 102, 62),
+('MARR',2005, 201, 63),
+('MARR', 2005, 301, 64),
+('MARR', 2005, 401, 65);
 
 -- hotel 2006
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
@@ -310,8 +315,14 @@ VALUES (66,'MARR', 2006, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'A
 (67,'MARR', 2006, 102, 2, 240, 'Mountain', 'Yes', 'Bright room with mountain view', 'Available'),
 (68,'MARR', 2006, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available'),
 (69,'MARR', 2006, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
- (70,'MARR', 2006, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
+(70,'MARR', 2006, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
+INSERT INTO Room (hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('MARR', 2006, 101, 66),
+       ('MARR', 2006, 102, 67),
+       ('MARR', 2006, 201, 68),
+       ('MARR', 2006, 301, 69),
+       ('MARR', 2006, 401, 70);
 
 
 -- hotel 2007
@@ -322,6 +333,14 @@ VALUES (71,'MARR', 2007, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'A
 (74,'MARR', 2007, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
 (75,'MARR', 2007, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
+INSERT INTO Room (hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES 
+('MARR', 2007, 101, 71),
+('MARR', 2007, 102, 72),
+('MARR', 2007, 201, 73),
+('MARR', 2007, 301, 74),
+('MARR', 2007, 401, 75);
+
 
 -- hotel 2008
 INSERT INTO RoomInfo(room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
@@ -330,7 +349,12 @@ VALUES (76,'MARR', 2008, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', 'A
 (78,'MARR', 2008, 201, 3, 310, 'Sea', 'No', 'Spacious room with sea view', 'Available'),
 (79,'MARR', 2008, 301, 4, 420, 'Mountain', 'Yes', 'Luxurious room with mountain view', 'Available'),
 (80,'MARR', 2008, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
-
+INSERT INTO Room (hotel_chain_code, hotel_code, room_no, room_info_no)
+VALUES ('MARR', 2008, 101, 76),
+('MARR', 2008, 102, 77),
+('MARR', 2008, 201, 78),
+('MARR', 2008, 301, 79),
+('MARR', 2008, 401, 80);
 
 -- Hotel 3
 INSERT INTO Hotel(hotel_chain_code, hotel_code, name, manager_ID, rating, num_of_rooms, number_street, city, state_prov, zip, email)
@@ -425,6 +449,14 @@ VALUES (116,'CHOI', 3008, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', '
 (120,'CHOI', 3008, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
 
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+SELECT hotel_chain_code, hotel_code, room_no, room_info_no
+FROM RoomInfo
+WHERE hotel_chain_code = 'CHOI';
+
+
+
+
 -- Hotel 4
 
 INSERT INTO Hotel(hotel_chain_code, hotel_code, name, manager_ID, rating, num_of_rooms, number_street, city, state_prov, zip, email)
@@ -513,6 +545,36 @@ VALUES (156,'IHGN', 4008, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', '
 (160,'IHGN', 4008, 401, 5, 550, 'Sea', 'No', 'Grand room with sea view', 'Available');
 
 
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+SELECT hotel_chain_code, hotel_code, room_no, room_info_no
+FROM RoomInfo
+WHERE hotel_chain_code = 'IHGN';
+
+-- Hotel 5
+-- 2 of the hotels are located in the same city ('New York')
+INSERT INTO Hotel (hotel_chain_code, hotel_code, name, manager_ID, rating, num_of_rooms, number_street, city, state_prov, zip, email)
+VALUES
+('HYAT', 5001, 'HYAT Regency', -1, 4, 100, '123 Main St', 'New York', 'NY', '10001', 'hyatregencyny@hyat.com'),
+('HYAT', 5002, 'HYAT Place', -1, 3, 150, '456 Elm St', 'New York', 'NY', '10001', 'hyatplaceny@hyat.com'),
+('HYAT', 5003, 'HYAT Grand', -1, 5, 200, '789 Maple St', 'Chicago', 'IL', '60601', 'hyatgrandchi@hyat.com'),
+('HYAT', 5004, 'HYAT Resort', -1, 4, 250, '321 Oak St', 'Los Angeles', 'CA', '90001', 'hyatresortla@hyat.com'),
+('HYAT', 5005, 'HYAT House', -1, 3, 300, '654 Pine St', 'Houston', 'TX', '77001', 'hyathousehou@hyat.com'),
+('HYAT', 5006, 'HYAT Centric', -1, 4, 350, '987 Cedar St', 'San Francisco', 'CA', '94101', 'hyatcentricsf@hyat.com'),
+('HYAT', 5007, 'HYAT Garden', -1, 3, 400, '246 Birch St', 'Atlanta', 'GA', '30301', 'hyatgardenatl@hyat.com'),
+('HYAT', 5008, 'HYAT Place', -1, 4, 450, '135 Walnut St', 'Dallas', 'TX', '75201', 'hyatplacedal@hyat.com');
+
+
+
+INSERT INTO Employee (emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
+VALUES
+(5001, 'Sophia' ,'Johnson', 319856274, '321 Oak St', 'New York', 'NY', '10001', 'sophiajohnson@hyat.com', 'HYAT', 5001),
+(5002, 'Isabella' ,'Garcia', 624892701, '753 Cedar St', 'New York', 'NY', '10001', 'isabellagarcia@hyat.com', 'HYAT', 5002),
+(5003, 'Jim', 'Smith', 345678901, '246 Birch St', 'Chicago', 'IL', '60601', 'jimsmith@hyat.com', 'HYAT', 5003),
+(5004, 'Janet', 'Lee', 456789012, '246 Walnut St', 'Los Angeles', 'CA', '90001', 'janetlee@hyat.com', 'HYAT', 5004),
+(5005, 'Jason', 'Chen', 567890123, '410 Redwood Way', 'Houston', 'TX', '77001', 'jasonchen@hyat.com', 'HYAT', 5005),
+(5006, 'Jessica', 'Wu', 678901234, '4562 Cypress Road', 'San Francisco', 'CA', '94101', 'jessicawu@hyat.com', 'HYAT', 5006),
+(5007, 'Jack', 'Brown', 789012345, '996 Willow Circle', 'Atlanta', 'GA', '30301', 'jackbrown@hyat.com', 'HYAT', 5007),
+(5008, 'Jenny', 'Wang', 890123456, '8 Acacia Court', 'Dallas', 'TX', '75201', 'jennywang@hyat.com', 'HYAT', 5008);
 
 
 
@@ -521,6 +583,60 @@ VALUES (156,'IHGN', 4008, 101, 1, 220, 'Sea', 'No', 'Cozy room with sea view', '
 
 
 
+INSERT INTO RoomInfo (room_info_no, hotel_chain_code, hotel_code, room_no, capacity, price, view, possible_extension, description, status)
+VALUES (161, 'HYAT', 5001, 101, 1, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (162, 'HYAT', 5001, 102, 2, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (163, 'HYAT', 5001, 103, 3, 300, 'Mountain', 'Yes', 'Deluxe Room', 'Available'),
+       (164, 'HYAT', 5001, 104, 4, 400, 'Sea', 'No', 'Family Suite', 'Available'),
+       (165, 'HYAT', 5001, 105, 5, 550, 'Mountain', 'No', 'Family Suite', 'Available'),
+       
+       (166, 'HYAT', 5002, 101, 1, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (167, 'HYAT', 5002, 102, 2, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (168, 'HYAT', 5002, 103, 3, 300, 'Mountain', 'Yes', 'Deluxe Room', 'Available'),
+       (169, 'HYAT', 5002, 104, 4, 400, 'Sea', 'No', 'Family Suite', 'Available'),
+       (170, 'HYAT', 5002, 105, 5, 550, 'Mountain', 'No', 'Family Suite', 'Available'),
+       
+       (171, 'HYAT', 5003, 101, 1, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (172, 'HYAT', 5003, 102, 2, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (173, 'HYAT', 5003, 103, 3, 300, 'Mountain', 'Yes', 'Deluxe Room', 'Available'),
+       (174, 'HYAT', 5003, 104, 4, 400, 'Sea', 'No', 'Family Suite', 'Available'),
+       (175, 'HYAT', 5003, 105, 5, 550, 'Mountain', 'No', 'Family Suite', 'Available'),
+       
+       (176, 'HYAT', 5004, 101, 1, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (177, 'HYAT', 5004, 102, 2, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (178, 'HYAT', 5004, 103, 3, 300, 'Mountain', 'Yes', 'Deluxe Room', 'Available'),
+       (179, 'HYAT', 5004, 104, 4, 400, 'Sea', 'No', 'Family Suite', 'Available'),
+       (180, 'HYAT', 5004, 105, 5, 550, 'Mountain', 'No', 'Family Suite', 'Available'),
+       
+       
+       (181, 'HYAT', 5005, 101, 1, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (182, 'HYAT', 5005, 102, 2, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (183, 'HYAT', 5005, 103, 3, 300, 'Mountain', 'Yes', 'Deluxe Room', 'Available'),
+       (184, 'HYAT', 5005, 104, 4, 400, 'Sea', 'No', 'Family Suite', 'Available'),
+       (185, 'HYAT', 5005, 105, 5, 550, 'Mountain', 'No', 'Family Suite', 'Available'),
+       
+       (186, 'HYAT', 5006, 101, 1, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (187, 'HYAT', 5006, 102, 2, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (188, 'HYAT', 5006, 103, 3, 300, 'Mountain', 'Yes', 'Deluxe Room', 'Available'),
+       (189, 'HYAT', 5006, 104, 4, 400, 'Sea', 'No', 'Family Suite', 'Available'),
+       (190, 'HYAT', 5006, 105, 5, 550, 'Mountain', 'No', 'Family Suite', 'Available'),
+       
+       (191, 'HYAT', 5007, 101, 1, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (192, 'HYAT', 5007, 102, 2, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (193, 'HYAT', 5007, 103, 3, 300, 'Mountain', 'Yes', 'Deluxe Room', 'Available'),
+       (194, 'HYAT', 5007, 104, 4, 400, 'Sea', 'No', 'Family Suite', 'Available'),
+       (195, 'HYAT', 5007, 105, 5, 550, 'Mountain', 'No', 'Family Suite', 'Available'),
+       
+       (196, 'HYAT', 5008, 101, 1, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (197, 'HYAT', 5008, 102, 2, 200, 'Mountain', 'Yes', 'Standard Room', 'Available'),
+       (198, 'HYAT', 5008, 103, 3, 300, 'Mountain', 'Yes', 'Deluxe Room', 'Available'),
+       (199, 'HYAT', 5008, 104, 4, 400, 'Sea', 'No', 'Family Suite', 'Available'),
+       (200, 'HYAT', 5008, 105, 5, 550, 'Mountain', 'No', 'Family Suite', 'Available');
+
+INSERT INTO Room(hotel_chain_code, hotel_code, room_no, room_info_no)
+SELECT hotel_chain_code, hotel_code, room_no, room_info_no
+FROM RoomInfo
+WHERE hotel_chain_code = 'HYAT';
 
 
 
