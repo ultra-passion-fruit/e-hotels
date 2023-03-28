@@ -364,7 +364,7 @@ VALUES
 ('CHOI', 3003, 'CHOI Hotel Uptown', -1, 4, 5, '789 Sixth Ave', 'New York', 'NY', '10022', 'choi_uptown@choi.com'),
 ('CHOI', 3004, 'CHOI Hotel Brooklyn', -1, 3, 5, '456 Seventh St', 'Brooklyn', 'NY', '11215', 'choi_brooklyn@choi.com'),
 ('CHOI', 3005, 'CHOI Hotel Queens', -1, 3, 5, '123 Eighth St', 'Queens', 'NY', '11355', 'choi_queens@choi.com'),
-('CHOI', 3006, 'CHOI Hotel JFK', -1, 2, 5, '101 JFK Blvd', 'Jamaica', 'NY', '11430', 'choi_jfk@choi.com'),
+('CHOI', 3006, 'CHOI Hotel JFK', -1, 3, 5, '101 JFK Blvd', 'Jamaica', 'NY', '11430', 'choi_jfk@choi.com'),
 ('CHOI', 3007, 'CHOI Hotel LaGuardia', -1, 3, 5, '202 LaGuardia Rd', 'East Elmhurst', 'NY', '11369', 'choi_lga@choi.com'),
 ('CHOI', 3008, 'CHOI Hotel LaGuardia 2', -1, 3, 5, '404 LaGuardia Rd', 'East Elmhurst', 'NY', '11370', 'choi_lga2@choi.com');
 
@@ -461,14 +461,14 @@ WHERE hotel_chain_code = 'CHOI';
 
 INSERT INTO Hotel(hotel_chain_code, hotel_code, name, manager_ID, rating, num_of_rooms, number_street, city, state_prov, zip, email)
 VALUES
-  ('IHGN', 4001, 'InterContinental New York Times Square', -1, 4, 607, '300 W 44th St', 'New York', 'NY', '10036', 'reservations@icnyts.com'),
-  ('IHGN', 4002, 'InterContinental The Barclay New York', -1, 4, 702, '111 E 48th St', 'New York', 'NY', '10017', 'reservations@intercontinentalnybarclay.com'),
-  ('IHGN', 4003, 'Holiday Inn New York City - Times Square', -1, 3, 271, '585 8th Ave', 'New York', 'NY', '10018', 'reservations@holidayinntimessquare.com'),
-  ('IHGN', 4004, 'Holiday Inn Express New York City - Herald Square', -1, 3, 227, '60 W 36th St', 'New York', 'NY', '10018', 'reservations@hiexheraldsquare.com'),
-  ('IHGN', 4005, 'Crowne Plaza Times Square Manhattan', -1, 4, 795, '1605 Broadway', 'New York', 'NY', '10019', 'reservations@cpmanhattantimessquare.com'),
-  ('IHGN', 4006, 'Even Hotel New York - Times Square South', -1, 4, 150, '321 W 35th St', 'New York', 'NY', '10001', 'reservations@evenhoteltimessquaresouth.com'),
-  ('IHGN', 4007, 'Hotel Indigo Lower East Side New York', -1, 4, 294, '171 Ludlow St', 'New York', 'NY', '10002', 'reservations@hotelindigoles.com'),
-  ('IHGN', 4008, 'Staybridge Suites Times Square - New York City', -1, 4, 310, '340 W 40th St', 'New York', 'NY', '10018', 'reservations@staybridgetimessquare.com');
+  ('IHGN', 4001, 'InterContinental New York Times Square', -1, 4, 5, '300 W 44th St', 'New York', 'NY', '10036', 'reservations@icnyts.com'),
+  ('IHGN', 4002, 'InterContinental The Barclay New York', -1, 4, 5, '111 E 48th St', 'New York', 'NY', '10017', 'reservations@intercontinentalnybarclay.com'),
+  ('IHGN', 4003, 'Holiday Inn New York City - Times Square', -1, 3, 5, '585 8th Ave', 'New York', 'NY', '10018', 'reservations@holidayinntimessquare.com'),
+  ('IHGN', 4004, 'Holiday Inn Express New York City - Herald Square', -1, 3, 5, '60 W 36th St', 'New York', 'NY', '10018', 'reservations@hiexheraldsquare.com'),
+  ('IHGN', 4005, 'Crowne Plaza Times Square Manhattan', -1, 4, 5, '1605 Broadway', 'New York', 'NY', '10019', 'reservations@cpmanhattantimessquare.com'),
+  ('IHGN', 4006, 'Even Hotel New York - Times Square South', -1, 4, 5, '321 W 35th St', 'New York', 'NY', '10001', 'reservations@evenhoteltimessquaresouth.com'),
+  ('IHGN', 4007, 'Hotel Indigo Lower East Side New York', -1, 4, 5, '171 Ludlow St', 'New York', 'NY', '10002', 'reservations@hotelindigoles.com'),
+  ('IHGN', 4008, 'Staybridge Suites Times Square - New York City', -1, 4, 5, '340 W 40th St', 'New York', 'NY', '10018', 'reservations@staybridgetimessquare.com');
 
 INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
 VALUES
@@ -554,14 +554,14 @@ WHERE hotel_chain_code = 'IHGN';
 -- 2 of the hotels are located in the same city ('New York')
 INSERT INTO Hotel (hotel_chain_code, hotel_code, name, manager_ID, rating, num_of_rooms, number_street, city, state_prov, zip, email)
 VALUES
-('HYAT', 5001, 'HYAT Regency', -1, 4, 100, '123 Main St', 'New York', 'NY', '10001', 'hyatregencyny@hyat.com'),
-('HYAT', 5002, 'HYAT Place', -1, 3, 150, '456 Elm St', 'New York', 'NY', '10001', 'hyatplaceny@hyat.com'),
-('HYAT', 5003, 'HYAT Grand', -1, 5, 200, '789 Maple St', 'Chicago', 'IL', '60601', 'hyatgrandchi@hyat.com'),
-('HYAT', 5004, 'HYAT Resort', -1, 4, 250, '321 Oak St', 'Los Angeles', 'CA', '90001', 'hyatresortla@hyat.com'),
-('HYAT', 5005, 'HYAT House', -1, 3, 300, '654 Pine St', 'Houston', 'TX', '77001', 'hyathousehou@hyat.com'),
-('HYAT', 5006, 'HYAT Centric', -1, 4, 350, '987 Cedar St', 'San Francisco', 'CA', '94101', 'hyatcentricsf@hyat.com'),
-('HYAT', 5007, 'HYAT Garden', -1, 3, 400, '246 Birch St', 'Atlanta', 'GA', '30301', 'hyatgardenatl@hyat.com'),
-('HYAT', 5008, 'HYAT Place', -1, 4, 450, '135 Walnut St', 'Dallas', 'TX', '75201', 'hyatplacedal@hyat.com');
+('HYAT', 5001, 'HYAT Regency', -1, 4, 5, '123 Main St', 'New York', 'NY', '10001', 'hyatregencyny@hyat.com'),
+('HYAT', 5002, 'HYAT Place', -1, 3, 5, '456 Elm St', 'New York', 'NY', '10001', 'hyatplaceny@hyat.com'),
+('HYAT', 5003, 'HYAT Grand', -1, 5, 5, '789 Maple St', 'Chicago', 'IL', '60601', 'hyatgrandchi@hyat.com'),
+('HYAT', 5004, 'HYAT Resort', -1, 4, 5, '321 Oak St', 'Los Angeles', 'CA', '90001', 'hyatresortla@hyat.com'),
+('HYAT', 5005, 'HYAT House', -1, 3, 5, '654 Pine St', 'Houston', 'TX', '77001', 'hyathousehou@hyat.com'),
+('HYAT', 5006, 'HYAT Centric', -1, 4, 5, '987 Cedar St', 'San Francisco', 'CA', '94101', 'hyatcentricsf@hyat.com'),
+('HYAT', 5007, 'HYAT Garden', -1, 3, 5, '246 Birch St', 'Atlanta', 'GA', '30301', 'hyatgardenatl@hyat.com'),
+('HYAT', 5008, 'HYAT Place', -1, 4, 5, '135 Walnut St', 'Dallas', 'TX', '75201', 'hyatplacedal@hyat.com');
 
 
 

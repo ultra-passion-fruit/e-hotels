@@ -1,22 +1,22 @@
 /*
-drop table amenity;
-drop table problem;
-drop table room;
-drop table roominfo;
+drop table IF EXISTS amenity;
+drop table IF EXISTS problem;
+drop table IF EXISTS room;
+drop table IF EXISTS roominfo;
 
-drop table customerphone;
-drop table customer;
+drop table IF EXISTS customerphone;
+drop table IF EXISTS customer;
 
-drop table employeephone;
-drop table employeeposition;
-drop table employee;
+drop table IF EXISTS employeephone;
+drop table IF EXISTS employeeposition;
+drop table IF EXISTS employee;
 
-drop table hotelphone;
-drop table hotel;
+drop table IF EXISTS hotelphone;
+drop table IF EXISTS hotel;
 
-drop table hotelchainphone;
-drop table hotelchainemail;
-drop table hotelchain;
+drop table IF EXISTS hotelchainphone;
+drop table IF EXISTS hotelchainemail;
+drop table IF EXISTS hotelchain;
 */
 create table if not exists HotelChain(
 hotel_chain_code CHAR(4) PRIMARY KEY,
