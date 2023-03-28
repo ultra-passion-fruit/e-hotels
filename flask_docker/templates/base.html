@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %} {% endblock %}</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{url_for('static', filename='styles/beaut.css')}}">
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a href="#">Home</a></li>
+				<li><a href="./hotels.html">Hotels</a></li>
+                <li><a href="signin.html">Sign In</a></li>
+			</ul>
+		</nav>
+		<h1>{% block header %} {% endblock %}</h1>
+		<p>{% block caption %} {% endblock %}</p>
+	</header>
+	<main>
+		{% block content%}{% endblock %}
+	</main>
+	<footer>
+		<p>&copy; 2023 Hotel Booking Website. All rights reserved.</p>
+	</footer>
+</body>
+</html>

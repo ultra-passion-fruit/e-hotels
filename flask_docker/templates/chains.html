@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} Chains {% endblock %}
+{% block header %} Chains {% endblock %}
+{% block caption %} Choose the hotel chain you would like to stay at {% endblock %}
+{% block content%}
+    <section>
+        <div style="border: 1px; width: auto; margin: auto"></div>
+            {% for chain in chains %}
+                <div style="padding: 10px; background-color: #eeeeee; margin: 20px">
+                    <h3>{{chain[1]['stringValue']}}</h3>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
