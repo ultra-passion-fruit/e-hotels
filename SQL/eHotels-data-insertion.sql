@@ -20,14 +20,14 @@ insert into hotel values
                     ('HILN',1008, 'Hilton Los Cabos Beach & Golf Resort', -1, 4, 5, 'Carretera Transpeninsular Km 19.5', 'Los Cabos', 'California', '23447', 'info@hiltonloscabos.com');
                     
 insert into employee values
-			(1000, 'John', 'Smith', 123456789, '123 Main St.', 'San Francisco', 'California', '94102', 'john.smith@email.com','HILN',  1001),
-            (1001,'Samuel', 'Curtis', 145236852, '3883 Natoque Rd.', 'Beverly Hills', 'California', '90210','cras.dolor.dolor@hotmail.ca','HILN',  1002),
-			(1002,'Aileen', 'Fisher',120254863,'9020 Eros Av.','Chicago', 'Illinois', '60611','integer.vitae@google.edu','HILN', 1003),
-			(1003,'Armando', 'Macdonald',254875410,'7876 Cras Av.' ,'New York', 'NY', '10282','proin.non.massa@outlook.net','HILN', 1004),
-			(1004,'Kelsie', 'Henderson',745120369,'355-1941 Primis Av.','New Orleans', 'Louisiana', '70130', 'morbi@yahoo.com','HILN', 1005),
-			(1005,'Wallace', 'White',424158632,'426 Ullamcorper St.','Orlando', 'FL', '32821','lorem.vehicula@icloud.couk','HILN', 1006),
-			(1006,'Dorian', 'Hoover',854120365,'5042 Luctus Road', 'Honolulu', 'Hawaii', '96815','tempus.non@yahoo.net','HILN',1007),
-			(1007,'Orli', 'Ortiz',632104852,'9419 Venenatis St.','Los Cabos', 'California', '23447','dignissim@yahoo.couk','HILN',1008);
+			(1000, 'John', 'Smith', 123456789, '123 Main St.', 'San Francisco', 'California', '94102', 'john.smith@email.com','HILN',  1001, '1234'),
+            (1001,'Samuel', 'Curtis', 145236852, '3883 Natoque Rd.', 'Beverly Hills', 'California', '90210','cras.dolor.dolor@hotmail.ca','HILN',  1002, '1234'),
+			(1002,'Aileen', 'Fisher',120254863,'9020 Eros Av.','Chicago', 'Illinois', '60611','integer.vitae@google.edu','HILN', 1003, '1234'),
+			(1003,'Armando', 'Macdonald',254875410,'7876 Cras Av.' ,'New York', 'NY', '10282','proin.non.massa@outlook.net','HILN', 1004, '1234'),
+			(1004,'Kelsie', 'Henderson',745120369,'355-1941 Primis Av.','New Orleans', 'Louisiana', '70130', 'morbi@yahoo.com','HILN', 1005, '1234'),
+			(1005,'Wallace', 'White',424158632,'426 Ullamcorper St.','Orlando', 'FL', '32821','lorem.vehicula@icloud.couk','HILN', 1006, '1234'),
+			(1006,'Dorian', 'Hoover',854120365,'5042 Luctus Road', 'Honolulu', 'Hawaii', '96815','tempus.non@yahoo.net','HILN',1007, '1234'),
+			(1007,'Orli', 'Ortiz',632104852,'9419 Venenatis St.','Los Cabos', 'California', '23447','dignissim@yahoo.couk','HILN',1008, '1234');
 
 update hotel set manager_ID = 1000 where hotel_code = 1001;
 update hotel set manager_ID = 1001 where hotel_code = 1002;
@@ -180,15 +180,15 @@ VALUES
 
 
 -- Employee for MARR hotel
-INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
-VALUES (2001, 'John', 'Doe', 123456780, '123 Main St', 'Chicago', 'Illinois', '60611', 'johndoe@marr.com', 'MARR', 2001),
-(2002, 'Jane', 'Doe', 987654321, '456 Oak St', 'Chicago', 'Illinois', '60611', 'janedoe@marr.com', 'MARR', 2002),
-(2003, 'Bob', 'Smith', 555555555, '789 Elm St', 'New York', 'NY', '10005', 'bobsmith@marr.com', 'MARR', 2003),
-(2004, 'Alice', 'Johnson', 111111111, '101 Broadway', 'New York', 'NY', '10007', 'alicejohnson@marr.com', 'MARR', 2004),
-(2005, 'Sam', 'Lee', 222222222, '200 Canal St', 'New Orleans', 'Louisiana', '70130', 'samlee@marr.com', 'MARR', 2005),
-(2006, 'Karen', 'Nguyen', 333333333, '300 Bourbon St', 'New Orleans', 'Louisiana', '70130', 'karennguyen@marr.com', 'MARR', 2006),
-(2007, 'Tom', 'Wilson', 444444444, '400 Chartres St', 'New Orleans', 'Louisiana', '70130', 'tomwilson@marr.com', 'MARR', 2007),
-(2008, 'Sara', 'Brown', 666666666, '500 Decatur St', 'New Orleans', 'Louisiana', '70130', 'sarabrown@marr.com', 'MARR', 2008);
+INSERT INTO Employee
+VALUES (2001, 'John', 'Doe', 123456780, '123 Main St', 'Chicago', 'Illinois', '60611', 'johndoe@marr.com', 'MARR', 2001, '1234'),
+(2002, 'Jane', 'Doe', 987654321, '456 Oak St', 'Chicago', 'Illinois', '60611', 'janedoe@marr.com', 'MARR', 2002, '1234'),
+(2003, 'Bob', 'Smith', 555555555, '789 Elm St', 'New York', 'NY', '10005', 'bobsmith@marr.com', 'MARR', 2003, '1234'),
+(2004, 'Alice', 'Johnson', 111111111, '101 Broadway', 'New York', 'NY', '10007', 'alicejohnson@marr.com', 'MARR', 2004, '1234'),
+(2005, 'Sam', 'Lee', 222222222, '200 Canal St', 'New Orleans', 'Louisiana', '70130', 'samlee@marr.com', 'MARR', 2005, '1234'),
+(2006, 'Karen', 'Nguyen', 333333333, '300 Bourbon St', 'New Orleans', 'Louisiana', '70130', 'karennguyen@marr.com', 'MARR', 2006, '1234'),
+(2007, 'Tom', 'Wilson', 444444444, '400 Chartres St', 'New Orleans', 'Louisiana', '70130', 'tomwilson@marr.com', 'MARR', 2007, '1234'),
+(2008, 'Sara', 'Brown', 666666666, '500 Decatur St', 'New Orleans', 'Louisiana', '70130', 'sarabrown@marr.com', 'MARR', 2008, '1234');
 
 
 -- Set John Doe as the manager of hotel 1001
@@ -368,16 +368,16 @@ VALUES
 ('CHOI', 3007, 'CHOI Hotel LaGuardia', -1, 3, 5, '202 LaGuardia Rd', 'East Elmhurst', 'NY', '11369', 'choi_lga@choi.com'),
 ('CHOI', 3008, 'CHOI Hotel LaGuardia 2', -1, 3, 5, '404 LaGuardia Rd', 'East Elmhurst', 'NY', '11370', 'choi_lga2@choi.com');
 
-INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
+INSERT INTO Employee
 VALUES
-(3001, 'John', 'Doe', 452103520, '123 Main St', 'New York', 'NY', '10001', 'john@choi.com', 'CHOI', 3001),
-(3002, 'Jane', 'Smith', 741520321, '456 Fifth Ave', 'New York', 'NY', '10016', 'jane@choi.com', 'CHOI', 3002),
-(3003, 'David', 'Lee', 111222333, '789 Sixth Ave', 'New York', 'NY', '10022', 'david@choi.com', 'CHOI', 3003),
-(3004, 'Emily', 'Chen', 444555666, '456 Seventh St', 'Brooklyn', 'NY', '11215', 'emily@choi.com', 'CHOI', 3004),
-(3005, 'Michael', 'Nguyen', 777888999, '123 Eighth St', 'Queens', 'NY', '11355', 'michael@choi.com', 'CHOI', 3005),
-(3006, 'Jennifer', 'Kim', 121212121, '101 JFK Blvd', 'Jamaica', 'NY', '11430', 'jennifer@choi.com', 'CHOI', 3006),
-(3007, 'Eric', 'Wong', 989898989, '202 LaGuardia Rd', 'East Elmhurst', 'NY', '11369', 'eric@choi.com', 'CHOI', 3007),
-(3008, 'Jessica', 'Chang', 121212123, '404 LaGuardia Rd', 'East Elmhurst', 'NY', '11370', 'jessica@choi.com', 'CHOI', 3008);
+(3001, 'John', 'Doe', 452103520, '123 Main St', 'New York', 'NY', '10001', 'john@choi.com', 'CHOI', 3001, '1234'),
+(3002, 'Jane', 'Smith', 741520321, '456 Fifth Ave', 'New York', 'NY', '10016', 'jane@choi.com', 'CHOI', 3002, '1234'),
+(3003, 'David', 'Lee', 111222333, '789 Sixth Ave', 'New York', 'NY', '10022', 'david@choi.com', 'CHOI', 3003, '1234'),
+(3004, 'Emily', 'Chen', 444555666, '456 Seventh St', 'Brooklyn', 'NY', '11215', 'emily@choi.com', 'CHOI', 3004, '1234'),
+(3005, 'Michael', 'Nguyen', 777888999, '123 Eighth St', 'Queens', 'NY', '11355', 'michael@choi.com', 'CHOI', 3005, '1234'),
+(3006, 'Jennifer', 'Kim', 121212121, '101 JFK Blvd', 'Jamaica', 'NY', '11430', 'jennifer@choi.com', 'CHOI', 3006, '1234'),
+(3007, 'Eric', 'Wong', 989898989, '202 LaGuardia Rd', 'East Elmhurst', 'NY', '11369', 'eric@choi.com', 'CHOI', 3007, '1234'),
+(3008, 'Jessica', 'Chang', 121212123, '404 LaGuardia Rd', 'East Elmhurst', 'NY', '11370', 'jessica@choi.com', 'CHOI', 3008, '1234');
 
 UPDATE Hotel SET manager_ID = 3001 WHERE hotel_code = 3001;
 UPDATE Hotel SET manager_ID = 3002 WHERE hotel_code = 3002;
@@ -470,16 +470,16 @@ VALUES
   ('IHGN', 4007, 'Hotel Indigo Lower East Side New York', -1, 4, 5, '171 Ludlow St', 'New York', 'NY', '10002', 'reservations@hotelindigoles.com'),
   ('IHGN', 4008, 'Staybridge Suites Times Square - New York City', -1, 4, 5, '340 W 40th St', 'New York', 'NY', '10018', 'reservations@staybridgetimessquare.com');
 
-INSERT INTO Employee(emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
+INSERT INTO Employee
 VALUES
-(4001, 'Eleanor', 'Rodriguez', 437829615, '123 Madison St', 'New York', 'NY', '10001', 'johndoe@ihgn.com', 'IHGN', 4001),
-(4002, 'Jane', 'Smith', 879430025, '456 Elm St', 'New York', 'NY', '10002', 'janesmith@ihgn.com', 'IHGN', 4002),
-(4003, 'Bob', 'Johnson', 187503926, '789 Oak St', 'New York', 'NY', '10003', 'bobjohnson@ihgn.com', 'IHGN', 4003),
-(4004, 'Sara', 'Lee', 651042398, '246 5th Ave', 'New York', 'NY', '10004', 'saralee@ihgn.com', 'IHGN', 4004),
-(4005, 'Mike', 'Brown', 940837261, '135 6th Ave', 'New York', 'NY', '10005', 'mikebrown@ihgn.com', 'IHGN', 4005),
-(4006, 'Karen', 'Jones', 502348197, '789 Broadway', 'New York', 'NY', '10006', 'karenjones@ihgn.com', 'IHGN', 4006),
-(4007, 'Tom', 'Williams', 319687502, '246 Park Ave', 'New York', 'NY', '10007', 'tomwilliams@ihgn.com', 'IHGN', 4007),
-(4008, 'Linda', 'Davis', 726194038, '135 Madison Ave', 'New York', 'NY', '10008', 'lindadavis@ihgn.com', 'IHGN', 4008);
+(4001, 'Eleanor', 'Rodriguez', 437829615, '123 Madison St', 'New York', 'NY', '10001', 'johndoe@ihgn.com', 'IHGN', 4001, '1234'),
+(4002, 'Jane', 'Smith', 879430025, '456 Elm St', 'New York', 'NY', '10002', 'janesmith@ihgn.com', 'IHGN', 4002, '1234'),
+(4003, 'Bob', 'Johnson', 187503926, '789 Oak St', 'New York', 'NY', '10003', 'bobjohnson@ihgn.com', 'IHGN', 4003, '1234'),
+(4004, 'Sara', 'Lee', 651042398, '246 5th Ave', 'New York', 'NY', '10004', 'saralee@ihgn.com', 'IHGN', 4004, '1234'),
+(4005, 'Mike', 'Brown', 940837261, '135 6th Ave', 'New York', 'NY', '10005', 'mikebrown@ihgn.com', 'IHGN', 4005, '1234'),
+(4006, 'Karen', 'Jones', 502348197, '789 Broadway', 'New York', 'NY', '10006', 'karenjones@ihgn.com', 'IHGN', 4006, '1234'),
+(4007, 'Tom', 'Williams', 319687502, '246 Park Ave', 'New York', 'NY', '10007', 'tomwilliams@ihgn.com', 'IHGN', 4007, '1234'),
+(4008, 'Linda', 'Davis', 726194038, '135 Madison Ave', 'New York', 'NY', '10008', 'lindadavis@ihgn.com', 'IHGN', 4008, '1234');
 
 UPDATE Hotel SET manager_ID = 4001 WHERE hotel_code = 4001;
 UPDATE Hotel SET manager_ID = 4002 WHERE hotel_code = 4002;
@@ -565,16 +565,16 @@ VALUES
 
 
 
-INSERT INTO Employee (emp_ID, f_name, l_name, ssn, number_street, city, state_prov, zip, email, hotel_chain_code, hotel_code)
+INSERT INTO Employee
 VALUES
-(5001, 'Sophia' ,'Johnson', 319856274, '321 Oak St', 'New York', 'NY', '10001', 'sophiajohnson@hyat.com', 'HYAT', 5001),
-(5002, 'Isabella' ,'Garcia', 624892701, '753 Cedar St', 'New York', 'NY', '10001', 'isabellagarcia@hyat.com', 'HYAT', 5002),
-(5003, 'Jim', 'Smith', 345678901, '246 Birch St', 'Chicago', 'IL', '60601', 'jimsmith@hyat.com', 'HYAT', 5003),
-(5004, 'Janet', 'Lee', 456789012, '246 Walnut St', 'Los Angeles', 'CA', '90001', 'janetlee@hyat.com', 'HYAT', 5004),
-(5005, 'Jason', 'Chen', 567890123, '410 Redwood Way', 'Houston', 'TX', '77001', 'jasonchen@hyat.com', 'HYAT', 5005),
-(5006, 'Jessica', 'Wu', 678901234, '4562 Cypress Road', 'San Francisco', 'CA', '94101', 'jessicawu@hyat.com', 'HYAT', 5006),
-(5007, 'Jack', 'Brown', 789012345, '996 Willow Circle', 'Atlanta', 'GA', '30301', 'jackbrown@hyat.com', 'HYAT', 5007),
-(5008, 'Jenny', 'Wang', 890123456, '8 Acacia Court', 'Dallas', 'TX', '75201', 'jennywang@hyat.com', 'HYAT', 5008);
+(5001, 'Sophia' ,'Johnson', 319856274, '321 Oak St', 'New York', 'NY', '10001', 'sophiajohnson@hyat.com', 'HYAT', 5001, '1234'),
+(5002, 'Isabella' ,'Garcia', 624892701, '753 Cedar St', 'New York', 'NY', '10001', 'isabellagarcia@hyat.com', 'HYAT', 5002, '1234'),
+(5003, 'Jim', 'Smith', 345678901, '246 Birch St', 'Chicago', 'IL', '60601', 'jimsmith@hyat.com', 'HYAT', 5003, '1234'),
+(5004, 'Janet', 'Lee', 456789012, '246 Walnut St', 'Los Angeles', 'CA', '90001', 'janetlee@hyat.com', 'HYAT', 5004, '1234'),
+(5005, 'Jason', 'Chen', 567890123, '410 Redwood Way', 'Houston', 'TX', '77001', 'jasonchen@hyat.com', 'HYAT', 5005, '1234'),
+(5006, 'Jessica', 'Wu', 678901234, '4562 Cypress Road', 'San Francisco', 'CA', '94101', 'jessicawu@hyat.com', 'HYAT', 5006, '1234'),
+(5007, 'Jack', 'Brown', 789012345, '996 Willow Circle', 'Atlanta', 'GA', '30301', 'jackbrown@hyat.com', 'HYAT', 5007, '1234'),
+(5008, 'Jenny', 'Wang', 890123456, '8 Acacia Court', 'Dallas', 'TX', '75201', 'jennywang@hyat.com', 'HYAT', 5008, '1234');
 
 
 

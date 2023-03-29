@@ -79,6 +79,7 @@ zip VARCHAR(6) NOT NULL,
 email VARCHAR(50) NOT NULL,
 hotel_chain_code CHAR(4) NOT NULL,
 hotel_code INTEGER NOT NULL,
+password varchar(20) not null,
 FOREIGN KEY(hotel_chain_code, hotel_code) REFERENCES Hotel(hotel_chain_code, hotel_code)
 
 );
@@ -107,7 +108,9 @@ number_street VARCHAR(50) NOT NULL,
 city VARCHAR(50) NOT NULL,
 state_prov VARCHAR(50) NOT NULL,
 email VARCHAR(50) NOT NULL,
-registration_date timestamp NOT NULL
+
+registration_date timestamp NOT NULL,
+password varchar(20) not null
 );
 
 create table if not exists CustomerPhone(
