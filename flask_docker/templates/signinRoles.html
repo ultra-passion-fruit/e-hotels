@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Sign In{% endblock %}
+{% block header %}Sign In{% endblock %}
+{% block caption %}{% endblock %}
+{% block content%}
+		<section>
+			<h2>Selects Roles to Sign In</h2>
+
+			{% if error_message %}
+			<p>{{ error_message }}</p>
+		  	{% endif %}
+                <form method="post" action="/selectLogInRoles">
+					
+					
+
+					<button type="submit" name="login" value="Sign In C">Sign In as Customer</button>
+
+					<button type="submit" name="login" value="Sign In E">Sign In as Employee</button>
+
+           
+
+                </form>
+            </div>
+
+		</section>
+		
+		{% endblock %}

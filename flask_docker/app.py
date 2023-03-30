@@ -40,5 +40,58 @@ def callDbWithStatement(statement):
     print(response) #Delete this in production
     return response
 
+@app.route('/')
+def index():
+    return render_template('signinRoles.html')
+
+@app.route('/selectLogInRoles', methods=['GET', 'POST'])
+def selectLogInRoles():
+    if request.method == 'POST':
+        # Check if the form was submitted
+        
+        if request.form['login'] == 'Sign In C':
+            # Redirect to the sign in page
+            return render_template('signinC.html')
+        elif request.form['login'] == 'Sign In E':
+            return render_template('signinE.html')
+    
+    
+
+
+
+@app.route('/CustomersSignIN', methods=['POST'])
+def checkCustomerSignIN():
+    try:
+        cID = request.form['cID']
+        cPassword = request.form['cPassword']
+        # returns a long json with data and metadata
+        response = callDbWithStatement("SELECT * FROM Customer where cust_ID = '"+cID +"' and password ='"+cPassword +"';")
+        # takes only the data we want from 'records'
+
+        if len(response['records']) == 1:
+            return render_template('search.html', cID=cID)
+    except botocore.exceptions.ClientError as error:
+        print(error.response)
+        return render_template('signinC.html', error_message='Incorrect Customers ID or password ')
+
+
+@app.route('/EmployeeSignIN', methods=['POST'])
+def checkEmployeeSignIN():
+    try:
+        eID = request.form['eID']
+        ePassword = request.form['ePassword']
+        # returns a long json with data and metadata
+        response = callDbWithStatement("SELECT * FROM Employee where emp_ID = '"+eID +"' and password ='"+ePassword +"';")
+        # takes only the data we want from 'records'
+
+        if len(response['records']) == 1:
+            return render_template('hotels.html', eID=eID)
+    except botocore.exceptions.ClientError as error:
+        print(error.response)
+        return render_template('signinE.html', error_message="Incorrect Employee ID or password")
+
+   
+
+
 if __name__ == '__main__':
     app.run(threaded=True,host='0.0.0.0',port=5000)
