@@ -11,7 +11,7 @@ insert into hotelchain values
 -- manager_ID is set to -1, because there's no employee from now
 insert into hotel values
 					('HILN', 1001,	'Hilton San Francisco Union Square', -1, 4, 5, '333 O Farrell St', 'San Francisco', 'California', '94102','reservations@hiltonsanfrancisco.com' ),
-                    ('HILN', 1002, 'Waldorf Astoria Beverly Hills', -1,5, 5, '9850 Wilshire Blvd',  'Beverly Hills', 'California', '90210', 'info@waldorfastoriabeverlyhills.com'),
+                    ('HILN', 1002, 'Waldorf Astoria San Francisco', -1,5, 5, '9850 Wilshire Blvd',  'San Francisco', 'California', '90210', 'info@waldorfastoriabeverlyhills.com'),
                     ('HILN', 1003, 'Hilton Chicago Magnificent Mile', -1, 4, 5, '198 E Delaware Pl', 'Chicago', 'Illinois', '60611', 'info@hiltonhhicagomm.com'),
                     ('HILN', 1004,	'Conrad New York Downtown', -1, 4, 5, '102 North End Ave', 'New York', 'NY', '10282', 'info@conradnewyorkdowntown.com'),
                     ('HILN', 1005, 'Hilton New Orleans Riverside',-1, 4,5, '2 Poydras St.', 'New Orleans', 'Louisiana', '70130', 'info@hiltonneworleansriverside.com'),
@@ -643,14 +643,14 @@ WHERE hotel_chain_code = 'HYAT';
 
 
 INSERT INTO Customer (cust_ID, f_name, l_name, ssn, number_street, city, state_prov, email, registration_date, password) VALUES
-(1000, 'Emma', 'Johnson', 567890123, '123 Main St', 'New York', 'NY', 'emma.johnson@gmail.com', '2022-02-12 08:30:00', 'password123'),
-(2000, 'Ethan', 'Williams', 987654321, '456 Elm St', 'New York', 'NY', 'ethan.williams@yahoo.com', '2022-03-01 14:15:00', 'password456'),
-(3000, 'Olivia', 'Brown', 123456789, '789 Maple St', 'Chicago', 'IL', 'olivia.brown@hotmail.com', '2022-01-25 10:45:00', 'password789'),
-(4000, 'Liam', 'Garcia', 345678901, '321 Oak St', 'Los Angeles', 'CA', 'liam.garcia@gmail.com', '2022-02-28 16:20:00', 'passwordabc'),
-(5000, 'Ava', 'Miller', 234567890, '654 Pine St', 'Houston', 'TX', 'ava.miller@gmail.com', '2022-03-10 09:00:00', 'passworddef'),
-(6000, 'Noah', 'Davis', 789012345, '987 Cedar St', 'San Francisco', 'CA', 'noah.davis@yahoo.com', '2022-01-15 12:30:00', 'passwordxyz'),
-(7000, 'Sophia', 'Rodriguez', 456789012, '246 Birch St', 'Atlanta', 'GA', 'sophia.rodriguez@hotmail.com', '2022-03-20 18:45:00', 'password1234'),
-(8000, 'Jackson', 'Martinez', 890123456, '135 Walnut St', 'Dallas', 'TX', 'jackson.martinez@gmail.com', '2022-02-01 11:00:00', 'password5678');
+(1000, 'Emma', 'Johnson', 567890123, '123 Main St', 'New York', 'NY', 'emma.johnson@gmail.com', '2022-02-12 08:30:00', '1234'),
+(2000, 'Ethan', 'Williams', 987654321, '456 Elm St', 'New York', 'NY', 'ethan.williams@yahoo.com', '2022-03-01 14:15:00', '1234'),
+(3000, 'Olivia', 'Brown', 123456789, '789 Maple St', 'Chicago', 'IL', 'olivia.brown@hotmail.com', '2022-01-25 10:45:00', '1234'),
+(4000, 'Liam', 'Garcia', 345678901, '321 Oak St', 'Los Angeles', 'CA', 'liam.garcia@gmail.com', '2022-02-28 16:20:00', '1234'),
+(5000, 'Ava', 'Miller', 234567890, '654 Pine St', 'Houston', 'TX', 'ava.miller@gmail.com', '2022-03-10 09:00:00', '1234'),
+(6000, 'Noah', 'Davis', 789012345, '987 Cedar St', 'San Francisco', 'CA', 'noah.davis@yahoo.com', '2022-01-15 12:30:00', '1234'),
+(7000, 'Sophia', 'Rodriguez', 456789012, '246 Birch St', 'Atlanta', 'GA', 'sophia.rodriguez@hotmail.com', '2022-03-20 18:45:00', '1234'),
+(8000, 'Jackson', 'Martinez', 890123456, '135 Walnut St', 'Dallas', 'TX', 'jackson.martinez@gmail.com', '2022-02-01 11:00:00', '1234');
 
 
 
