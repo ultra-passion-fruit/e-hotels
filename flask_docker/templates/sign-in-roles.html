@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Sign In{% endblock %}
+{% block header %}Sign In{% endblock %}
+{% block caption %}{% endblock %}
+{% block content%}
+		<section>
+			<h2>Selects Roles to Sign In</h2>
+                <a class='btn btn-dark' href="{{url_for('sign_in', role='customer')}}">Sign In as Customer</a>
+                <a class='btn btn-dark' href="{{url_for('sign_in', role='employee')}}">Sign In as Employee</a>
+            </div>
+		</section>		
+{% endblock %}

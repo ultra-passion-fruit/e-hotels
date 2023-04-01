@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Sign In{% endblock %}
+
+{% block caption %}{% endblock %}
+{% block content%}
+
+		<section>
+			<h2>Sign In</h2>
+            <div class="auth">
+                <form method="POST" action="/signin">
+                    <label for="id-lable">{% block roleLabel %}{% endblock %}</label>
+                    <input type="text" id="user-id" name="id" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="user-password" name="password" required>
+                    <button type="submit" style="border-radius: 5px; background-color: #333A40">Sign In</button>
+                    {% block role %}{% endblock %}
+                </form>
+            </div>
+		</section>
+{% endblock %}

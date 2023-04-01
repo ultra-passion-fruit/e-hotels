@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect, url_for
 import os
 import boto3
 from botocore.config import Config
@@ -42,56 +42,41 @@ def callDbWithStatement(statement):
 
 @app.route('/')
 def index():
-    return render_template('signinRoles.html')
+    return render_template('sign-in-roles.html')
 
-@app.route('/selectLogInRoles', methods=['GET', 'POST'])
-def selectLogInRoles():
-    if request.method == 'POST':
-        # Check if the form was submitted
+@app.route('/signin', methods=['GET'])
+def sign_in():
+    role = request.args.get('role')
+    print(role)
+    if role == 'customer':
+        return render_template('sign-in-customer.html')
+    elif role == 'employee':
+        return render_template('sign-in-employee.html')
+    
+    return render_template('sign-in-roles.html')
+
+@app.route('/signin', methods=['POST'])
+def authenticate():
+    role = request.form['role']
+    print(role)
+    try:
+        id = request.form['id']
+        password = request.form['password']
         
-        if request.form['login'] == 'Sign In C':
-            # Redirect to the sign in page
-            return render_template('signinC.html')
-        elif request.form['login'] == 'Sign In E':
-            return render_template('signinE.html')
-    
-    
-
-
-
-@app.route('/CustomersSignIN', methods=['POST'])
-def checkCustomerSignIN():
-    try:
-        cID = request.form['cID']
-        cPassword = request.form['cPassword']
-        # returns a long json with data and metadata
-        response = callDbWithStatement("SELECT * FROM Customer where cust_ID = '"+cID +"' and password ='"+cPassword +"';")
+        if role == 'customer':
+            response = callDbWithStatement("SELECT * FROM Customer where cust_ID = '"+ id +"' and password ='"+ password +"';")
+        elif role == 'employee':
+            response = callDbWithStatement("SELECT * FROM Employee where emp_ID = '"+ id +"' and password ='"+ password +"';")
+        
         # takes only the data we want from 'records'
-
         if len(response['records']) == 1:
-            return render_template('search.html', cID=cID)
-    except botocore.exceptions.ClientError as error:
+            return render_template('search.html')
+    ## Gotta fix this
+    except botocore.exceptions as error:
         print(error.response)
-        return render_template('signinC.html', error_message='Incorrect Customers ID or password ')
-
-
-@app.route('/EmployeeSignIN', methods=['POST'])
-def checkEmployeeSignIN():
-    try:
-        eID = request.form['eID']
-        ePassword = request.form['ePassword']
-        # returns a long json with data and metadata
-        response = callDbWithStatement("SELECT * FROM Employee where emp_ID = '"+eID +"' and password ='"+ePassword +"';")
-        # takes only the data we want from 'records'
-
-        if len(response['records']) == 1:
-            return render_template('hotels.html', eID=eID)
-    except botocore.exceptions.ClientError as error:
-        print(error.response)
-        return render_template('signinE.html', error_message="Incorrect Employee ID or password")
-
-   
-
+        return render_template('sign-in-customer.html', error_message='Incorrect ID or password ')
+    
+    return render_template('sign-in-roles.html')
 
 if __name__ == '__main__':
     app.run(threaded=True,host='0.0.0.0',port=5000)

@@ -5,14 +5,15 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="{{url_for('static', filename='styles/beaut.css')}}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 </head>
 <body>
 	<header>
 		<nav>
 			<ul>
-				<li><a href="#">Home</a></li>
+				<li><a href="{{url_for('index')}}">Home</a></li>
 				<li><a href="./hotels.html">Hotels</a></li>
-                <li><a href="signin.html">Sign In</a></li>
+                <li><a href="{{url_for('sign_in')}}">Sign In</a></li>
 			</ul>
 		</nav>
 		<h1>{% block header %} {% endblock %}</h1>
