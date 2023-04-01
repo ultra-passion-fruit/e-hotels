@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Account{% endblock %}
+{% block navItems %}
+    <li><a href="{{url_for('index')}}">Account</a></li>
+    <li><a href="#">My Bookings</a></li>
+    <li><a href="#">My Rentings</a></li>
+{% endblock %}
+{% block content%}
+    <div class="account-info-container">
+        <h2>Account Information</h2>
+        <hr>
+        <p><strong>Name:</strong> {{ user.f_name }} {{ user.l_name }}</p>
+        <p><strong>SSN:</strong> {{ user.ssn }}</p>
+        <p><strong>Address:</strong> {{ user.number_street }}, {{ user.city }}, {{ user.state_prov }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Registration Date:</strong> {{ user.registration_date }}</p>
+    </div>
+    <style>
+        .account-info-container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .account-info-container h2 {
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        .account-info-container hr {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .account-info-container p {
+            margin: 10px 0;
+        }
+
+        .account-info-container strong {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+{% endblock %}

@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
-{% block title %} Chains {% endblock %}
-{% block header %} Chains {% endblock %}
-{% block caption %} Choose the hotel chain you would like to stay at {% endblock %}
+{% block title %} Our Hotel Chains {% endblock %}
+{% block caption %} See Our Hotel Chains {% endblock %}
+{% block navItems %}
+    <li><a href="{{url_for('index')}}">Our Hotels Chains</a></li>
+    <li><a href="{{url_for('sign_in')}}">Sign In</a></li>
+{% endblock %}
 {% block content%}
     <section>
         <div style="border: 1px; width: auto; margin: auto"></div>

@@ -11,19 +11,17 @@
 	<header>
 		<nav>
 			<ul>
-				<li><a href="{{url_for('index')}}">Home</a></li>
-				<li><a href="./hotels.html">Hotels</a></li>
-                <li><a href="{{url_for('sign_in')}}">Sign In</a></li>
+                {% block navItems %}{% endblock %}
 			</ul>
 		</nav>
-		<h1>{% block header %} {% endblock %}</h1>
+		<h1>eHotels</h1>
 		<p>{% block caption %} {% endblock %}</p>
 	</header>
 	<main>
 		{% block content%}{% endblock %}
 	</main>
 	<footer>
-		<p>&copy; 2023 Hotel Booking Website. All rights reserved.</p>
+		<p>&copy; 2023 eHotels. All rights reserved.</p>
 	</footer>
 </body>
 </html>

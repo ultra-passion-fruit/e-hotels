@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 {% block title %}Sign In{% endblock %}
-{% block header %}Sign In{% endblock %}
 {% block caption %}{% endblock %}
 {% block content%}
-		<section>
-			<h2>Selects Roles to Sign In</h2>
-                <a class='btn btn-dark' href="{{url_for('sign_in', role='customer')}}">Sign In as Customer</a>
-                <a class='btn btn-dark' href="{{url_for('sign_in', role='employee')}}">Sign In as Employee</a>
-            </div>
-		</section>		
+    <section>
+        <div class="btn-container">
+            <h2>Select Role to Sign In</h2>
+            <a class='btn btn-dark' href="{{url_for('sign_in', role='customer')}}">Sign In as Customer</a>
+            <a class='btn btn-dark' href="{{url_for('sign_in', role='employee')}}">Sign In as Employee</a>
+        </div>
+    </section>
+    <style>
+        .btn-container {
+            padding: 10px;
+        }
+        .btn {
+            margin: 20px;
+        }
+          
+</style>
 {% endblock %}

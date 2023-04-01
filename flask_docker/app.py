@@ -20,8 +20,8 @@ aurora_secret_arn = os.environ['SECRET_ARN']
 # User session information
 app.config['SECRET_KEY'] = '6a8733d1-daa2-4527-88a8-2d482507ad33'
 
-@app.route('/chains') # API 1 - getHotelChains
-def getHotelChains():
+@app.route('/') # API 1 - getHotelChains
+def index():
     try:
         # returns a long json with data and metadata
         response = callDbWithStatement("SELECT * FROM HotelChain;")
@@ -43,10 +43,6 @@ def callDbWithStatement(statement):
     print("Making Call " + statement)
     print(response) #Delete this in production
     return response
-
-@app.route('/')
-def index():
-    return render_template('sign-in-roles.html')
 
 @app.route('/signin', methods=['GET'])
 def sign_in():
@@ -88,6 +84,32 @@ def authenticate():
         return render_template('sign-in-customer.html', error=True, error_message='Incorrect ID or password ')
     
     return render_template('sign-in-roles.html')
+
+@app.route('/account', methods=['GET'])
+def account():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']
+        print(id)
+        print(role)
+        if role == 'customer':
+            response = callDbWithStatement("select f_name, l_name, ssn, number_street, city, state_prov, email, registration_date from customer where cust_id = " + id + ";")
+            # records is a singleton list, so just take the only item (the 0th)
+            info = response['records'][0]
+            # make dictionnary to pass user info to jinja tempate
+            user = {'f_name' : info[0]['stringValue'],
+                    'l_name' :  info[1]['stringValue'],
+                    'ssn' :  info[2]['longValue'],
+                    'number_street' :  info[3]['stringValue'],
+                    'city' :  info[4]['stringValue'],
+                    'state_prov' :  info[5]['stringValue'],
+                    'email' :  info[6]['stringValue'],
+                    'registration_date' :  info[7]['stringValue'],}
+            return render_template('account.html', user=user)
+        elif role == 'employee':
+            return render_template('account.html')
+    return redirect(url_for('sign_in'))
+
 
 # first try, to test, emp_ID hardcoded for testing
 @app.route('/homepage_employee', methods=['GET'])

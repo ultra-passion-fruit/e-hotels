@@ -1,32 +1,36 @@
 {% extends 'base.html' %}
-			{% block title %}Hotel Finder{% endblock %}
-			
-			{% block caption %}{% endblock %}
-			{% block content%}
-			<h2>Search for Hotels</h2>
-			<form>
-				<label for="location">Location:</label>
-				<input type="text" id="location" name="location" placeholder="Enter a location">
+{% block title %}Hotel Finder{% endblock %}
+{% block navItems %}
+    <li><a href="{{url_for('index')}}">Account</a></li>
+    <li><a href="#">My Bookings</a></li>
+    <li><a href="#">My Rentings</a></li>
+{% endblock %}
+{% block caption %}{% endblock %}
+{% block content%}
+    <h2>Search for Hotels</h2>
+    <form>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" placeholder="Enter a location">
 
-				<label for="checkin">Check-in Date:</label>
-				<input type="date" id="checkin" name="checkin">
+        <label for="checkin">Check-in Date:</label>
+        <input type="date" id="checkin" name="checkin">
 
-				<label for="checkout">Check-out Date:</label>
-				<input type="date" id="checkout" name="checkout">
+        <label for="checkout">Check-out Date:</label>
+        <input type="date" id="checkout" name="checkout">
 
-				<label for="guests">Number of Guests:</label>
-				<select id="guests" name="guests">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-				</select>
-			</form>
-            <button type="submit">Search</button>
-			<section>
-				<h3>Search Results</h3>
-				<div class="hotel-list">
-					<!-- Results will be dynamically populated here -->
-				</div>
-			</section>
-			{% endblock %}
+        <label for="guests">Number of Guests:</label>
+        <select id="guests" name="guests">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+    </form>
+    <button type="submit">Search</button>
+    <section>
+        <h3>Search Results</h3>
+        <div class="hotel-list">
+            <!-- Results will be dynamically populated here -->
+        </div>
+    </section>
+{% endblock %}
