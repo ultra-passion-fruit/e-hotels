@@ -102,23 +102,82 @@ def account():
         print(id)
         print(role)
         if role == 'customer':
-            response = callDbWithStatement("select f_name, l_name, ssn, number_street, city, state_prov, email, registration_date from customer where cust_id = " + id + ";")
-            # records is a singleton list, so just take the only item (the 0th)
-            info = response['records'][0]
-            # make dictionnary to pass user info to jinja tempate
-            user = {'f_name' : info[0]['stringValue'],
-                    'l_name' :  info[1]['stringValue'],
-                    'ssn' :  info[2]['longValue'],
-                    'number_street' :  info[3]['stringValue'],
-                    'city' :  info[4]['stringValue'],
-                    'state_prov' :  info[5]['stringValue'],
-                    'email' :  info[6]['stringValue'],
-                    'registration_date' :  info[7]['stringValue'],}
-            return render_template('account.html', user=user)
+            if len(session) == 10:
+                return render_template('account.html', user=session)
+            else:  
+                response = callDbWithStatement("select f_name, l_name, ssn, number_street, city, state_prov, email, registration_date from customer where cust_id = " + id + ";")
+                # records is a singleton list, so just take the only item (the 0th)
+                info = response['records'][0]
+                # make dictionnary to pass user info to jinja tempate
+                user = {'f_name' : info[0]['stringValue'],
+                        'l_name' :  info[1]['stringValue'],
+                        'ssn' :  info[2]['longValue'],
+                        'number_street' :  info[3]['stringValue'],
+                        'city' :  info[4]['stringValue'],
+                        'state_prov' :  info[5]['stringValue'],
+                        'email' :  info[6]['stringValue'],
+                        'registration_date' :  info[7]['stringValue'],}
+                # adds user info to the current session, for reference
+                session.update(user)
+                # renders page with user info
+                return render_template('account.html', user=user)
         elif role == 'employee':
+            
+            # TODO: Employee version of user dictionnary
+
             return render_template('account.html')
     return redirect(url_for('sign_in'))
 
+@app.route('/account/edit', methods=['GET'])
+def view_account_edit():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']
+        print(id)
+        print(role)
+        if role == 'customer':
+            return render_template('account-edit.html', user=session)
+        elif role == 'employee':
+            return render_template('account-edit.html', user=session)
+    return redirect(url_for('sign_in'))
+
+@app.route('/account/edit', methods=['POST'])
+def save_account_edit():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']
+        print(id)
+        print(role)
+        if role == 'customer':
+            # Getting values from form
+            f_name = request.form['f_name']
+            l_name = request.form['l_name']
+            ssn = request.form['ssn']
+            number_street = request.form['number_street']
+            city = request.form['city']
+            state_prov = request.form['state_prov']
+            email = request.form['email']
+
+            # Updating values on databse
+            query = "UPDATE Customer SET f_name = '{}', l_name = '{}', ssn = '{}', number_street = '{}', city = '{}', state_prov = '{}', email = '{}' WHERE cust_ID = '{}';".format(f_name, l_name, ssn, number_street, city, state_prov, email, id)
+            callDbWithStatement(query)
+
+            # Updating session info
+            session['f_name'] = f_name
+            session['l_name'] = l_name
+            session['ssn'] = ssn
+            session['number_street'] = number_street
+            session['city'] = city
+            session['state_prov'] = state_prov
+            session['email'] = email
+
+            return redirect(url_for('account'))
+        elif role == 'employee':
+
+            # TODO: Employee version of update
+
+            return redirect(url_for('account'))
+    return redirect(url_for('sign_in'))
 
 # first try, to test, emp_ID hardcoded for testing
 @app.route('/homepage_employee', methods=['GET'])

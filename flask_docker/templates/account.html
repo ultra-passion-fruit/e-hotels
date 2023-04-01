@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Account{% endblock %}
 {% block navItems %}
-    <li><a href="{{url_for('index')}}">Account</a></li>
+    <li><a href="{{url_for('account')}}">Account</a></li>
     <li><a href="#">My Bookings</a></li>
     <li><a href="#">My Rentings</a></li>
 {% endblock %}
@@ -9,8 +9,8 @@
     <div class="account-info-container">
         <h2 class="d-inline-block">Account Information</h2>
         <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-dark">Edit</button>
-            <button type="button" class="btn btn-primary">Change Password</button>
+            <a type="button" href="{{url_for('view_account_edit')}}" class="btn btn-dark">Edit</a>
+            <a type="button" class="btn btn-primary">Change Password</a>
         </div>
         <hr>
         <p><strong>Name:</strong> {{ user.f_name }} {{ user.l_name }}</p>
