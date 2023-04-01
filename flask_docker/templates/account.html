@@ -7,21 +7,32 @@
 {% endblock %}
 {% block content%}
     <div class="account-info-container">
-        <h2>Account Information</h2>
+        <h2 class="d-inline-block">Account Information</h2>
+        <div class="btn-group float-right" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-dark">Edit</button>
+            <button type="button" class="btn btn-primary">Change Password</button>
+        </div>
         <hr>
         <p><strong>Name:</strong> {{ user.f_name }} {{ user.l_name }}</p>
         <p><strong>SSN:</strong> {{ user.ssn }}</p>
         <p><strong>Address:</strong> {{ user.number_street }}, {{ user.city }}, {{ user.state_prov }}</p>
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p><strong>Registration Date:</strong> {{ user.registration_date }}</p>
+        <div class="btn-group float-right" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-danger">Delete Account</button>
+        </div>
     </div>
     <style>
         .account-info-container {
             border: 1px solid #ccc;
             padding: 20px;
             margin: 20px auto;
-            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            width: 100%;
             text-align: left;
+            overflow: auto;
         }
 
         .account-info-container h2 {
@@ -41,6 +52,11 @@
         .account-info-container strong {
             font-weight: bold;
             margin-right: 10px;
+        }
+
+        main {
+            max-width: initial;
+            margin: 0;
         }
     </style>
 {% endblock %}
