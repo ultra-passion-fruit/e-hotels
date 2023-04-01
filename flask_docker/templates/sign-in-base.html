@@ -15,6 +15,11 @@
                     <button type="submit" style="border-radius: 5px; background-color: #333A40">Sign In</button>
                     {% block role %}{% endblock %}
                 </form>
+                {% if error %}
+                    <div class="alert alert-warning" role="alert" style="margin-top: 20px;">
+                        {{ errorMessage }}
+                    </div>
+                {% endif %}
             </div>
 		</section>
 {% endblock %}

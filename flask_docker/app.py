@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session
 import os
 import boto3
 from botocore.config import Config
@@ -9,12 +9,16 @@ app=Flask(__name__, template_folder='templates')
 my_config = Config(
     region_name = 'us-east-1'
 )
+
 rds_data = boto3.client('rds-data', config=my_config, aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'], aws_secret_access_key=os.environ['AWS_SECRET_KEY'])
 
 #Database Configuration Items
 aurora_db_name = os.environ['DB_NAME']
 aurora_cluster_arn = os.environ['CLUSTER_ARN']
 aurora_secret_arn = os.environ['SECRET_ARN']
+
+# User session information
+app.config['SECRET_KEY'] = '6a8733d1-daa2-4527-88a8-2d482507ad33'
 
 @app.route('/chains') # API 1 - getHotelChains
 def getHotelChains():
@@ -68,13 +72,20 @@ def authenticate():
         elif role == 'employee':
             response = callDbWithStatement("SELECT * FROM Employee where emp_ID = '"+ id +"' and password ='"+ password +"';")
         
-        # takes only the data we want from 'records'
+        # 1 entry was found in the database. This means the user exists and is authenticated.
         if len(response['records']) == 1:
+            session['id'] = id
+            session['role'] = role
             return render_template('search.html')
+        elif len(response['records']) == 0:
+            if role == 'customer':
+                return render_template('sign-in-customer.html', error=True, errorMessage='The Customer ID or Password is incorrect')
+            elif role == 'employee':
+                return render_template('sign-in-employee.html', error=True, errorMessage='The Employee ID or Password is incorrect')
     ## Gotta fix this
     except botocore.exceptions as error:
         print(error.response)
-        return render_template('sign-in-customer.html', error_message='Incorrect ID or password ')
+        return render_template('sign-in-customer.html', error=True, error_message='Incorrect ID or password ')
     
     return render_template('sign-in-roles.html')
 
