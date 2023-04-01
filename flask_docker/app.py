@@ -20,18 +20,6 @@ aurora_secret_arn = os.environ['SECRET_ARN']
 # User session information
 app.config['SECRET_KEY'] = '6a8733d1-daa2-4527-88a8-2d482507ad33'
 
-@app.route('/') # API 1 - getHotelChains
-def index():
-    try:
-        # returns a long json with data and metadata
-        response = callDbWithStatement("SELECT * FROM HotelChain;")
-        # takes only the data we want from 'records'
-        hotelChains = response['records']
-    except botocore.exceptions.ClientError as error:
-        print(error.response)
-
-    return render_template('chains.html', chains=hotelChains)
-    
 def callDbWithStatement(statement):
     response = rds_data.execute_statement(
             database = aurora_db_name,
@@ -43,6 +31,18 @@ def callDbWithStatement(statement):
     print("Making Call " + statement)
     print(response) #Delete this in production
     return response
+
+@app.route('/') # API 1 - getHotelChains
+def index():
+    try:
+        # returns a long json with data and metadata
+        response = callDbWithStatement("SELECT * FROM HotelChain;")
+        # takes only the data we want from 'records'
+        hotelChains = response['records']
+    except botocore.exceptions.ClientError as error:
+        print(error.response)
+
+    return render_template('chains.html', chains=hotelChains)
 
 @app.route('/signin', methods=['GET'])
 def sign_in():
@@ -72,7 +72,16 @@ def authenticate():
         if len(response['records']) == 1:
             session['id'] = id
             session['role'] = role
-            return render_template('search.html')
+            if role == 'customer':
+                return render_template('search.html')
+            elif role == 'employee':
+                response = callDbWithStatement("SELECT f_name, l_name FROM Employee WHERE emp_id = " + id + ";")
+                # records is a singleton list, so just take the only item (the 0th)
+                info = response['records'][0]
+                # make dictionnary to pass user info to jinja tempate
+                user = {'f_name' : info[0]['stringValue'],
+                        'l_name' :  info[1]['stringValue']}
+                return render_template('emp_homepage.html', user=user)
         elif len(response['records']) == 0:
             if role == 'customer':
                 return render_template('sign-in-customer.html', error=True, errorMessage='The Customer ID or Password is incorrect')
