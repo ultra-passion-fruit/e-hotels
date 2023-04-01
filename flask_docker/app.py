@@ -78,5 +78,19 @@ def authenticate():
     
     return render_template('sign-in-roles.html')
 
+# first try, to test, emp_ID hardcoded for testing
+@app.route('/homepage_employee', methods=['GET'])
+def displayEmployeeHomepage():
+    try:
+        # returns a long json with data and metadata
+        response = callDbWithStatement("SELECT * FROM Employee WHERE emp_ID = 1000;")
+        # takes only the data we want from 'records'
+        data = response['records'][0]
+        current_user_name = data[1]['stringValue'] + " " + data[2]['stringValue']
+        return render_template('homepage_employee.html', user_name=current_user_name)
+
+    except botocore.exceptions.ClientError as error:
+        print(error.response)
+
 if __name__ == '__main__':
     app.run(threaded=True,host='0.0.0.0',port=5000)
