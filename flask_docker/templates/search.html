@@ -1,13 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'app-base.html' %}
 {% block title %}Hotel Finder{% endblock %}
-{% block navItems %}
-    <li><a href="{{url_for('account')}}">Account</a></li>
-    <li><a href="#">My Bookings</a></li>
-    <li><a href="#">My Rentings</a></li>
-{% endblock %}
-{% block caption %}{% endblock %}
-{% block content%}
-    <h2>Search for Hotels</h2>
+{% block content %}
     <form>
         <label for="location">Location:</label>
         <input type="text" id="location" name="location" placeholder="Enter a location">
@@ -26,8 +19,9 @@
             <option value="4">4</option>
         </select>
     </form>
-    <button type="submit">Search</button>
-    <section>
+    <div class="btn-group float-right" role="group" aria-label="search">
+        <button type="submit" class="btn btn-dark">Search</button>
+    </div>    <section>
         <h3>Search Results</h3>
         <div class="hotel-list">
             <!-- Results will be dynamically populated here -->

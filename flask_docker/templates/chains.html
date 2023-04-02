@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% block title %} Our Hotel Chains {% endblock %}
-{% block caption %} See Our Hotel Chains {% endblock %}
-{% block navItems %}
-    <li><a href="{{url_for('index')}}">Our Hotels Chains</a></li>
-    <li><a href="{{url_for('sign_in')}}">Sign In</a></li>
+{% block leftNavItems %}{% endblock %}
+<li class="nav-item">
+    <a class="nav-link" href="{{url_for('index')}}">Our Hotel Chains</a>
+</li>
+{% block rightNavItems %}
+<li class="nav-item">
+    <a class="nav-link" href="{{url_for('sign_in')}}">Sign In</a>
+</li>
 {% endblock %}
 {% block content%}
     <section>

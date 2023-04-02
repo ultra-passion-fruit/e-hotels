@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{% block title %} {% endblock %}</title>
+	<title>{% block title %}{% endblock %}</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="{{url_for('static', filename='styles/beaut.css')}}?v=1">
@@ -14,10 +14,23 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
-                    {% block leftNavItems %}{% endblock %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('home')}}">Homepage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">My Rentings</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav">
-                    {% block rightNavItems %}{% endblock %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('account')}}">Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Log Out</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -25,8 +38,5 @@
 	<main>
 		{% block content%}{% endblock %}
 	</main>
-	<footer>
-		<p>&copy; 2023 eHotels. All rights reserved.</p>
-	</footer>
 </body>
 </html>

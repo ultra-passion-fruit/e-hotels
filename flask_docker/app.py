@@ -73,7 +73,7 @@ def authenticate():
             session['id'] = id
             session['role'] = role
             if role == 'customer':
-                return render_template('search.html')
+                return redirect(url_for('home'))
             elif role == 'employee':
                 response = callDbWithStatement("SELECT f_name, l_name FROM Employee WHERE emp_id = " + id + ";")
                 # records is a singleton list, so just take the only item (the 0th)
@@ -93,6 +93,10 @@ def authenticate():
         return render_template('sign-in-customer.html', error=True, error_message='Incorrect ID or password ')
     
     return render_template('sign-in-roles.html')
+
+@app.route('/home', methods=['GET'])
+def home():
+    return render_template('search.html')
 
 @app.route('/account', methods=['GET'])
 def account():

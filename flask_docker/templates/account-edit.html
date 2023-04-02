@@ -1,10 +1,5 @@
-{% extends 'base.html' %}
-{% block title %}Account{% endblock %}
-{% block navItems %}
-<li><a href="{{url_for('account')}}">Account</a></li>
-<li><a href="#">My Bookings</a></li>
-<li><a href="#">My Rentings</a></li>
-{% endblock %}
+{% extends 'app-base.html' %}
+{% block title %}Edit Account{% endblock %}
 {% block content%}
 <form method="POST" action="{{url_for('view_account_edit')}}">
     <div class="account-info-container">
@@ -56,8 +51,8 @@
             <p><strong>Registration Date:</strong> Jan 1, 2022</p>
             <div class="btn-group float-right" role="group" aria-label="confirm">
                 <button type="submit" class="btn btn-primary">Confirm</button>
+                <button type="button" href="{{url_for('account')}}" class="btn btn-danger">Cancel</button>
             </div>
-            <a type="button" href="{{url_for('account')}}" class="btn btn-danger">Cancel</a>
         </div>
     </div>
 </form>
