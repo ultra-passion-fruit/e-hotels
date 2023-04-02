@@ -189,6 +189,11 @@ def save_account_edit():
             return redirect(url_for('account'))
     return redirect(url_for('sign_in'))
 
+@app.route('/account/edit/password', methods=['GET'])
+def view_change_password():
+    if 'id' in session and 'role' in session:
+        return render_template('account-change-password.html')
+
 # first try, to test, emp_ID hardcoded for testing
 @app.route('/homepage_employee', methods=['GET'])
 def displayEmployeeHomepage():
