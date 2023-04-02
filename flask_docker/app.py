@@ -34,6 +34,7 @@ def callDbWithStatement(statement):
 
 @app.route('/') # API 1 - getHotelChains
 def index():
+    session.clear()
     try:
         # returns a long json with data and metadata
         response = callDbWithStatement("SELECT * FROM HotelChain;")
