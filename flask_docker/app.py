@@ -56,6 +56,11 @@ def sign_in():
     
     return render_template('sign-in-roles.html')
 
+@app.route('/signin', methods=['GET'])
+def log_out():
+    session.clear()
+    return render_template('sign_in') 
+
 @app.route('/signin', methods=['POST'])
 def authenticate():
     role = request.form['role']

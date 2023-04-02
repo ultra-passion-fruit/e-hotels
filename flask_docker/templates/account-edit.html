@@ -49,9 +49,11 @@
                     aria-describedby="basic-addon1" value="{{user['email']}}">
             </div>
             <p><strong>Registration Date:</strong> Jan 1, 2022</p>
-            <div class="btn-group float-right" role="group" aria-label="confirm">
+            <div class="float-right" role="group" aria-label="confirm">
                 <button type="submit" class="btn btn-primary">Confirm</button>
-                <button type="button" href="{{url_for('account')}}" class="btn btn-danger">Cancel</button>
+            </div>
+            <div class="float-right butt" role="group" aria-label="confirm">
+                <a type="button" href="{{url_for('account')}}" class="btn btn-danger">Cancel</a>
             </div>
         </div>
     </div>
@@ -85,6 +87,10 @@
 
     .account-info-container strong {
         font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .butt {
         margin-right: 10px;
     }
 
