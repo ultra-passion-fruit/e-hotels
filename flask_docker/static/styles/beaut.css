@@ -85,15 +85,6 @@ form input[type="date"] {
 	width: 100%;
 }
 
-form button[type="submit"] {
-	background-color: #000000;
-	color: #ffffff;
-	border: none;
-	padding: 15px 20px;
-	font-size: 16px;
-	cursor: pointer;
-}
-
 /* Authorization (sign in / register) */
 .auth form{
     display: grid;
