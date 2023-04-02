@@ -198,5 +198,67 @@ def displayEmployeeHomepage():
     except botocore.exceptions.ClientError as error:
         print(error.response)
 
+
+@app.route('/home', methods=['post'])
+def searchHotel():
+   
+        # Get the search parameters from the form
+        print('ANY')
+        location = request.form['location']
+
+        checkin = request.form['checkin']
+
+        checkout = request.form['checkout']
+
+        capacity = request.form['capacity']
+
+        chain = request.form['chain']
+        category = request.form['category']
+        num_rooms = request.form['number of rooms']
+        price = request.form['Price']
+
+
+
+        try:
+            # Perform the search using the search parameters
+            response = callDbWithStatement("select name,room_no, possible_extension,capacity,description,number_street, city, price  from(SELECT ri.* FROM RoomInfo ri WHERE ri.hotel_code IN (SELECT h.hotel_code FROM Hotel h WHERE h.city = '" + location
+            +"' AND h.hotel_chain_code = '"+chain + "' AND h.rating = "+ category +") AND ri.capacity >= "+ capacity
+            +"AND ri.price <= "+ price +"AND ri.status = 'Available' AND (SELECT COUNT(*)"
+            +" FROM RoomInfo ri2 WHERE ri2.hotel_code = ri.hotel_code) = "+ num_rooms
+            + "AND NOT EXISTS (SELECT 1 FROM Booking b WHERE b.room_info_no = ri.room_info_no"
+            +" AND ((b.start_date <= '"+checkout+ "' AND b.end_date >= '"+checkin+"' )"
+            +" OR (b.start_date >= '"+checkin+ "' AND b.end_date <= '"+checkout+"' )"
+            +" OR (b.start_date <= '"+checkin+ "' AND b.end_date >= '"+checkin+"' )"
+            +" OR (b.start_date <= '"+checkout+ "' AND b.end_date >= '"+checkout+"' )))) as T  join hotel using(hotel_code) order by price")
+
+
+            rooms = response['records']
+
+            print(response['records'])
+
+            print('ANY')
+
+            # Return the search results to the template
+            return render_template('searchResult.html', rooms=rooms)
+
+        except botocore.exceptions.ClientError as error:
+            print(error.response)
+
+        return redirect(url_for('home'))
+
+
+@app.route('/home', methods=['GET'])
+def view_search():
+   
+    return render_template('search.html')
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     app.run(threaded=True,host='0.0.0.0',port=5000)

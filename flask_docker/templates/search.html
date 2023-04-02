@@ -1,7 +1,7 @@
 {% extends 'app-base.html' %}
 {% block title %}Hotel Finder{% endblock %}
 {% block content %}
-<form action="/searchResult" method="POST">
+<form method="post", action="/home">
     <label for="location">Location:</label>
     <input type="text" id="location" name="location" placeholder="Enter a location" required>
 
@@ -20,11 +20,11 @@
 
     <label for="Hotel chain">Hotel chain:</label>
     <select id="chain" name="chain" required>
-        <option value="Hilton Hotels">Hilton Hotels</option>
-        <option value="Marriott International">Marriott International</option>
-        <option value="Choice Hotels International">Choice Hotels International</option>
-        <option value="InterContinental Hotels Group">InterContinental Hotels Group</option>
-        <option value="Hyatt Hotels Corporation">Hyatt Hotels Corporation</option>
+        <option value="HILN">Hilton Hotels</option>
+        <option value="MARR">Marriott International</option>
+        <option value="CHOI">Choice Hotels International</option>
+        <option value="IHGN">InterContinental Hotels Group</option>
+        <option value="HYAT">Hyatt Hotels Corporation</option>
     </select>
     <br>
     <label for="Hotel category">Hotel category:</label>

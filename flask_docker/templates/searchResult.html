@@ -1,0 +1,49 @@
+{% extends 'app-base.html' %}
+{% block title %}Hotel Finder{% endblock %}
+{% block navItems %}
+    <li><a href="{{url_for('account')}}">Account</a></li>
+    <li><a href="#">My Bookings</a></li>
+    <li><a href="#">My Rentings</a></li>
+{% endblock %}
+{% block caption %}{% endblock %}
+{% block content%}
+    
+    <form>
+
+    <section>
+        <h3>Search Results</h3>
+        <div class="hotel-list">
+            {% if rooms %}
+                {% for room in rooms %}
+                    <div style="padding: 10px; background-color: #eeeeee; margin: 60px">
+                        <p>{{ room[0]['stringValue'] }}</p>
+                        <p>Room Number: {{ room[1]['longValue']  }}</p>
+                        <p>Extension: {{ room[2]['stringValue']  }}</p>
+                        <p>Capacity: {{ room[3]['longValue']  }}</p>
+                        <p>Description: {{ room[4]['stringValue']  }}</p>
+                        <p>Address: {{ room[5]['stringValue']  }}, {{ room[6]['stringValue']  }}</p>
+                        
+                        <h3>Price: {{ room[7]['longValue']  }}</h3>
+
+                        <button type="submit">Book</button>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No rooms available matching your search criteria</p>
+            {% endif %}
+        </div>
+    </section>
+    </form>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+{% endblock %}
