@@ -652,11 +652,35 @@ INSERT INTO Customer (cust_ID, f_name, l_name, ssn, number_street, city, state_p
 (7000, 'Sophia', 'Rodriguez', 456789012, '246 Birch St', 'Atlanta', 'GA', 'sophia.rodriguez@hotmail.com', '2022-03-20 18:45:00', '1234'),
 (8000, 'Jackson', 'Martinez', 890123456, '135 Walnut St', 'Dallas', 'TX', 'jackson.martinez@gmail.com', '2022-02-01 11:00:00', '1234');
 
+-- -------------------------------------------------------------------------------
+INSERT INTO EmployeePhone (emp_ID, phone_number)
+SELECT emp_ID, CONCAT('+1-', FLOOR(RAND() * 9000000000) + 1000000000) AS phone_number
+FROM Employee
+WHERE emp_ID BETWEEN 1000 AND 6000;
+
+INSERT INTO CustomerPhone (cust_ID, phone_number)
+SELECT cust_ID, CONCAT('+1-', FLOOR(RAND() * 9000000000) + 1000000000) AS phone_number
+FROM Customer
+WHERE cust_ID BETWEEN 1000 AND 6000;
+
+INSERT INTO EmployeePosition(emp_ID, position)
+SELECT emp_ID, 'manager' FROM Employee;
+
+INSERT INTO hotelphone
+SELECT hotel_chain_code, hotel_code, CONCAT('+1-', FLOOR(RAND() * 9000000000) + 1000000000) AS phone_number
+FROM hotel;
+
+INSERT INTO hotelchainphone
+SELECT hotel_chain_code, CONCAT('+1-', FLOOR(RAND() * 9000000000) + 1000000000) AS phone_number
+FROM hotelchain;
 
 
-
-
-
+insert into hotelchainemail values
+					  ('HILN', 'info@hiltonhotels.com'),
+					  ('MARR', 'info@marriottinternational.com'),
+                      ('CHOI', 'info@choicehotelsinternational.com'),
+                      ('IHGN', 'info@intercontinentalhotelsgroup.com'),
+                      ('HYAT', 'info@hyatthotelscorporation.com');
 
 
 
