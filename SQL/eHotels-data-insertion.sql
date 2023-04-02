@@ -683,7 +683,38 @@ insert into hotelchainemail values
                       ('HYAT', 'info@hyatthotelscorporation.com');
 
 
+------------------------------------------------------------------
 
+--- Bookings ---
+
+-- Inserts a booking for Emma Johnson for a double room at the Hyat Place (HYAT) made on January 15th, 2023,
+-- starting on June 1st, 2023 and ending on June 10th, 2023. The booking is not rented yet.
+INSERT INTO Booking (booking_no, booking_date, start_date, end_date, no_of_persons, status, cust_ID, room_info_no) 
+VALUES (2, '2023-01-15', '2023-06-01', '2023-06-10', 2, 'Not rented yet', 1000, 166);
+
+-- Inserts a booking for Ethan Williams for a single room at the Holiday Inn New York City - Times Square (IHGN)
+-- made on January 1st, 2023,
+-- starting on June 15th, 2023 and ending on June 22nd, 2023. The booking is not rented yet.
+INSERT INTO Booking (booking_no, booking_date, start_date, end_date, no_of_persons, status, cust_ID, room_info_no) 
+VALUES (3, '2023-02-01', '2023-06-15', '2023-06-22', 1, 'Not rented yet', 2000, 132);
+
+-- Inserts a booking for Olivia Brown for a double room at the CHOI LaGuardia (CHOI)
+-- made on March 20th, 2023,
+-- starting on June 5th, 2023 and ending on June 10th, 2023. The booking is cancelled.
+INSERT INTO Booking (booking_no, booking_date, start_date, end_date, no_of_persons, status, cust_ID, room_info_no) 
+VALUES (4, '2023-03-20', '2023-06-05', '2023-06-10', 2, 'Cancelled', 3000, 113);
+
+-- Inserts a booking for Liam Garcia for a 3-person room at the CHOI Hotel Downtown (CHOI)
+-- made on January 25th, 2023,
+-- starting on July 5th, 2023 and ending on July 15th, 2023. The booking is not rented yet.
+INSERT INTO Booking (booking_no, booking_date, start_date, end_date, no_of_persons, status, cust_ID, room_info_no) 
+VALUES (5, '2023-01-25', '2023-07-05', '2023-07-15', 3, 'Not rented yet', 4000, 84);
+
+-- Inserts a booking for Ava Miller for a double room at the Marriott New Orleans (MARR)
+-- made on February 21st, 2023,
+-- starting on May 15th, 2023 and ending on May 25th, 2023. The booking is archived.
+INSERT INTO Booking (booking_no, booking_date, start_date, end_date, no_of_persons, status, cust_ID, room_info_no) 
+VALUES (6, '2023-02-21', '2023-05-15', '2023-05-25', 2, 'Archived', 5000, 69);
 
 
 
