@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Account{% endblock %}
+
+{% block leftNavItems %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{url_for('home')}}">Homepage</a>
+    </li>
+{% endblock %}
 {% block rightNavItems %}
     <li class="nav-item">
         <a class="nav-link" href="{{url_for('account')}}">Account</a>
@@ -8,6 +14,7 @@
         <a class="nav-link" href="{{url_for('index')}}">Log Out</a>
     </li>
 {% endblock %}
+
 {% block content%}
     <div class="account-info-container">
         <h2 class="d-inline-block">Account Information</h2>
@@ -97,7 +104,7 @@
             margin-right: 10px;
         }
 
-        table.invisible_lines {
+        table.no_line {
             outline-style: none;
         }
 

@@ -175,7 +175,7 @@ def view_account_edit():
         if role == 'customer':
             return render_template('account-edit.html', user=session)
         elif role == 'employee':
-            return render_template('account-edit.html', user=session)
+            return render_template('emp_account-edit.html', user=session)
     return redirect(url_for('sign_in'))
 
 @app.route('/account/edit', methods=['POST'])
