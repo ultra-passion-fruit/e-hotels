@@ -56,11 +56,6 @@ def sign_in():
     
     return render_template('sign-in-roles.html')
 
-@app.route('/signin', methods=['GET'])
-def log_out():
-    session.clear()
-    return render_template('sign_in') 
-
 @app.route('/signin', methods=['POST'])
 def authenticate():
     role = request.form['role']
@@ -81,13 +76,7 @@ def authenticate():
             if role == 'customer':
                 return redirect(url_for('home'))
             elif role == 'employee':
-                response = callDbWithStatement("SELECT f_name, l_name FROM Employee WHERE emp_id = " + id + ";")
-                # records is a singleton list, so just take the only item (the 0th)
-                info = response['records'][0]
-                # make dictionnary to pass user info to jinja tempate
-                user = {'f_name' : info[0]['stringValue'],
-                        'l_name' :  info[1]['stringValue']}
-                return render_template('emp_homepage.html', user=user)
+                return redirect(url_for('display_employee_homepage'))
         elif len(response['records']) == 0:
             if role == 'customer':
                 return render_template('sign-in-customer.html', error=True, errorMessage='The Customer ID or Password is incorrect')
@@ -102,7 +91,12 @@ def authenticate():
 
 @app.route('/home', methods=['GET'])
 def home():
-    return render_template('search.html')
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']
+        if role == 'customer':
+            return render_template('search.html')
+    return
 
 @app.route('/account', methods=['GET'])
 def account():
@@ -131,38 +125,6 @@ def account():
                 session.update(user)
                 # renders page with user info
                 return render_template('account.html', user=user)
-        elif role == 'employee':
-            if len(session) == 10:
-                return render_template('account.html', user=session)
-            else:  
-                response = callDbWithStatement("SELECT f_name, l_name, ssn, number_street, city, state_prov, email, hotel_chain_code, hotel_code FROM Employee WHERE emp_ID = " + id + ";")
-                # records is a singleton list, so just take the only item (the 0th)
-                info = response['records'][0]
-                # same for the hotel chain info
-                hotel_chain_code = info[7]['stringValue']
-                response2 = callDbWithStatement("SELECT name FROM HotelChain WHERE hotel_chain_code = '"+hotel_chain_code+"';")
-                hotel_chain = response2['records'][0][0]['stringValue']
-                # same for the hotel info 
-                hotel_code = str(info[8]['longValue'])
-                response3 = callDbWithStatement("SELECT name FROM Hotel WHERE hotel_chain_code = '"+hotel_chain_code+"' AND hotel_code = "+hotel_code+";")
-                hotel = response3['records'][0][0]['stringValue']
-                # make dictionnary to pass user info to jinja tempate
-                user = {'id' : id,
-                        'f_name' : info[0]['stringValue'],
-                        'l_name' : info[1]['stringValue'],
-                        'ssn' : info[2]['longValue'],
-                        'number_street' : info[3]['stringValue'],
-                        'city' : info[4]['stringValue'],
-                        'state_prov' : info[5]['stringValue'],
-                        'email' : info[6]['stringValue'],
-                        'hotel' : hotel,
-                        'hotel_code' : hotel_code,
-                        'hotel_chain' : hotel_chain,
-                        'hotel_chain_code' : hotel_chain_code}
-                # adds user info to the current session, for reference
-                session.update(user)
-                # renders page with user info
-                return render_template('emp_account.html', user=user)
     return redirect(url_for('sign_in'))
 
 @app.route('/account/edit', methods=['GET'])
@@ -174,8 +136,6 @@ def view_account_edit():
         print(role)
         if role == 'customer':
             return render_template('account-edit.html', user=session)
-        elif role == 'employee':
-            return render_template('emp_account-edit.html', user=session)
     return redirect(url_for('sign_in'))
 
 @app.route('/account/edit', methods=['POST'])
@@ -209,11 +169,6 @@ def save_account_edit():
             session['email'] = email
 
             return redirect(url_for('account'))
-        elif role == 'employee':
-
-            # TODO: Employee version of update
-
-            return redirect(url_for('account'))
     return redirect(url_for('sign_in'))
 
 @app.route('/account/edit/password', methods=['GET'])
@@ -221,20 +176,107 @@ def view_change_password():
     if 'id' in session and 'role' in session:
         return render_template('account-change-password.html')
 
-# first try, to test, emp_ID hardcoded for testing
-@app.route('/homepage_employee', methods=['GET'])
-def displayEmployeeHomepage():
-    try:
-        # returns a long json with data and metadata
-        response = callDbWithStatement("SELECT * FROM Employee WHERE emp_ID = 1000;")
-        # takes only the data we want from 'records'
-        data = response['records'][0]
-        current_user_name = data[1]['stringValue'] + " " + data[2]['stringValue']
-        return render_template('homepage_employee.html', user_name=current_user_name)
 
-    except botocore.exceptions.ClientError as error:
-        print(error.response)
 
+############# EMPLOYEE BUSINESS #############
+
+@app.route('/employee/console', methods=['GET'])
+def display_employee_homepage():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']        
+        if role == 'employee':  
+            return render_template('emp-admin-console.html')
+    return
+
+@app.route('/employee/account', methods=['GET'])
+def emp_account():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']        
+        if role == 'employee':
+            if len(session) == 12:
+                return render_template('account.html', user=session)
+            else:  
+                response = callDbWithStatement("SELECT f_name, l_name, ssn, number_street, city, state_prov, email, hotel_chain_code, hotel_code FROM Employee WHERE emp_ID = " + id + ";")
+                # records is a singleton list, so just take the only item (the 0th)
+                info = response['records'][0]
+                # same for the hotel chain info
+                hotel_chain_code = info[7]['stringValue']
+                response2 = callDbWithStatement("SELECT name FROM HotelChain WHERE hotel_chain_code = '"+hotel_chain_code+"';")
+                hotel_chain = response2['records'][0][0]['stringValue']
+                # same for the hotel info 
+                hotel_code = str(info[8]['longValue'])
+                response3 = callDbWithStatement("SELECT name FROM Hotel WHERE hotel_chain_code = '"+hotel_chain_code+"' AND hotel_code = "+hotel_code+";")
+                hotel = response3['records'][0][0]['stringValue']
+                # make dictionnary to pass user info to jinja tempate
+                user = {'id' : id,
+                        'f_name' : info[0]['stringValue'],
+                        'l_name' : info[1]['stringValue'],
+                        'ssn' : info[2]['longValue'],
+                        'number_street' : info[3]['stringValue'],
+                        'city' : info[4]['stringValue'],
+                        'state_prov' : info[5]['stringValue'],
+                        'email' : info[6]['stringValue'],
+                        'hotel' : hotel,
+                        'hotel_code' : hotel_code,
+                        'hotel_chain' : hotel_chain,
+                        'hotel_chain_code' : hotel_chain_code}
+                # adds user info to the current session, for reference
+                session.update(user)
+                # renders page with user info
+                return render_template('emp-account.html', user=user)
+        return redirect(url_for('sign_in'))
+
+@app.route('/employee/account/edit', methods=['GET'])
+def emp_view_account_edit():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']
+        print(id)
+        print(role)
+        if role == 'employee':
+            return render_template('emp-account-edit.html', user=session)
+    return redirect(url_for('sign_in'))
+
+@app.route('/employee/account/edit', methods=['POST'])
+def emp_save_account_edit():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']
+        print(id)
+        print(role)
+        if role == 'employee':
+            # Getting values from form
+            f_name = request.form['f_name']
+            l_name = request.form['l_name']
+            ssn = request.form['ssn']
+            number_street = request.form['number_street']
+            city = request.form['city']
+            state_prov = request.form['state_prov']
+            email = request.form['email']
+
+            # Updating values on databse
+            query = "UPDATE Employee SET f_name = '{}', l_name = '{}', ssn = '{}', number_street = '{}', city = '{}', state_prov = '{}', email = '{}' WHERE emp_ID = '{}';".format(f_name, l_name, ssn, number_street, city, state_prov, email, id)
+            callDbWithStatement(query)
+
+            # Updating session info
+            session['f_name'] = f_name
+            session['l_name'] = l_name
+            session['ssn'] = ssn
+            session['number_street'] = number_street
+            session['city'] = city
+            session['state_prov'] = state_prov
+            session['email'] = email
+
+            return redirect(url_for('emp_account'))
+    return redirect(url_for('sign_in'))
+
+@app.route('/employee/account/edit/password', methods=['GET'])
+def emp_view_change_password():
+    if 'id' in session and 'role' in session:
+        return render_template('emp-change-password.html')
+    return redirect(url_for('sign_in'))
 
 @app.route('/home', methods=['post'])
 def searchHotel():
@@ -289,9 +331,10 @@ def view_search():
    
     return render_template('search.html')
 
-
-
-
+@app.route('/signin', methods=['GET'])
+def log_out():
+    session.clear()
+    return render_template('sign_in') 
 
 
 
