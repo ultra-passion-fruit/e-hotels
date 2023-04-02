@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Account{% endblock %}
+{% block navItems %}
+<li><a href="{{url_for('account')}}">My Account</a></li>
+<li><a href="{{url_for('sign_in', role=None)}}">Log out</a></li>
+{% endblock %}
+{% block content%}
+<form method="POST" action="{{url_for('display_booking')}}">
+    <label for="booking_id" id="booking_id_label">Booking ID</label>
+    <input type="text" id="booking_id_field" name="booking_id" placeholder="Enter the Booking ID">
+    <button type="submit">Search</button>
+</form>
+<style>
+
+    #booking_id_label {
+        text-align: center;
+        font-style: bold;
+    }
+
+    main {
+        max-width: initial;
+        margin: 0;
+    }
+</style>
+{% endblock %}

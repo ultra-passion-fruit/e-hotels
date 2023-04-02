@@ -132,10 +132,37 @@ def account():
                 # renders page with user info
                 return render_template('account.html', user=user)
         elif role == 'employee':
-            
-            # TODO: Employee version of user dictionnary
-
-            return render_template('account.html')
+            if len(session) == 10:
+                return render_template('account.html', user=session)
+            else:  
+                response = callDbWithStatement("SELECT f_name, l_name, ssn, number_street, city, state_prov, email, hotel_chain_code, hotel_code FROM Employee WHERE emp_ID = " + id + ";")
+                # records is a singleton list, so just take the only item (the 0th)
+                info = response['records'][0]
+                # same for the hotel chain info
+                hotel_chain_code = info[7]['stringValue']
+                response2 = callDbWithStatement("SELECT name FROM HotelChain WHERE hotel_chain_code = '"+hotel_chain_code+"';")
+                hotel_chain = response2['records'][0][0]['stringValue']
+                # same for the hotel info 
+                hotel_code = str(info[8]['longValue'])
+                response3 = callDbWithStatement("SELECT name FROM Hotel WHERE hotel_chain_code = '"+hotel_chain_code+"' AND hotel_code = "+hotel_code+";")
+                hotel = response3['records'][0][0]['stringValue']
+                # make dictionnary to pass user info to jinja tempate
+                user = {'id' : id,
+                        'f_name' : info[0]['stringValue'],
+                        'l_name' : info[1]['stringValue'],
+                        'ssn' : info[2]['longValue'],
+                        'number_street' : info[3]['stringValue'],
+                        'city' : info[4]['stringValue'],
+                        'state_prov' : info[5]['stringValue'],
+                        'email' : info[6]['stringValue'],
+                        'hotel' : hotel,
+                        'hotel_code' : hotel_code,
+                        'hotel_chain' : hotel_chain,
+                        'hotel_chain_code' : hotel_chain_code}
+                # adds user info to the current session, for reference
+                session.update(user)
+                # renders page with user info
+                return render_template('emp_account.html', user=user)
     return redirect(url_for('sign_in'))
 
 @app.route('/account/edit', methods=['GET'])

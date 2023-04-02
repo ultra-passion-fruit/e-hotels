@@ -1,30 +1,31 @@
 {% extends 'base.html' %}
 {% block title %}Homepage{% endblock %}
 
-{% block navItems %}
-    <li><a href="#">My Account</a></li>
-    <li><a href="#">Log out</a></li>
+{% block rightNavItems %}                    
+    <li class="nav-item">
+        <a class="nav-link" href="{{url_for('account')}}">Account</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{url_for('index')}}">Log Out</a>
+    </li>
 {% endblock %}
 
 {% block caption %} Logged in as <strong>{{ user.f_name }} {{ user.l_name }}</strong> {% endblock %}
 {% block content%}
     <h2>Employee Homepage</h2>
     <section>
-        <div class="btn-container">
-            <br>
-            <a class='btn btn-dark' href="#">Customer check-in (prebooked)</a>
-            <br>
-            <a class='btn btn-dark' href="#">Walk-in renting</a>
-            <br>
-            <a class='btn btn-dark' href="#">Available Rooms</a>
-        </div>
-    </section>
+        <ul>
+            <li><a class='btn btn-dark' href="#">Customer check-in (prebooked)</a></li>
+            <li><a class='btn btn-dark' href="#">Walk-in renting</a></li>
+            <li><a class='btn btn-dark' href="#">Available Rooms</a></li>
+        </ul>
     <style>
-        .btn-container {
-            padding: 10px;
+        ul {
+            list-style-type: none;
+            text-align: center;
         }
         .btn {
-            margin: 20px;
+            margin: 10px;
         }
     </style>
 {% endblock %}
