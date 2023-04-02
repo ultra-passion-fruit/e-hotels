@@ -1,30 +1,48 @@
 {% extends 'app-base.html' %}
 {% block title %}Hotel Finder{% endblock %}
 {% block content %}
-    <form>
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" placeholder="Enter a location">
+<form action="/searchResult" method="POST">
+    <label for="location">Location:</label>
+    <input type="text" id="location" name="location" placeholder="Enter a location" required>
 
-        <label for="checkin">Check-in Date:</label>
-        <input type="date" id="checkin" name="checkin">
 
-        <label for="checkout">Check-out Date:</label>
-        <input type="date" id="checkout" name="checkout">
+    <label for="checkin">Check-in Date:</label>
+    <input type="date" id="checkin" name="checkin" required>
 
-        <label for="guests">Number of Guests:</label>
-        <select id="guests" name="guests">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
-    </form>
-    <div class="btn-group float-right" role="group" aria-label="search">
-        <button type="submit" class="btn btn-dark">Search</button>
-    </div>    <section>
-        <h3>Search Results</h3>
-        <div class="hotel-list">
-            <!-- Results will be dynamically populated here -->
-        </div>
-    </section>
+
+    <label for="checkout">Check-out Date:</label>
+    <input type="date" id="checkout" name="checkout" required>
+
+
+    <label for="room capacity">Room capacity:</label>
+    <input type="text" id="capacity" name="capacity" required>
+
+
+    <label for="Hotel chain">Hotel chain:</label>
+    <select id="chain" name="chain" required>
+        <option value="Hilton Hotels">Hilton Hotels</option>
+        <option value="Marriott International">Marriott International</option>
+        <option value="Choice Hotels International">Choice Hotels International</option>
+        <option value="InterContinental Hotels Group">InterContinental Hotels Group</option>
+        <option value="Hyatt Hotels Corporation">Hyatt Hotels Corporation</option>
+    </select>
+    <br>
+    <label for="Hotel category">Hotel category:</label>
+    <select id="category" name="category" required>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <br>
+    <label for=" number of rooms in the hotel"> number of rooms in the hotel:</label>
+    <input type="text" id="number of rooms" name="number of rooms" required>
+
+
+    <label for="price of the rooms">Price of the rooms:</label>
+    <input type="text" id="Price" name="Price" required>
+
+
+    <button type="submit">Search</button>
+   
+</form>
 {% endblock %}
