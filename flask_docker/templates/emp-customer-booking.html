@@ -1,0 +1,56 @@
+{% extends 'emp-base.html' %}
+{% block title %}Admin Console{% endblock %}
+{% block content%}
+<span>
+    <p>Draft booking info to be made prettier:</p>
+    <br>
+    <h3>Booking</h3>
+    <ul>
+        <li>no: {{ booking['no'] }}</li>
+        <li>date: {{ booking['date'] }}</li>
+        <li>start_date: {{ booking['start_date'] }}</li>
+        <li>end_date: {{ booking['end_date'] }}</li>
+        <li>no_of_persons: {{ booking['no_of_persons'] }}</li>
+        <li>status: {{ booking['status'] }}</li>
+        <li>cust_ID: {{ booking['cust_ID'] }}</li>
+        <li>room_info_no: {{ booking['room_info_no'] }}</li>
+        <hr>
+    </ul>
+    <hr>
+    <h3>Room</h3>
+    <ul>
+        <li>hotel_chain_code: {{ booking['hotel_chain_code'] }}</li>
+        <li>hotel_code: {{ booking['hotel_code'] }}</li>
+        <li>room_no: {{ booking['room_no'] }}</li>
+        <li>capacity: {{ booking['capacity'] }}</li>
+        <li>price: {{ booking['price'] }}</li>
+        <li>view: {{ booking['view'] }}</li>
+        <li>possible_extension: {{ booking['possible_extension'] }}</li>
+        <li>description: {{ booking['description'] }}</li>
+        <li>status: {{ booking['room_status'] }}</li>
+    </ul>
+</span>
+{% endblock %}
+
+
+
+
+'hotel_chain_code' : data[8]['stringValue'],
+'hotel_code' : data[9]['longValue'],
+'room_no' : data[10]['longValue'],
+'capacity' : data[11]['longValue'],
+'price' : data[12]['longValue'],
+'view' : data[13]['stringValue'],
+'possible_extension' : data[14]['stringValue'],
+'description' : data[15]['stringValue'],
+'status' : data[16]['stringValue']}
+
+
+no: 1
+date: 2023-04-02
+start_date: 2023-05-01
+end_date: 2023-05-07
+no_of_persons: 2
+status: Available
+cust_ID: 1000
+room_info_no: 1

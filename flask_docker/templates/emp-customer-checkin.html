@@ -4,8 +4,9 @@
 <span style="text-align: center;">
     <h2 style="margin-top: 30vh">Customer Check-in</h2>
     <br>
-    <form method="GET" action="#">
-        <input type="text" id="booking-id" name="booking-id" placeholder="Enter the booking ID" style="width: 50vw">
+    <form method="POST" action="{{url_for('emp_search_booking')}}">
+        <input type="text" id="booking_no" name="booking_no" placeholder="Enter the booking number" style="width: 50vw" required>
+        <button type="submit" value="Search">Search</button>
     </form>
 </span>
 {% endblock %}

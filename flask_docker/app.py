@@ -316,6 +316,54 @@ def emp_view_cust_checkin():
         return render_template('emp-customer-checkin.html')
     return redirect(url_for('sign_in'))
 
+@app.route('/employee/cust-checkin/booking_view', methods=['POST'])
+def emp_search_booking():
+    if 'id' in session and 'role' in session:
+        try:
+            booking_no = request.form.get('booking_no')
+            print(booking_no)  # for testing
+            response = callDbWithStatement("SELECT * FROM Booking JOIN RoomInfo USING (room_info_no) WHERE booking_no = '"+booking_no+"';")
+            print("records: ", response['records'])
+            if len(response['records']) == 1:
+                data = response['records'][0]
+                booking = {'room_info_no' : data[0]['longValue'],
+                           'no' : data[1]['longValue'],
+                            'date' : data[2]['stringValue'],
+                            'start_date' : data[3]['stringValue'],
+                            'end_date' : data[4]['stringValue'],
+                            'no_of_persons' : data[5]['longValue'],
+                            'status' : data[6]['stringValue'],
+                            'cust_ID' : data[7]['longValue'],
+                            'hotel_chain_code' : data[8]['stringValue'],
+                            'hotel_code' : data[9]['longValue'],
+                            'room_no' : data[10]['longValue'],
+                            'capacity' : data[11]['longValue'],
+                            'price' : data[12]['longValue'],
+                            'view' : data[13]['stringValue'],
+                            'possible_extension' : data[14]['stringValue'],
+                            'description' : data[15]['stringValue'],
+                            'room_status' : data[16]['stringValue']}
+                
+                # this is a first draft to check if employee does work in that hotel, please leave it here
+                '''
+                emp_hotel_response = callDbWithStatement("SELECT hotel_chain_code, hotel_code FROM Employee WHERE emp_ID = '"+session[id]+"';")
+                emp_hotel_data = emp_hotel_response['records'][0]
+                emp_hotel_chain_code = emp_hotel_data[0]['stringValue']
+                emp_hotel_code = emp_hotel_data[1]['longValue']
+                if booking['hotel_chain_code'] != emp_hotel_chain_code or booking['hotel_code' ] != emp_hotel_code:
+                    # error to be implemented
+                    # dummy return in the meantime:
+                    redirect(url_for('emp_view_cust_checkin'))
+                '''
+                return render_template('emp-customer-booking.html', booking=booking)
+            else: 
+                # error to be implemented
+                # dummy return in the meantime:
+                redirect(url_for('emp_view_cust_checkin'))
+        except botocore.exceptions.ClientError as error:
+            print(error.response)
+    return
+
 #this is for booking
 @app.route('/book', methods=['POST'])
 def bookRoom():
