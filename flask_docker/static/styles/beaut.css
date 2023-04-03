@@ -8,7 +8,6 @@ body {
 	color: #000000;
 	margin: 0;
 	padding: 0;
-    display: grid;
     min-height: 100vh
 }
 
