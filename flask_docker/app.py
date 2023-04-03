@@ -102,7 +102,7 @@ def home():
 
             available_rooms = response['records']
 
-            print(response['records'])
+
 
  
             
@@ -316,8 +316,39 @@ def emp_view_change_password():
 def bookRoom():
 
     print('bookRoom')
-    flash("Your Booking has been applied, please check 'My Booking' for more infomation")
+    room_no = request.form['room_info_no']
+    print(room_no)
+    try:
+            # Perform the search using the search parameters
+
+            response = callDbWithStatement("SELECT COALESCE(MAX(booking_no), 0) FROM booking;")
+
+            
+
+            output = response['records'][0]
+            
+            id = output[0]['longValue'] + 1
+
+            print(id)
+            response = callDbWithStatement("INSERT into booking values( "+ str(id) +", CAST( now() AS Date), '"
+            + session['checkin']+"', '"
+            + session['checkout']+"' , " 
+            + session['capacity'] + "," 
+            + "'Not rented yet' ," 
+            +str(session['id']) + "," +room_no + ")"
+            )
+
+            print("insert done")
+            flash("Your Booking has been applied, please check 'My Booking' for more infomation")
+            return redirect(url_for('home'))
+
+    except botocore.exceptions.ClientError as error:
+            print(error.response)
+            flash("There's an error occur, please try again later")
+            
+
     return redirect(url_for('home'))
+
 
 
 

@@ -17,7 +17,11 @@
             {% if rooms %}
                 {% for room in rooms %}
                     <div style="padding: 10px; background-color: #eeeeee; margin: 60px">
+                        
+                        <!--hotel name-->
                         <p>{{ room[0]['stringValue'] }}</p>
+                        
+                        <!--this is the actrul roon no display in the hotel-->
                         <p>Room Number: {{ room[1]['longValue']  }}</p>
                         <p>Extension: {{ room[2]['stringValue']  }}</p>
                         <p>Capacity: {{ room[3]['longValue']  }}</p>
@@ -25,9 +29,9 @@
                         <p>Address: {{ room[5]['stringValue']  }}, {{ room[6]['stringValue']  }}</p>
                         <h3>Price: {{ room[7]['longValue']  }}</h3>
                         
-                        <!--this will be use for passing room value-->>
-                        <!--<input type="hidden" name="room_id" value="{{ room[1]['longValue'] }}">-->
-
+                        <!--this will be use for passing room_info_no-->
+                        <input type="hidden" name="room_info_no" value="{{ room[8]['longValue'] }}">
+                        
                         <button type="submit">Book</button>
                     </div>
                 {% endfor %}
