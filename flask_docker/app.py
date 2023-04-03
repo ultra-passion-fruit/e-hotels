@@ -98,6 +98,19 @@ def home():
             return render_template('search.html')
     return
 
+@app.route('/account/bookings', methods=['GET'])
+def view_account_bookings():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']
+        print(id)
+        print(role)
+        if role == 'customer':
+            query = "select hotelNameAndRoom.name, bookingList.booking_date, bookingList.start_date, bookingList.end_date, bookingList.no_of_persons, bookingList.booking_no,  bookingList.status, bookingList.room_info_no from (select * from booking where cust_ID = '{}') as bookingList left join (select hotel.name, hotelCodeAndRoom.room_info_no from hotel, (select hotel_code, room_info_no from roominfo where roominfo.room_info_no in  (select room_info_no from booking)) as hotelCodeAndRoom where hotel.hotel_code=hotelCodeAndRoom.hotel_code) as hotelNameAndRoom on bookingList.room_info_no=hotelNameAndRoom.room_info_no;".format(id)
+            response = callDbWithStatement(query)
+            bookings = response['records']
+            return render_template('customer-bookings.html', bookings=bookings)
+
 @app.route('/account', methods=['GET'])
 def account():
     if 'id' in session and 'role' in session:
