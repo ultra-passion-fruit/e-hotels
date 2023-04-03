@@ -25,6 +25,9 @@
                         <p>Address: {{ room[5]['stringValue']  }}, {{ room[6]['stringValue']  }}</p>
                         <h3>Price: {{ room[7]['longValue']  }}</h3>
                         
+                        <!--this will be use for passing room value-->>
+                        <!--<input type="hidden" name="room_id" value="{{ room[1]['longValue'] }}">-->
+
                         <button type="submit">Book</button>
                     </div>
                 {% endfor %}
