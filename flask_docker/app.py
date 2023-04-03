@@ -310,6 +310,11 @@ def emp_view_change_password():
         return render_template('emp-change-password.html')
     return redirect(url_for('sign_in'))
 
+@app.route('/employee/cust-checkin')
+def emp_view_cust_checkin():
+    if 'id' in session and 'role' in session:
+        return render_template('emp-customer-checkin.html')
+    return redirect(url_for('sign_in'))
 
 #this is for booking
 @app.route('/book', methods=['POST'])
