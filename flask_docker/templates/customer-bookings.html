@@ -30,10 +30,10 @@
                 <td><span class="badge badge-pill badge-secondary">Archived</span></td>
                 <td><button type="submit" class="btn btn-dark" role="button" disabled>Cancel Booking</button></td>
                 {% elif status == 'Not rented yet' %}
-                <td><span class="badge badge-pill badge-secondary">Booked</span></td>
+                <td><span class="badge badge-pill badge-primary">Booked</span></td>
                 <td><button type="submit" class="btn btn-dark" role="button">Cancel Booking</button></td>
                 {% elif status == 'Cancelled' %}
-                <td><span class="badge badge-pill badge-secondary">Cancelled</span></td>
+                <td><span class="badge badge-pill badge-danger">Cancelled</span></td>
                 <td><button type="submit" class="btn btn-dark" drole="button" disabled>Cancel Booking</button></td>
                 {% endif %}
             </tr>

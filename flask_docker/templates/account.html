@@ -8,6 +8,7 @@
             <a type="button" href="{{url_for('view_change_password')}}" class="btn btn-primary">Change Password</a>
         </div>
         <hr>
+        <p><strong>Customer ID:</strong> {{ user.id }}</p>
         <p><strong>Name:</strong> {{ user.f_name }} {{ user.l_name }}</p>
         <p><strong>SSN:</strong> {{ user.ssn }}</p>
         <p><strong>Address:</strong> {{ user.number_street }}, {{ user.city }}, {{ user.state_prov }}</p>

@@ -126,7 +126,9 @@ def account():
                 # records is a singleton list, so just take the only item (the 0th)
                 info = response['records'][0]
                 # make dictionnary to pass user info to jinja tempate
-                user = {'f_name' : info[0]['stringValue'],
+                user = {
+                        'id':id,
+                        'f_name' : info[0]['stringValue'],
                         'l_name' :  info[1]['stringValue'],
                         'ssn' :  info[2]['longValue'],
                         'number_street' :  info[3]['stringValue'],
