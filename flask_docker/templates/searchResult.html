@@ -8,10 +8,11 @@
 {% block caption %}{% endblock %}
 {% block content%}
     
-    <form>
-
+    <form form method="post", action="/book">
+    <h3 class="text-center">Search Results</h3>
+    
     <section>
-        <h3>Search Results</h3>
+        
         <div class="hotel-list">
             {% if rooms %}
                 {% for room in rooms %}
@@ -22,9 +23,8 @@
                         <p>Capacity: {{ room[3]['longValue']  }}</p>
                         <p>Description: {{ room[4]['stringValue']  }}</p>
                         <p>Address: {{ room[5]['stringValue']  }}, {{ room[6]['stringValue']  }}</p>
-                        
                         <h3>Price: {{ room[7]['longValue']  }}</h3>
-
+                        
                         <button type="submit">Book</button>
                     </div>
                 {% endfor %}
@@ -34,16 +34,5 @@
         </div>
     </section>
     </form>
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
-    
-    
 {% endblock %}

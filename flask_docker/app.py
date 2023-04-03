@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for, session
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session, flash
 import os
 import boto3
 from botocore.config import Config
@@ -310,29 +310,100 @@ def emp_view_change_password():
         return render_template('emp-change-password.html')
     return redirect(url_for('sign_in'))
 
-@app.route('/home', methods=['post'])
+
+#this is for booking
+@app.route('/book', methods=['POST'])
+def bookRoom():
+
+    print('bookRoom')
+    flash("Your Booking has been applied, please check 'My Booking' for more infomation")
+    return redirect(url_for('home'))
+
+
+
+
+
+
+@app.route('/home/searchHotel', methods=['post'])
 def searchHotel():
    
         # Get the search parameters from the form
 
-        location = request.form['location']
 
-        checkin = request.form['checkin']
+        if request.form['location'] is None:
+            # location field is empty
+            location = session['location']
+        else:
+            # location field is not empty
+            location = request.form['location']
+            session['location'] = location
 
-        checkout = request.form['checkout']
+        if request.form['checkin'] is None:
+            
+            checkin = session['checkin']
+        else:
+           
+            checkin = request.form['checkin']
+            session['checkin'] = checkin
+        
+        if request.form['checkout'] is None:
+            
+            checkout = session['checkout']
+        else:
+           
+            checkout = request.form['checkout']
+            session['checkout'] = checkout
+            
+        if request.form['capacity'] is None:
+            
+            capacity = session['capacity']
+        else:
+           
+            capacity = request.form['capacity']
+            session['capacity'] = capacity
 
-        capacity = request.form['capacity']
+        if request.form['chain'] is None:
+            
+            chain = session['chain']
+        else:
+           
+            chain = request.form['chain']
+            session['chain'] = chain
+        
+        
+        if request.form['category'] is None:
+            
+            chain = session['category']
+        else:
+           
+            category = request.form['category']
+            session['category'] = category
+        
 
-        chain = request.form['chain']
-        category = request.form['category']
-        num_rooms = request.form['number of rooms']
-        price = request.form['Price']
+        if request.form['number of rooms'] is None:
+            
+            num_rooms = session['number of rooms']
+        else:
+           
+            num_rooms = request.form['number of rooms']
+            session['number of rooms'] = num_rooms
+
+        
+        if request.form['Price'] is None:
+            
+            price = session['Price']
+        else:
+           
+            price = request.form['Price']
+            session['Price'] = price
+
+        
 
 
 
         try:
             # Perform the search using the search parameters
-            response = callDbWithStatement("select name,room_no, possible_extension,capacity,description,number_street, city, price  from(SELECT ri.* FROM RoomInfo ri WHERE ri.hotel_code IN (SELECT h.hotel_code FROM Hotel h WHERE h.city = '" + location
+            response = callDbWithStatement("select name,room_no, possible_extension,capacity,description,number_street, city, price, room_info_no  from(SELECT ri.* FROM RoomInfo ri WHERE ri.hotel_code IN (SELECT h.hotel_code FROM Hotel h WHERE h.city = '" + location
             +"' AND h.hotel_chain_code = '"+chain + "' AND h.rating = "+ category +") AND ri.capacity >= "+ capacity
             +"AND ri.price <= "+ price +"AND ri.status = 'Available' AND (SELECT COUNT(*)"
             +" FROM RoomInfo ri2 WHERE ri2.hotel_code = ri.hotel_code) = "+ num_rooms
@@ -349,7 +420,7 @@ def searchHotel():
 
  
             # Return the search results to the template
-            return render_template('searchResult.html', rooms=rooms)
+            return render_template('searchResult.html', rooms=rooms, checkin=checkin, checkout=checkout, capacity=capacity)
 
         except botocore.exceptions.ClientError as error:
             print(error.response)

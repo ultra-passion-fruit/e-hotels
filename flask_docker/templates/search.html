@@ -38,9 +38,21 @@
   margin: 0;
 }
 
+#message {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 18px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 
   </style>
-<form method="post", action="/home">
+  
+<form method="post", action="/home/searchHotel">
 
     <div class="container">
         {% if available_rooms %}
@@ -52,16 +64,26 @@
                     </div>
                   </div>
                   
-                
-                     
-                    
                 {% endfor %}
             {% else %}
                 <p>error</p>
             {% endif %}
     </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
 
-    <br>
+        <div id="message">{{ message }}</div>
+
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+
+
+
     <label for="location">Location:</label>
     <input type="text" id="location" name="location" placeholder="Enter a location" required>
 
@@ -74,7 +96,7 @@
     <input type="date" id="checkout" name="checkout" required>
 
 
-    <label for="room capacity">Room capacity:</label>
+    <label for="room capacity(min)">Room capacity(min):</label>
     <input type="text" id="capacity" name="capacity" required>
 
 
@@ -98,7 +120,7 @@
     <input type="text" id="number of rooms" name="number of rooms" required>
 
 
-    <label for="price of the rooms">Price of the rooms:</label>
+    <label for="price of the rooms(max)">Price of the rooms(max):</label>
     <input type="text" id="Price" name="Price" required>
 
 
