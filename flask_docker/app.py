@@ -94,8 +94,25 @@ def home():
     if 'id' in session and 'role' in session:
         id = session['id']
         role = session['role']
+
+        try:
+            
+            response = callDbWithStatement("SELECT * FROM available_rooms_per_city;")
+
+
+            available_rooms = response['records']
+
+            print(response['records'])
+
+ 
+            
+
+        except botocore.exceptions.ClientError as error:
+            print(error.response)
+
+
         if role == 'customer':
-            return render_template('search.html')
+            return render_template('search.html', available_rooms=available_rooms)
     return
 
 @app.route('/account/bookings', methods=['GET'])
@@ -297,7 +314,7 @@ def emp_view_change_password():
 def searchHotel():
    
         # Get the search parameters from the form
-        print('ANY')
+
         location = request.form['location']
 
         checkin = request.form['checkin']
@@ -330,8 +347,7 @@ def searchHotel():
 
             print(response['records'])
 
-            print('ANY')
-
+ 
             # Return the search results to the template
             return render_template('searchResult.html', rooms=rooms)
 
