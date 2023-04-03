@@ -323,6 +323,8 @@ def bookRoom():
     print('bookRoom')
     room_no = request.form['room_info_no']
     print(room_no)
+    capacity = request.form['capacity']
+    print(capacity)
     try:
             # Perform the search using the search parameters
 
@@ -338,7 +340,7 @@ def bookRoom():
             response = callDbWithStatement("INSERT into booking values( "+ str(id) +", CAST( now() AS Date), '"
             + session['checkin']+"', '"
             + session['checkout']+"' , " 
-            + session['capacity'] + "," 
+            + capacity + "," 
             + "'Not rented yet' ," 
             +str(session['id']) + "," +room_no + ")"
             )
@@ -443,7 +445,7 @@ def searchHotel():
             +"' AND h.hotel_chain_code = '"+chain + "' AND h.rating = "+ category +") AND ri.capacity >= "+ capacity
             +"AND ri.price <= "+ price +"AND ri.status = 'Available' AND (SELECT COUNT(*)"
             +" FROM RoomInfo ri2 WHERE ri2.hotel_code = ri.hotel_code) = "+ num_rooms
-            + "AND NOT EXISTS (SELECT 1 FROM Booking b WHERE b.room_info_no = ri.room_info_no"
+            + "AND NOT EXISTS (SELECT 1 FROM Booking b WHERE b.room_info_no = ri.room_info_no and b.status = 'Not rented yet'"
             +" AND ((b.start_date <= '"+checkout+ "' AND b.end_date >= '"+checkin+"' )"
             +" OR (b.start_date >= '"+checkin+ "' AND b.end_date <= '"+checkout+"' )"
             +" OR (b.start_date <= '"+checkin+ "' AND b.end_date >= '"+checkin+"' )"
