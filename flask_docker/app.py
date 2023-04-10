@@ -1,15 +1,21 @@
-from flask import Flask, request, jsonify, render_template, redirect, url_for, session, flash
+from flask import Flask, request, jsonify, render_template, redirect, url_for, session, flash, make_response
 import os
 import boto3
 from botocore.config import Config
 import botocore
 from dotenv import load_dotenv
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 load_dotenv('.env.dev')
 
 app=Flask(__name__, template_folder='templates')
 
-from werkzeug.middleware.proxy_fix import ProxyFix
+@app.after_request
+def add_header(response):
+    response.cache_control.no_cache = True
+    response.cache_control.max_age = 0
+    return response
+
 
 app.wsgi_app = ProxyFix(
     app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
@@ -56,6 +62,7 @@ def index():
 
 @app.route('/signin', methods=['GET'])
 def sign_in():
+    session.permanent = False
     role = request.args.get('role')
     print(role)
     if role == 'customer':
@@ -103,25 +110,14 @@ def home():
     if 'id' in session and 'role' in session:
         id = session['id']
         role = session['role']
-        try:
-            
-            response = callDbWithStatement("SELECT * FROM available_rooms_per_city;")
-
-
-            available_rooms = response['records']
-
-
-
- 
-            
-
-        except botocore.exceptions.ClientError as error:
-            print(error.response)
-
-
         if role == 'customer':
-            return render_template('search.html', available_rooms=available_rooms)
-    return
+            try:
+                response = callDbWithStatement("SELECT * FROM available_rooms_per_city;")
+                available_rooms = response['records']
+            except botocore.exceptions.ClientError as error:
+                print(error.response)
+        return render_template('search.html', available_rooms=available_rooms)
+    return redirect(url_for('sign_in'))
 
 @app.route('/bookings', methods=['GET'])
 def view_account_bookings():
@@ -135,6 +131,7 @@ def view_account_bookings():
             response = callDbWithStatement(query)
             bookings = response['records']
             return render_template('customer-bookings.html', bookings=bookings)
+    return redirect(url_for('sign_in'))
         
 @app.route('/bookings', methods=['POST'])
 def cancel_booking():
@@ -149,6 +146,7 @@ def cancel_booking():
             query = "UPDATE Booking SET status = 'Cancelled' where booking_no = " + booking_id + ";"
             response = callDbWithStatement(query)
             return redirect(url_for('view_account_bookings'))
+    return redirect(url_for('sign_in'))
 
 @app.route('/rentings', methods=['GET'])
 def view_account_rentings():
@@ -162,6 +160,7 @@ def view_account_rentings():
             response = callDbWithStatement(query)
             rentings = response['records']
             return render_template('customer-rentings.html', rentings=rentings)
+    return redirect(url_for('sign_in'))
 
 
 @app.route('/account', methods=['GET'])
@@ -206,6 +205,7 @@ def delete_account():
             query = "delete from Customer where cust_id = " + id + ";"
             callDbWithStatement(query)
             return redirect(url_for('sign_in'))
+    return redirect(url_for('sign_in'))
 
 @app.route('/account/edit', methods=['GET'])
 def view_account_edit():
@@ -254,21 +254,28 @@ def save_account_edit():
 @app.route('/account/edit/password', methods=['GET'])
 def view_change_password():
     if 'id' in session and 'role' in session:
-        return render_template('account-change-password.html')
+        id = session['id']
+        role = session['role']
+        if role == 'customer':
+            return render_template('account-change-password.html')
+    return redirect(url_for('sign_in'))
     
 @app.route('/account/edit/password', methods=['POST'])
 def change_password():
     if 'id' in session and 'role' in session:
         id = session['id']
-        new_password = request.form['new password']
-        new_password_again = request.form['new password again']
-        if new_password == new_password_again and new_password != '':
-            query = "UPDATE Customer SET password = '" + new_password + "' where cust_id = " + id + ";"
-            callDbWithStatement(query)
-            session.clear()
-            return redirect(url_for('sign_in'))
-        else:
-            return render_template('account-change-password.html', error=True)
+        role = session['role']
+        if role == 'customer':
+            new_password = request.form['new password']
+            new_password_again = request.form['new password again']
+            if new_password == new_password_again and new_password != '':
+                query = "UPDATE Customer SET password = '" + new_password + "' where cust_id = " + id + ";"
+                callDbWithStatement(query)
+                session.clear()
+                return redirect(url_for('sign_in'))
+            else:
+                return render_template('account-change-password.html', error=True)
+    return redirect(url_for('sign_in'))
 
 
 
@@ -281,7 +288,7 @@ def display_employee_homepage():
         role = session['role']        
         if role == 'employee':  
             return render_template('emp-admin-console.html')
-    return
+    return redirect(url_for('sign_in'))
 
 @app.route('/employee/account', methods=['GET'])
 def emp_account():
@@ -320,7 +327,7 @@ def emp_account():
                 session.update(user)
                 # renders page with user info
                 return render_template('emp-account.html', user=user)
-        return redirect(url_for('sign_in'))
+    return redirect(url_for('sign_in'))
 
 @app.route('/employee', methods=['POST'])
 def emp_delete_account():
@@ -333,6 +340,7 @@ def emp_delete_account():
             query = "delete from Employee where emp_id = " + id + ";"
             callDbWithStatement(query)
             return redirect(url_for('sign_in'))
+    return redirect(url_for('sign_in'))
 
 @app.route('/employee/account/edit', methods=['GET'])
 def emp_view_account_edit():
@@ -381,146 +389,157 @@ def emp_save_account_edit():
 @app.route('/employee/account/edit/password', methods=['GET'])
 def emp_view_change_password():
     if 'id' in session and 'role' in session:
-        return render_template('emp-change-password.html')
+        role = session['role']
+        if role == 'employee':
+            return render_template('emp-change-password.html')
     return redirect(url_for('sign_in'))
 
 @app.route('/employee/edit/password', methods=['POST'])
 def emp_change_password():
     if 'id' in session and 'role' in session:
         id = session['id']
-        new_password = request.form['new password']
-        new_password_again = request.form['new password again']
-        if new_password == new_password_again and new_password != '':
-            query = "UPDATE Employee SET password = '" + new_password + "' where emp_id = " + id + ";"
-            callDbWithStatement(query)
-            session.clear()
-            return redirect(url_for('sign_in'))
-        else:
-            return render_template('emp-change-password.html', error=True)
+        role = session['role']
+        if role == 'employee':
+            new_password = request.form['new password']
+            new_password_again = request.form['new password again']
+            if new_password == new_password_again and new_password != '':
+                query = "UPDATE Employee SET password = '" + new_password + "' where emp_id = " + id + ";"
+                callDbWithStatement(query)
+                session.clear()
+                return redirect(url_for('sign_in'))
+            else:
+                return render_template('emp-change-password.html', error=True)
+    return redirect(url_for('sign_in'))
 
 @app.route('/employee/cust-checkin')
 def emp_view_cust_checkin():
     if 'id' in session and 'role' in session:
-        return render_template('emp-customer-checkin.html', message=" ") # no error message
+        role = session['role']
+        if role == 'employee':
+            return render_template('emp-customer-checkin.html', message=" ") # no error message
     return redirect(url_for('sign_in'))
 
 @app.route('/employee/cust-checkin/booking_view', methods=['POST'])
 def emp_search_booking():
     if 'id' in session and 'role' in session:
-        try:
-            booking_no = request.form.get('booking_no')
-            print(booking_no)  # for testing
-            response = callDbWithStatement("SELECT * FROM Booking JOIN RoomInfo USING (room_info_no) WHERE booking_no = '"+booking_no+"';")
-            print("records: ", response['records'])
-            if len(response['records']) == 1:
-                data = response['records'][0]
-                booking = {'bk_room_info_no' : data[0]['longValue'],
-                           'bk_no' : data[1]['longValue'],
-                            'bk_date' : data[2]['stringValue'],
-                            'bk_start_date' : data[3]['stringValue'],
-                            'bk_end_date' : data[4]['stringValue'],
-                            'bk_no_of_persons' : data[5]['longValue'],
-                            'bk_status' : data[6]['stringValue'],
-                            'bk_cust_ID' : data[7]['longValue'],
-                            'bk_hotel_chain_code' : data[8]['stringValue'],
-                            'bk_hotel_code' : data[9]['longValue'],
-                            'bk_room_no' : data[10]['longValue'],
-                            'bk_capacity' : data[11]['longValue'],
-                            'bk_price' : data[12]['longValue'],
-                            'bk_view' : data[13]['stringValue'],
-                            'bk_possible_extension' : data[14]['stringValue'],
-                            'bk_description' : data[15]['stringValue'],
-                            'bk_room_status' : data[16]['stringValue']}
-                
-                # checks if employee does work in that hotel
-                emp_hotel_response = callDbWithStatement("SELECT hotel_chain_code, hotel_code FROM Employee WHERE emp_ID = '"+session['id']+"';")
-                emp_hotel_data = emp_hotel_response['records'][0]
-                emp_hotel_chain_code = emp_hotel_data[0]['stringValue']
-                emp_hotel_code = emp_hotel_data[1]['longValue']
-                if booking['bk_hotel_chain_code'] != emp_hotel_chain_code or booking['bk_hotel_code'] != emp_hotel_code:
-                    return render_template('emp-customer-checkin.html', message="Sorry, you are not allowed to see this booking.")
-                
-                # loads customer name and email in the booking info
-                cust_info_response = callDbWithStatement("SELECT f_name, l_name, email FROM Customer WHERE cust_ID = '"+str(booking['bk_cust_ID'])+"';")
-                cust_info = cust_info_response['records'][0]
-                booking['bk_cust_f_name'] = cust_info[0]['stringValue']
-                booking['bk_cust_l_name'] = cust_info[1]['stringValue']
-                booking['bk_cust_email'] = cust_info[2]['stringValue']
+        role = session['role']
+        if role == 'employee':
+            try:
+                booking_no = request.form.get('booking_no')
+                print(booking_no)  # for testing
+                response = callDbWithStatement("SELECT * FROM Booking JOIN RoomInfo USING (room_info_no) WHERE booking_no = '"+booking_no+"';")
+                print("records: ", response['records'])
+                if len(response['records']) == 1:
+                    data = response['records'][0]
+                    booking = {'bk_room_info_no' : data[0]['longValue'],
+                            'bk_no' : data[1]['longValue'],
+                                'bk_date' : data[2]['stringValue'],
+                                'bk_start_date' : data[3]['stringValue'],
+                                'bk_end_date' : data[4]['stringValue'],
+                                'bk_no_of_persons' : data[5]['longValue'],
+                                'bk_status' : data[6]['stringValue'],
+                                'bk_cust_ID' : data[7]['longValue'],
+                                'bk_hotel_chain_code' : data[8]['stringValue'],
+                                'bk_hotel_code' : data[9]['longValue'],
+                                'bk_room_no' : data[10]['longValue'],
+                                'bk_capacity' : data[11]['longValue'],
+                                'bk_price' : data[12]['longValue'],
+                                'bk_view' : data[13]['stringValue'],
+                                'bk_possible_extension' : data[14]['stringValue'],
+                                'bk_description' : data[15]['stringValue'],
+                                'bk_room_status' : data[16]['stringValue']}
+                    
+                    # checks if employee does work in that hotel
+                    emp_hotel_response = callDbWithStatement("SELECT hotel_chain_code, hotel_code FROM Employee WHERE emp_ID = '"+session['id']+"';")
+                    emp_hotel_data = emp_hotel_response['records'][0]
+                    emp_hotel_chain_code = emp_hotel_data[0]['stringValue']
+                    emp_hotel_code = emp_hotel_data[1]['longValue']
+                    if booking['bk_hotel_chain_code'] != emp_hotel_chain_code or booking['bk_hotel_code'] != emp_hotel_code:
+                        return render_template('emp-customer-checkin.html', message="Sorry, you are not allowed to see this booking.")
+                    
+                    # loads customer name and email in the booking info
+                    cust_info_response = callDbWithStatement("SELECT f_name, l_name, email FROM Customer WHERE cust_ID = '"+str(booking['bk_cust_ID'])+"';")
+                    cust_info = cust_info_response['records'][0]
+                    booking['bk_cust_f_name'] = cust_info[0]['stringValue']
+                    booking['bk_cust_l_name'] = cust_info[1]['stringValue']
+                    booking['bk_cust_email'] = cust_info[2]['stringValue']
 
-                session.update(booking)
+                    session.update(booking)
 
-                if booking['bk_status'] == 'Archived':
-                    return render_template('emp-customer-booking-archived.html', booking=session, message=" ")
+                    if booking['bk_status'] == 'Archived':
+                        return render_template('emp-customer-booking-archived.html', booking=session, message=" ")
 
-                return render_template('emp-customer-booking.html', booking=session)
-            else: 
-                return render_template('emp-customer-checkin.html', message="Sorry, there is no such booking.")
-        except botocore.exceptions.ClientError as error:
-            print(error.response)
-    return
+                    return render_template('emp-customer-booking.html', booking=session)
+                else: 
+                    return render_template('emp-customer-checkin.html', message="Sorry, there is no such booking.")
+            except botocore.exceptions.ClientError as error:
+                print(error.response)
+    return redirect(url_for('sign_in'))
 
 @app.route('/employee/cust-checkin/booking_confirmed', methods=['GET'])
 def payment_confirmed():
     if 'id' in session and 'role' in session:
-        try:
-            response = callDbWithStatement("SELECT COALESCE(MAX(renting_no), 0) + 1 FROM Renting")
-            print(response)
-            new_rent_no = response['records'][0][0]['longValue']
-            print("New rent no: ", new_rent_no)
+        role = session['role']
+        if role == 'employee':
+            try:
+                response = callDbWithStatement("SELECT COALESCE(MAX(renting_no), 0) + 1 FROM Renting")
+                print(response)
+                new_rent_no = response['records'][0][0]['longValue']
+                print("New rent no: ", new_rent_no)
 
-            # inserts new entry into rent
-            query = "INSERT INTO Renting VALUES ('{}', CAST( now() AS Date), '{}', '{}', '{}', 'In progress', '{}', '{}', '{}');".format(new_rent_no, session['bk_start_date'], session['bk_end_date'], session['bk_no_of_persons'], session['id'], session['bk_cust_ID'], session['bk_room_info_no'])
-            callDbWithStatement(query)
+                # inserts new entry into rent
+                query = "INSERT INTO Renting VALUES ('{}', CAST( now() AS Date), '{}', '{}', '{}', 'In progress', '{}', '{}', '{}');".format(new_rent_no, session['bk_start_date'], session['bk_end_date'], session['bk_no_of_persons'], session['id'], session['bk_cust_ID'], session['bk_room_info_no'])
+                callDbWithStatement(query)
 
-            # inserts new entry into made_from (trigger will update booking status on this)
-            query = "INSERT INTO MadeFrom VALUES ('{}', '{}');".format(new_rent_no, session['bk_no'])
-            callDbWithStatement(query)
+                # inserts new entry into made_from (trigger will update booking status on this)
+                query = "INSERT INTO MadeFrom VALUES ('{}', '{}');".format(new_rent_no, session['bk_no'])
+                callDbWithStatement(query)
 
-            session['bk_status'] = 'Archived'
-            return render_template('emp-customer-booking-archived.html', booking=session, message="Rent successful")
-        except botocore.exceptions.ClientError as error:
-            print(error.response)
-    return
+                session['bk_status'] = 'Archived'
+                return render_template('emp-customer-booking-archived.html', booking=session, message="Rent successful")
+            except botocore.exceptions.ClientError as error:
+                print(error.response)
+    return redirect(url_for('sign_in'))
 
 #this is for booking
 @app.route('/book', methods=['POST'])
 def bookRoom():
+    if 'id' in session and 'role' in session:
+        role = session['role']
+        if role == 'customer':
+            print('bookRoom')
+            room_no = request.form['room_info_no']
+            print(room_no)
+            capacity = request.form['capacity']
+            print(capacity)
+            try:
+                    # Perform the search using the search parameters
 
-    print('bookRoom')
-    room_no = request.form['room_info_no']
-    print(room_no)
-    capacity = request.form['capacity']
-    print(capacity)
-    try:
-            # Perform the search using the search parameters
+                    response = callDbWithStatement("SELECT COALESCE(MAX(booking_no), 0) FROM booking;")
 
-            response = callDbWithStatement("SELECT COALESCE(MAX(booking_no), 0) FROM booking;")
+                    
 
-            
+                    output = response['records'][0]
+                    
+                    id = output[0]['longValue'] + 1
 
-            output = response['records'][0]
-            
-            id = output[0]['longValue'] + 1
+                    print(id)
+                    response = callDbWithStatement("INSERT into booking values( "+ str(id) +", CAST( now() AS Date), '"
+                    + session['checkin']+"', '"
+                    + session['checkout']+"' , " 
+                    + capacity + "," 
+                    + "'Not rented yet' ," 
+                    +str(session['id']) + "," +room_no + ")"
+                    )
 
-            print(id)
-            response = callDbWithStatement("INSERT into booking values( "+ str(id) +", CAST( now() AS Date), '"
-            + session['checkin']+"', '"
-            + session['checkout']+"' , " 
-            + capacity + "," 
-            + "'Not rented yet' ," 
-            +str(session['id']) + "," +room_no + ")"
-            )
+                    print("insert done")
+                    flash("Your Booking has been applied, please check 'My Booking' for more infomation")
+                    return redirect(url_for('home'))
 
-            print("insert done")
-            flash("Your Booking has been applied, please check 'My Booking' for more infomation")
-            return redirect(url_for('home'))
-
-    except botocore.exceptions.ClientError as error:
-            print(error.response)
-            flash("There's an error occur, please try again later")
-            
-
-    return redirect(url_for('home'))
+            except botocore.exceptions.ClientError as error:
+                    print(error.response)
+                    flash("There's an error occur, please try again later")
+    return redirect(url_for('sign_in'))
 
 
 
@@ -530,106 +549,105 @@ def bookRoom():
 
 @app.route('/home/searchHotel', methods=['post'])
 def searchHotel():
-   
-        # Get the search parameters from the form
+    if 'id' in session and 'role' in session:
+        role = session['role']
+        if role == 'customer':
+            # Get the search parameters from the form
+            if request.form['location'] is None:
+                # location field is empty
+                location = session['location']
+            else:
+                # location field is not empty
+                location = request.form['location']
+                session['location'] = location
 
-
-        if request.form['location'] is None:
-            # location field is empty
-            location = session['location']
-        else:
-            # location field is not empty
-            location = request.form['location']
-            session['location'] = location
-
-        if request.form['checkin'] is None:
+            if request.form['checkin'] is None:
+                
+                checkin = session['checkin']
+            else:
             
-            checkin = session['checkin']
-        else:
-           
-            checkin = request.form['checkin']
-            session['checkin'] = checkin
-        
-        if request.form['checkout'] is None:
+                checkin = request.form['checkin']
+                session['checkin'] = checkin
             
-            checkout = session['checkout']
-        else:
-           
-            checkout = request.form['checkout']
-            session['checkout'] = checkout
+            if request.form['checkout'] is None:
+                
+                checkout = session['checkout']
+            else:
             
-        if request.form['capacity'] is None:
+                checkout = request.form['checkout']
+                session['checkout'] = checkout
+                
+            if request.form['capacity'] is None:
+                
+                capacity = session['capacity']
+            else:
             
-            capacity = session['capacity']
-        else:
-           
-            capacity = request.form['capacity']
-            session['capacity'] = capacity
+                capacity = request.form['capacity']
+                session['capacity'] = capacity
 
-        if request.form['chain'] is None:
+            if request.form['chain'] is None:
+                
+                chain = session['chain']
+            else:
             
-            chain = session['chain']
-        else:
-           
-            chain = request.form['chain']
-            session['chain'] = chain
-        
-        
-        if request.form['category'] is None:
+                chain = request.form['chain']
+                session['chain'] = chain
             
-            chain = session['category']
-        else:
-           
-            category = request.form['category']
-            session['category'] = category
-        
-
-        if request.form['number of rooms'] is None:
             
-            num_rooms = session['number of rooms']
-        else:
-           
-            num_rooms = request.form['number of rooms']
-            session['number of rooms'] = num_rooms
-
-        
-        if request.form['Price'] is None:
+            if request.form['category'] is None:
+                
+                chain = session['category']
+            else:
             
-            price = session['Price']
-        else:
-           
-            price = request.form['Price']
-            session['Price'] = price
+                category = request.form['category']
+                session['category'] = category
+            
 
-        
+            if request.form['number of rooms'] is None:
+                
+                num_rooms = session['number of rooms']
+            else:
+            
+                num_rooms = request.form['number of rooms']
+                session['number of rooms'] = num_rooms
+
+            
+            if request.form['Price'] is None:
+                
+                price = session['Price']
+            else:
+            
+                price = request.form['Price']
+                session['Price'] = price
+
+            
 
 
 
-        try:
-            # Perform the search using the search parameters
-            response = callDbWithStatement("select name,room_no, possible_extension,capacity,description,number_street, city, price, room_info_no  from(SELECT ri.* FROM RoomInfo ri WHERE ri.hotel_code IN (SELECT h.hotel_code FROM Hotel h WHERE h.city = '" + location
-            +"' AND h.hotel_chain_code = '"+chain + "' AND h.rating = "+ category +") AND ri.capacity >= "+ capacity
-            +"AND ri.price <= "+ price +"AND ri.status = 'Available' AND (SELECT COUNT(*)"
-            +" FROM RoomInfo ri2 WHERE ri2.hotel_code = ri.hotel_code) = "+ num_rooms
-            + "AND NOT EXISTS (SELECT 1 FROM Booking b WHERE b.room_info_no = ri.room_info_no and b.status = 'Not rented yet'"
-            +" AND ((b.start_date <= '"+checkout+ "' AND b.end_date >= '"+checkin+"' )"
-            +" OR (b.start_date >= '"+checkin+ "' AND b.end_date <= '"+checkout+"' )"
-            +" OR (b.start_date <= '"+checkin+ "' AND b.end_date >= '"+checkin+"' )"
-            +" OR (b.start_date <= '"+checkout+ "' AND b.end_date >= '"+checkout+"' )))) as T  join hotel using(hotel_code) order by price")
+            try:
+                # Perform the search using the search parameters
+                response = callDbWithStatement("select name,room_no, possible_extension,capacity,description,number_street, city, price, room_info_no  from(SELECT ri.* FROM RoomInfo ri WHERE ri.hotel_code IN (SELECT h.hotel_code FROM Hotel h WHERE h.city = '" + location
+                +"' AND h.hotel_chain_code = '"+chain + "' AND h.rating = "+ category +") AND ri.capacity >= "+ capacity
+                +"AND ri.price <= "+ price +"AND ri.status = 'Available' AND (SELECT COUNT(*)"
+                +" FROM RoomInfo ri2 WHERE ri2.hotel_code = ri.hotel_code) = "+ num_rooms
+                + "AND NOT EXISTS (SELECT 1 FROM Booking b WHERE b.room_info_no = ri.room_info_no and b.status = 'Not rented yet'"
+                +" AND ((b.start_date <= '"+checkout+ "' AND b.end_date >= '"+checkin+"' )"
+                +" OR (b.start_date >= '"+checkin+ "' AND b.end_date <= '"+checkout+"' )"
+                +" OR (b.start_date <= '"+checkin+ "' AND b.end_date >= '"+checkin+"' )"
+                +" OR (b.start_date <= '"+checkout+ "' AND b.end_date >= '"+checkout+"' )))) as T  join hotel using(hotel_code) order by price")
 
 
-            rooms = response['records']
+                rooms = response['records']
 
-            print(response['records'])
+                print(response['records'])
 
- 
-            # Return the search results to the template
-            return render_template('searchResult.html', rooms=rooms, checkin=checkin, checkout=checkout, capacity=capacity)
+    
+                # Return the search results to the template
+                return render_template('searchResult.html', rooms=rooms, checkin=checkin, checkout=checkout, capacity=capacity)
 
-        except botocore.exceptions.ClientError as error:
-            print(error.response)
-
-        return redirect(url_for('home'))
+            except botocore.exceptions.ClientError as error:
+                print(error.response)
+    return redirect(url_for('sign_in'))
 
 
 @app.route('/home', methods=['GET'])
@@ -639,8 +657,9 @@ def view_search():
 
 @app.route('/signin', methods=['GET'])
 def log_out():
-    session.clear()
-    return render_template('sign_in') 
+    redirect_to = redirect(url_for('sign_in', role=session['role']))
+    [session.pop(key) for key in list(session.keys())]
+    return redirect_to
 
 
 
