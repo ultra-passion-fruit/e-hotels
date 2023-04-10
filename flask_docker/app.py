@@ -3,8 +3,17 @@ import os
 import boto3
 from botocore.config import Config
 import botocore
+from dotenv import load_dotenv
+
+load_dotenv('.env.dev')
 
 app=Flask(__name__, template_folder='templates')
+
+from werkzeug.middleware.proxy_fix import ProxyFix
+
+app.wsgi_app = ProxyFix(
+    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+)
 
 my_config = Config(
     region_name = 'us-east-1'
