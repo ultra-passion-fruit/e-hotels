@@ -150,6 +150,20 @@ def cancel_booking():
             response = callDbWithStatement(query)
             return redirect(url_for('view_account_bookings'))
 
+@app.route('/rentings', methods=['GET'])
+def view_account_rentings():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']
+        print(id)
+        print(role)
+        if role == 'customer':
+            query = "select hotelNameAndRoom.name, rentingList.checkin_date, rentingList.start_date, rentingList.end_date, rentingList.no_of_persons, rentingList.renting_no,  rentingList.status, rentingList.room_info_no from (select * from renting where cust_ID = '{}') as rentingList left join (select hotel.name, hotelCodeAndRoom.room_info_no from hotel, (select hotel_code, room_info_no from roominfo where roominfo.room_info_no in  (select room_info_no from renting)) as hotelCodeAndRoom where hotel.hotel_code=hotelCodeAndRoom.hotel_code) as hotelNameAndRoom on rentingList.room_info_no=hotelNameAndRoom.room_info_no;".format(id)
+            response = callDbWithStatement(query)
+            rentings = response['records']
+            return render_template('customer-rentings.html', rentings=rentings)
+
+
 @app.route('/account', methods=['GET'])
 def account():
     if 'id' in session and 'role' in session:
