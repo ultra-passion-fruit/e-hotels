@@ -124,7 +124,7 @@ def home():
             return render_template('search.html', available_rooms=available_rooms)
     return
 
-@app.route('/account/bookings', methods=['GET'])
+@app.route('/bookings', methods=['GET'])
 def view_account_bookings():
     if 'id' in session and 'role' in session:
         id = session['id']
@@ -136,6 +136,20 @@ def view_account_bookings():
             response = callDbWithStatement(query)
             bookings = response['records']
             return render_template('customer-bookings.html', bookings=bookings)
+        
+@app.route('/bookings', methods=['POST'])
+def cancel_booking():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']
+        booking_id = request.form['booking_id']
+        print("Booking ID to delet: " + booking_id)
+        print(id)
+        print(role)
+        if role == 'customer':
+            query = "delete from Booking where booking_no = " + booking_id + ";"
+            response = callDbWithStatement(query)
+            return redirect(url_for('view_account_bookings'))
 
 @app.route('/account', methods=['GET'])
 def account():
