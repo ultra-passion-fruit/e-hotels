@@ -103,7 +103,6 @@ def home():
     if 'id' in session and 'role' in session:
         id = session['id']
         role = session['role']
-
         try:
             
             response = callDbWithStatement("SELECT * FROM available_rooms_per_city;")
@@ -147,7 +146,7 @@ def cancel_booking():
         print(id)
         print(role)
         if role == 'customer':
-            query = "delete from Booking where booking_no = " + booking_id + ";"
+            query = "UPDATE Booking SET status = 'Cancelled' where booking_no = " + booking_id + ";"
             response = callDbWithStatement(query)
             return redirect(url_for('view_account_bookings'))
 
@@ -181,6 +180,17 @@ def account():
                 # renders page with user info
                 return render_template('account.html', user=user)
     return redirect(url_for('sign_in'))
+
+@app.route('/account', methods=['POST'])
+def delete_account():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']
+        print(id)
+        print(role)
+        if role == 'customer':
+            query = "delete from Customer where cust_id = " + id + ";"
+            callDbWithStatement(query)
 
 @app.route('/account/edit', methods=['GET'])
 def view_account_edit():
@@ -230,6 +240,20 @@ def save_account_edit():
 def view_change_password():
     if 'id' in session and 'role' in session:
         return render_template('account-change-password.html')
+    
+@app.route('/account/edit/password', methods=['POST'])
+def change_password():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        new_password = request.form['new password']
+        new_password_again = request.form['new password again']
+        if new_password == new_password_again:
+            query = "UPDATE Customer SET password = '" + new_password + "' where cust_id = " + id + ";"
+            callDbWithStatement(query)
+            session.clear()
+            return redirect(url_for('sign_in'))
+        else:
+            return render_template('account-change-password.html', error=True)
 
 
 
