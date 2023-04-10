@@ -33,16 +33,8 @@
             <td> {{ booking['bk_status'] }} </td>
         </tr>
         <tr>
-            <td><strong>Customer ID:</strong></td>
+            <td><strong>Client ID:</strong></td>
             <td> {{ booking['bk_cust_ID'] }} </td>
-        </tr>
-        <tr>
-            <td><strong>Customer name:</strong></td>
-            <td> {{ booking['bk_cust_f_name'] }} {{ booking['bk_cust_l_name'] }} </td>
-        </tr>
-        <tr>
-            <td><strong>Customer email:</strong></td>
-            <td> {{ booking['bk_cust_email'] }} </td>
         </tr>
     </table>
 
@@ -89,9 +81,10 @@
             <td> {{ booking['bk_room_status'] }} </td>
         </tr>
     </table>
-    
+
     <div class="btn-group float-right" role="group" aria-label="Basic example">
-        <a type="button" href="{{url_for('payment_confirmed')}}" class="btn btn-dark">Confirm payment</a>
+        <p style="color:green;margin-right:30px;"> {{ message }} </p>
+        <a type="button" href="{{url_for('display_employee_homepage')}}" class="btn btn-dark">Back to homepage</a>
     </div>
 </div>
 <style>

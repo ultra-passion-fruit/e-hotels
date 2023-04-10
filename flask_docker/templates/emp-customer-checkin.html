@@ -8,5 +8,14 @@
         <input type="text" id="booking_no" name="booking_no" placeholder="Enter the booking number" style="width: 50vw" required>
         <button type="submit" value="Search">Search</button>
     </form>
+    <br>
+    <p class="error_message"> {{ message }}</p>
 </span>
+
+<style>
+    .error_message {
+        color: red;
+        text-align: center;
+    }
+</style>
 {% endblock %}

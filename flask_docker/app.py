@@ -313,7 +313,7 @@ def emp_view_change_password():
 @app.route('/employee/cust-checkin')
 def emp_view_cust_checkin():
     if 'id' in session and 'role' in session:
-        return render_template('emp-customer-checkin.html')
+        return render_template('emp-customer-checkin.html', message=" ") # no error message
     return redirect(url_for('sign_in'))
 
 @app.route('/employee/cust-checkin/booking_view', methods=['POST'])
@@ -326,40 +326,70 @@ def emp_search_booking():
             print("records: ", response['records'])
             if len(response['records']) == 1:
                 data = response['records'][0]
-                booking = {'room_info_no' : data[0]['longValue'],
-                           'no' : data[1]['longValue'],
-                            'date' : data[2]['stringValue'],
-                            'start_date' : data[3]['stringValue'],
-                            'end_date' : data[4]['stringValue'],
-                            'no_of_persons' : data[5]['longValue'],
-                            'status' : data[6]['stringValue'],
-                            'cust_ID' : data[7]['longValue'],
-                            'hotel_chain_code' : data[8]['stringValue'],
-                            'hotel_code' : data[9]['longValue'],
-                            'room_no' : data[10]['longValue'],
-                            'capacity' : data[11]['longValue'],
-                            'price' : data[12]['longValue'],
-                            'view' : data[13]['stringValue'],
-                            'possible_extension' : data[14]['stringValue'],
-                            'description' : data[15]['stringValue'],
-                            'room_status' : data[16]['stringValue']}
+                booking = {'bk_room_info_no' : data[0]['longValue'],
+                           'bk_no' : data[1]['longValue'],
+                            'bk_date' : data[2]['stringValue'],
+                            'bk_start_date' : data[3]['stringValue'],
+                            'bk_end_date' : data[4]['stringValue'],
+                            'bk_no_of_persons' : data[5]['longValue'],
+                            'bk_status' : data[6]['stringValue'],
+                            'bk_cust_ID' : data[7]['longValue'],
+                            'bk_hotel_chain_code' : data[8]['stringValue'],
+                            'bk_hotel_code' : data[9]['longValue'],
+                            'bk_room_no' : data[10]['longValue'],
+                            'bk_capacity' : data[11]['longValue'],
+                            'bk_price' : data[12]['longValue'],
+                            'bk_view' : data[13]['stringValue'],
+                            'bk_possible_extension' : data[14]['stringValue'],
+                            'bk_description' : data[15]['stringValue'],
+                            'bk_room_status' : data[16]['stringValue']}
                 
-                # this is a first draft to check if employee does work in that hotel, please leave it here
-                '''
-                emp_hotel_response = callDbWithStatement("SELECT hotel_chain_code, hotel_code FROM Employee WHERE emp_ID = '"+session[id]+"';")
+                # checks if employee does work in that hotel
+                emp_hotel_response = callDbWithStatement("SELECT hotel_chain_code, hotel_code FROM Employee WHERE emp_ID = '"+session['id']+"';")
                 emp_hotel_data = emp_hotel_response['records'][0]
                 emp_hotel_chain_code = emp_hotel_data[0]['stringValue']
                 emp_hotel_code = emp_hotel_data[1]['longValue']
-                if booking['hotel_chain_code'] != emp_hotel_chain_code or booking['hotel_code' ] != emp_hotel_code:
-                    # error to be implemented
-                    # dummy return in the meantime:
-                    redirect(url_for('emp_view_cust_checkin'))
-                '''
-                return render_template('emp-customer-booking.html', booking=booking)
+                if booking['bk_hotel_chain_code'] != emp_hotel_chain_code or booking['bk_hotel_code'] != emp_hotel_code:
+                    return render_template('emp-customer-checkin.html', message="Sorry, you are not allowed to see this booking.")
+                
+                # loads customer name and email in the booking info
+                cust_info_response = callDbWithStatement("SELECT f_name, l_name, email FROM Customer WHERE cust_ID = '"+str(booking['bk_cust_ID'])+"';")
+                cust_info = cust_info_response['records'][0]
+                booking['bk_cust_f_name'] = cust_info[0]['stringValue']
+                booking['bk_cust_l_name'] = cust_info[1]['stringValue']
+                booking['bk_cust_email'] = cust_info[2]['stringValue']
+
+                session.update(booking)
+
+                if booking['bk_status'] == 'Archived':
+                    return render_template('emp-customer-booking-archived.html', booking=session, message=" ")
+
+                return render_template('emp-customer-booking.html', booking=session)
             else: 
-                # error to be implemented
-                # dummy return in the meantime:
-                redirect(url_for('emp_view_cust_checkin'))
+                return render_template('emp-customer-checkin.html', message="Sorry, there is no such booking.")
+        except botocore.exceptions.ClientError as error:
+            print(error.response)
+    return
+
+@app.route('/employee/cust-checkin/booking_confirmed', methods=['GET'])
+def payment_confirmed():
+    if 'id' in session and 'role' in session:
+        try:
+            response = callDbWithStatement("SELECT COALESCE(MAX(renting_no), 0) + 1 FROM Renting")
+            print(response)
+            new_rent_no = response['records'][0][0]['longValue']
+            print("New rent no: ", new_rent_no)
+
+            # inserts new entry into rent
+            query = "INSERT INTO Renting VALUES ('{}', CAST( now() AS Date), '{}', '{}', '{}', 'In progress', '{}', '{}', '{}');".format(new_rent_no, session['bk_start_date'], session['bk_end_date'], session['bk_no_of_persons'], session['id'], session['bk_cust_ID'], session['bk_room_info_no'])
+            callDbWithStatement(query)
+
+            # inserts new entry into made_from (trigger will update booking status on this)
+            query = "INSERT INTO MadeFrom VALUES ('{}', '{}');".format(new_rent_no, session['bk_no'])
+            callDbWithStatement(query)
+
+            session['bk_status'] = 'Archived'
+            return render_template('emp-customer-booking-archived.html', booking=session, message="Rent successful")
         except botocore.exceptions.ClientError as error:
             print(error.response)
     return
