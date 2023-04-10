@@ -1,0 +1,77 @@
+{% extends 'app-base.html' %}
+{% block title %}My Rentings{% endblock %}
+{% block content%}
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Hotel</th>
+                <th>Check-in Date</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>No. of Persons</th>
+                <th>Renting ID</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for renting in rentings %}
+            <tr>
+                <td>{{renting[0]['stringValue']}}</td> <!-- hotel name -->
+                <td>{{renting[1]['stringValue']}}</td> <!-- renting date -->
+                <td>{{renting[2]['stringValue']}}</td> <!-- start date-->
+                <td>{{renting[3]['stringValue']}}</td> <!-- end date -->
+                <td>{{renting[4]['longValue']}}</td> <!-- no of peeople  -->
+                <td >{{renting[5]['longValue']}}</td> <!-- renting id -->
+                <input type="hidden" name="renting_id" value="{{renting[5]['longValue']}}">
+                {% set status = renting[6]['stringValue'] %}
+                {% if status == 'Archived' %}
+                    <td><span class="badge badge-pill badge-secondary">Archived</span></td>
+                {% elif status == 'In progress' %}
+                    <td><span class="badge badge-pill badge-primary">Renting</span></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<style>
+    .container {
+        max-width: fit-content;
+        padding: 2%;
+    }
+
+    .table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        margin: 0 auto;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th,
+    .table td {
+        padding: 12px 30px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .table th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+        border-top: 0;
+    }
+
+    main {
+        max-width: initial;
+        margin: 0;
+    }
+
+    body {
+        display: initial;
+    }
+</style>
+{% endblock %}

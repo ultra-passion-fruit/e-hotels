@@ -1,6 +1,7 @@
 {% extends 'emp-base.html' %}
 {% block title %}Account{% endblock %}
 {% block content%}
+<form method="POST" action="{{url_for('emp_delete_account')}}">
     <div class="account-info-container">
         <h2 class="d-inline-block">Account Information</h2>
         <div class="btn-group float-right" role="group" aria-label="Basic example">
@@ -11,7 +12,7 @@
         <table class="no_line">
             <tr>
                 <td><strong>Employee ID:</strong></td>
-                <td> {{ user.id }}  </td>
+                <td> {{ user.id }} </td>
             </tr>
             <tr>
                 <td><strong>Name:</strong></td>
@@ -23,7 +24,7 @@
             </tr>
             <tr>
                 <td><strong>Address:</strong></td>
-                <td> {{ user.number_street }},  {{ user.city }}, {{ user.state_prov }} </td>
+                <td> {{ user.number_street }}, {{ user.city }}, {{ user.state_prov }} </td>
             </tr>
             <tr>
                 <td><strong>Email:</strong></td>
@@ -34,60 +35,63 @@
         <table class="no_line">
             <tr>
                 <td><strong>Hotel:</strong></td>
-                <td> {{ user.hotel }}  (Code: {{ user.hotel_code }})</td>
+                <td> {{ user.hotel }} (Code: {{ user.hotel_code }})</td>
             </tr>
             <tr>
                 <td><strong>Hotel Chain:</strong></td>
                 <td> {{ user.hotel_chain }} (Code: {{ user.hotel_chain_code }}) </td>
             </tr>
         </table>
+        <p class="text-muted" style="text-align: right;">Your account will be deleted the moment you click the button.
+        </p>
         <div class="btn-group float-right" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-danger">Delete Account</button>
+            <button type="submit" class="btn btn-danger mb-2">Delete Account</button>
         </div>
     </div>
-    <style>
-        .account-info-container {
-            border: 1px solid #ccc;
-            padding: 20px;
-            margin: 20px auto;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 70%;
-            width: 100%;
-            text-align: left;
-            overflow: auto;
-        }
+</form>
+<style>
+    .account-info-container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 20px auto;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 70%;
+        width: 100%;
+        text-align: left;
+        overflow: auto;
+    }
 
-        .account-info-container h2 {
-            font-size: 24px;
-            margin-top: 0;
-        }
+    .account-info-container h2 {
+        font-size: 24px;
+        margin-top: 0;
+    }
 
-        .account-info-container hr {
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
+    .account-info-container hr {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
 
-        .account-info-container p {
-            margin: 10px 0;
-        }
+    .account-info-container p {
+        margin: 10px 0;
+    }
 
-        .account-info-container strong {
-            font-weight: bold;
-            margin-right: 10px;
-        }
+    .account-info-container strong {
+        font-weight: bold;
+        margin-right: 10px;
+    }
 
-        table.no_line {
-            outline-style: none;
-        }
+    table.no_line {
+        outline-style: none;
+    }
 
-        main {
-            max-width: initial;
-            margin: 0;
-        }
+    main {
+        max-width: initial;
+        margin: 0;
+    }
 
-        body {
-            display: initial;
-        }
-    </style>
+    body {
+        display: initial;
+    }
+</style>
 {% endblock %}

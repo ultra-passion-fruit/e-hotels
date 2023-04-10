@@ -205,6 +205,7 @@ def delete_account():
         if role == 'customer':
             query = "delete from Customer where cust_id = " + id + ";"
             callDbWithStatement(query)
+            return redirect(url_for('sign_in'))
 
 @app.route('/account/edit', methods=['GET'])
 def view_account_edit():
@@ -261,7 +262,7 @@ def change_password():
         id = session['id']
         new_password = request.form['new password']
         new_password_again = request.form['new password again']
-        if new_password == new_password_again:
+        if new_password == new_password_again and new_password != '':
             query = "UPDATE Customer SET password = '" + new_password + "' where cust_id = " + id + ";"
             callDbWithStatement(query)
             session.clear()
@@ -321,6 +322,18 @@ def emp_account():
                 return render_template('emp-account.html', user=user)
         return redirect(url_for('sign_in'))
 
+@app.route('/employee', methods=['POST'])
+def emp_delete_account():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        role = session['role']
+        print(id)
+        print(role)
+        if role == 'employee':
+            query = "delete from Employee where emp_id = " + id + ";"
+            callDbWithStatement(query)
+            return redirect(url_for('sign_in'))
+
 @app.route('/employee/account/edit', methods=['GET'])
 def emp_view_account_edit():
     if 'id' in session and 'role' in session:
@@ -370,6 +383,20 @@ def emp_view_change_password():
     if 'id' in session and 'role' in session:
         return render_template('emp-change-password.html')
     return redirect(url_for('sign_in'))
+
+@app.route('/employee/edit/password', methods=['POST'])
+def emp_change_password():
+    if 'id' in session and 'role' in session:
+        id = session['id']
+        new_password = request.form['new password']
+        new_password_again = request.form['new password again']
+        if new_password == new_password_again and new_password != '':
+            query = "UPDATE Employee SET password = '" + new_password + "' where emp_id = " + id + ";"
+            callDbWithStatement(query)
+            session.clear()
+            return redirect(url_for('sign_in'))
+        else:
+            return render_template('emp-change-password.html', error=True)
 
 @app.route('/employee/cust-checkin')
 def emp_view_cust_checkin():
