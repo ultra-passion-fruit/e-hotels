@@ -414,41 +414,59 @@ def emp_change_password():
 @app.route('/employee/console/results', methods=['POST'])
 def search_hotel_rooms():
     if 'id' in session and 'role' in session:
+        if session['role'] == 'employee':
+            if request.form['start_date'] is None:
+                start_date = 'CAST( now() AS Date)' # checkin today by default
+            else:
+                start_date = request.form['start_date']
 
-        if request.form['start_date'] is None:
-            start_date = 'CAST( now() AS Date)' # checkin today by default
-        else:
-            start_date = request.form['start_date']
+            if request.form['end_date'] is None:
+                end_date = 'CAST( now() AS Date) + 1' # checkout tomorrow by default
+            else:
+                end_date = request.form['end_date']
 
-        if request.form['end_date'] is None:
-            end_date = 'CAST( now() AS Date) + 1' # checkout tomorrow by default
-        else:
-            end_date = request.form['end_date']
+            if request.form['no_of_persons'] is None:
+                no_of_persons = 1
+            else:
+                no_of_persons = request.form['no_of_persons']
+                
+            query = "SELECT hotel_chain_code, hotel_code FROM Employee WHERE emp_ID = '{}';".format(session['id'])
+            response = callDbWithStatement(query)
+            print(response)
+            hotel_chain_code = response['records'][0][0]['stringValue']
+            hotel_code = response['records'][0][1]['longValue']
 
-        if request.form['no_of_persons'] is None:
-            no_of_persons = 1
-        else:
-            no_of_persons = request.form['no_of_persons']
-            
-        query = "SELECT hotel_chain_code, hotel_code FROM Employee WHERE emp_ID = '{}';".format(session['id'])
-        response = callDbWithStatement(query)
-        print(response)
-        hotel_chain_code = response['records'][0][0]['stringValue']
-        hotel_code = response['records'][0][1]['longValue']
+            query = "WITH MyHotelRooms AS (SELECT * FROM Room WHERE hotel_chain_code = '"+hotel_chain_code+"' AND hotel_code = "+str(hotel_code)+"), " \
+            +"MyHotelRoomsInfo AS(SELECT * FROM MyHotelRooms JOIN RoomInfo USING(room_info_no, room_no)) " \
+            +"SELECT room_no, possible_extension, capacity, description, price, room_info_no FROM MyHotelRoomsInfo mhri " \
+            +"WHERE "+no_of_persons+" <= capacity AND NOT EXISTS (SELECT 1 FROM Booking b WHERE b.room_info_no = mhri.room_info_no AND " \
+            +"(('"+start_date+"' <= b.start_date AND b.end_date <= '"+end_date+"') " \
+            +"OR ('"+start_date+"' BETWEEN b.start_date AND b.end_date) " \
+            +"OR ('"+end_date+"' BETWEEN b.start_date AND b.end_date)));"
+            response = callDbWithStatement(query)
+            available_rooms = response['records']
 
-        query = "WITH MyHotelRooms AS (SELECT * FROM Room WHERE hotel_chain_code = '"+hotel_chain_code+"' AND hotel_code = "+str(hotel_code)+"), " \
-        +"MyHotelRoomsInfo AS(SELECT * FROM MyHotelRooms JOIN RoomInfo USING(room_info_no, room_no)) " \
-        +"SELECT room_no, possible_extension, capacity, description, price FROM MyHotelRoomsInfo mhri " \
-        +"WHERE "+no_of_persons+" <= capacity AND NOT EXISTS (SELECT 1 FROM Booking b WHERE b.room_info_no = mhri.room_info_no AND " \
-        +"(('"+start_date+"' <= b.start_date AND b.end_date <= '"+end_date+"') " \
-        +"OR ('"+start_date+"' BETWEEN b.start_date AND b.end_date) " \
-        +"OR ('"+end_date+"' BETWEEN b.start_date AND b.end_date)));"
-        response = callDbWithStatement(query)
-        available_rooms = response['records']
+            renting = {'rt_start_date' : start_date,
+                       'rt_end_date' : end_date,
+                       'rt_no_of_persons' : no_of_persons}
+            session.update(renting)
 
-        return render_template("emp-avail-search-result.html", rooms=available_rooms)
+            return render_template("emp-avail-search-result.html", rooms=available_rooms)
 
-        
+    return redirect(url_for('sign_in'))
+
+@app.route('/employee/console/results/complete-rent', methods=['POST'])
+def complete_rent():
+    if 'id' in session and 'role' in session:
+        if session['role'] == 'employee':
+            room_info_no = request.form['room_info_no']
+            session['rt_room_info_no'] = room_info_no
+
+            response = callDbWithStatement("SELECT room_no FROM RoomInfo WHERE room_info_no = "+str(room_info_no)+";")
+            room_no = response['records'][0][0]['longValue']
+            session['rt_room_no'] = room_no
+
+            return render_template('emp-complete-rent.html', renting=session)
     return redirect(url_for('sign_in'))
 
 @app.route('/employee/cust-checkin')
