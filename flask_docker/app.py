@@ -590,7 +590,7 @@ def bookRoom():
             print('bookRoom')
             room_no = request.form['room_info_no']
             print(room_no)
-            capacity = request.form['capacity']
+            
             print(capacity)
             try:
                     # Perform the search using the search parameters
