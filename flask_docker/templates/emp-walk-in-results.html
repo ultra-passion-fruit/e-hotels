@@ -1,0 +1,57 @@
+{% extends 'emp-base.html' %}
+{% block title %}Admin Console{% endblock %}
+{% block content%}
+
+<form form method="post", action="{{url_for('complete_rent')}}">
+    <br>
+    <h2 class="text-center">Search Results</h2>
+    <br>
+    <br>
+    
+    <section>
+        
+        <div class="hotel-list" class="room-box">
+            {% if rooms %}
+                {% for room in rooms %}
+                    <div class="room-box">
+                        
+                        <!--actual room info-->
+                        <p style="font-size: 20px;"><strong>Room Number: {{ room[0]['longValue'] }}</strong></p>
+                        <p>Extension: {{ room[1]['stringValue'] }}</p>
+                        <p>Capacity: {{ room[2]['longValue'] }}</p>
+                        <p>Description: {{ room[3]['stringValue'] }}</p>
+                        <p>Price: {{ room[4]['longValue'] }}</p>
+                        
+                        <!--this will be used for passing room_info_no-->
+                        <input type="hidden" name="room_info_no" value="{{ room[5]['longValue'] }}">
+                        
+                        <button type="submit">Rent</button>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No rooms available matching your search criteria</p>
+            {% endif %}
+        </div>
+    </section>
+</form>
+
+<style>
+    .room-box {
+        border: 1px;
+        width: auto;
+        margin: 20px;
+        padding: 10px; 
+        background-color: #eeeeee;
+        line-height: normal;
+    }
+
+    form button {
+        color: white;
+        background-color: #1c1c1c;
+        border-style: none;
+        padding: 10px;
+    }
+</style>
+
+
+{% endblock %}

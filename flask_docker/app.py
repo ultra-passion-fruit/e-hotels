@@ -679,8 +679,15 @@ def emp_change_password():
                 return render_template("emp-change-password.html", error=True)
     return redirect(url_for("sign_in"))
 
+@app.route("/employee/walk-in/results", methods=["GET"])
+def view_walk_in_search():
+    if "id" in session and "role" in session:
+        if session["role"] == "employee":
+            return render_template("emp-walk-in.html")
+    return redirect(url_for("sign_in"))
 
-@app.route("/employee/console/results", methods=["POST"])
+
+@app.route("/employee/walk-in/results", methods=["POST"])
 def search_hotel_rooms():
     if "id" in session and "role" in session:
         if session["role"] == "employee":
@@ -741,13 +748,13 @@ def search_hotel_rooms():
             session.update(renting)
 
             return render_template(
-                "emp-avail-search-result.html", rooms=available_rooms
+                "emp-walk-in-results.html", rooms=available_rooms
             )
 
     return redirect(url_for("sign_in"))
 
 
-@app.route("/employee/console/results/complete-rent", methods=["POST"])
+@app.route("/employee/walk-in/results/complete-rent", methods=["POST"])
 def complete_rent():
     if "id" in session and "role" in session:
         if session["role"] == "employee":
@@ -762,11 +769,11 @@ def complete_rent():
             room_no = response["records"][0][0]["longValue"]
             session["rt_room_no"] = room_no
 
-            return render_template("emp-complete-rent.html", renting=session)
+            return render_template("emp-walk-in-rent-view.html", renting=session)
     return redirect(url_for("sign_in"))
 
 
-@app.route("/employee/console/results/rent-confirmed", methods=["POST"])
+@app.route("/employee/walk-in/results/rent-confirmed", methods=["POST"])
 def confirm_rent():
     if "id" in session and "role" in session:
         if session["role"] == "employee":
@@ -795,22 +802,22 @@ def confirm_rent():
             session["rt_room_no"] = room_no
             session["rt_status"] = "In progress"
 
-            return render_template("emp-rent-confirmed.html", rent=session)
+            return render_template("emp-walk-in-rent-confirmed.html", rent=session)
     return redirect(url_for("sign_in"))
 
 
-@app.route("/employee/cust-checkin")
+@app.route("/employee/check-in")
 def emp_view_cust_checkin():
     if "id" in session and "role" in session:
         role = session["role"]
         if role == "employee":
             return render_template(
-                "emp-customer-checkin.html", message=" "
+                "emp-check-in.html", message=" "
             )  # no error message
     return redirect(url_for("sign_in"))
 
 
-@app.route("/employee/cust-checkin/booking_view", methods=["POST"])
+@app.route("/employee/check-in/booking-view", methods=["POST"])
 def emp_search_booking():
     if "id" in session and "role" in session:
         role = session["role"]
@@ -860,7 +867,7 @@ def emp_search_booking():
                         or booking["bk_hotel_code"] != emp_hotel_code
                     ):
                         return render_template(
-                            "emp-customer-checkin.html",
+                            "emp-check-in.html",
                             message="Sorry, you are not allowed to see this booking.",
                         )
 
@@ -879,15 +886,15 @@ def emp_search_booking():
 
                     if booking["bk_status"] == "Archived":
                         return render_template(
-                            "emp-customer-booking-archived.html",
+                            "emp-check-in-booking-archived.html",
                             booking=session,
                             message=" ",
                         )
 
-                    return render_template("emp-customer-booking.html", booking=session)
+                    return render_template("emp-check-in-booking-view.html", booking=session)
                 else:
                     return render_template(
-                        "emp-customer-checkin.html",
+                        "emp-check-in.html",
                         message="Sorry, there is no such booking.",
                     )
             except botocore.exceptions.ClientError as error:
@@ -895,7 +902,7 @@ def emp_search_booking():
     return redirect(url_for("sign_in"))
 
 
-@app.route("/employee/cust-checkin/booking_confirmed", methods=["GET"])
+@app.route("/employee/check-in/booking-confirmed", methods=["GET"])
 def payment_confirmed():
     if "id" in session and "role" in session:
         role = session["role"]
@@ -928,7 +935,7 @@ def payment_confirmed():
 
                 session["bk_status"] = "Archived"
                 return render_template(
-                    "emp-customer-booking-archived.html",
+                    "emp-check-in-booking-archived.html",
                     booking=session,
                     message="Rent successful",
                 )

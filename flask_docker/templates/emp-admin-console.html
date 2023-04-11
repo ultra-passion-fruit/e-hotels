@@ -1,70 +1,83 @@
 {% extends 'emp-base.html' %}
 {% block title %}Admin Console{% endblock %}
 {% block content%}
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Room Number</th>
+                <th>Extension</th>
+                <th>Description</th>
+                <th>Capacitiy</th>
+                <th>Price</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <form method="POST" action="{{url_for('cancel_booking')}}">
+                    <td>{{booking[0]['stringValue']}}</td> <!-- hotel name -->
+                    <td>{{booking[1]['stringValue']}}</td> <!-- booking date -->
+                    <td>{{booking[2]['stringValue']}}</td> <!-- start date-->
+                    <td>{{booking[3]['stringValue']}}</td> <!-- end date -->
+                    <td>{{booking[4]['longValue']}}</td> <!-- no of peeople  -->
+                    <td >{{booking[5]['longValue']}}</td> <!-- booking id -->
+                    <input type="hidden" name="booking_id" value="{{booking[5]['longValue']}}">
+                    {% set status = booking[6]['stringValue'] %}
+                    {% if status == 'Archived' %}
+                    <td><span class="badge badge-pill badge-secondary">Archived</span></td>
+                    <td><button type="submit" class="btn btn-dark" role="button" disabled>Cancel Booking</button></td>
+                    {% elif status == 'Not rented yet' %}
+                    <td><span class="badge badge-pill badge-primary">Booked</span></td>
+                    <td><button type="submit" class="btn btn-dark" role="button">Cancel Booking</button></td>
+                    {% elif status == 'Cancelled' %}
+                    <td><span class="badge badge-pill badge-danger">Cancelled</span></td>
+                    <td><button type="submit" class="btn btn-dark" drole="button" disabled>Cancel Booking</button></td>
+                    {% endif %}
+                </form>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 <style>
-    /* Style for the container of the horizontal scroll list */
     .container {
-      width: 100%;
-      overflow-x: scroll;
-      white-space: nowrap;
+        max-width: fit-content;
+        padding: 2%;
     }
 
-    /* Style for each item in the horizontal scroll list */
-    .item {
-  display: inline-block;
-  width: 180px;
-  height: 180px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  background-color: #f2f2f2;
-  text-align: center;
-  font-size: 16px;
-  line-height: 1.2;
-  border-radius: 5px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-}
+    .table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        margin: 0 auto;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-.item-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  padding: 20px;
-}
+    .table th,
+    .table td {
+        padding: 12px 30px;
+        text-align: left;
+        vertical-align: middle;
+    }
 
-.item-content p {
-  margin: 0;
-}
+    .table th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+        border-top: 0;
+    }
 
-#message {
-  background-color: #4CAF50;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  margin-bottom: 15px;
-  font-size: 18px;
-  border-radius: 5px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+    main {
+        max-width: initial;
+        margin: 0;
+    }
 
+    body {
+        display: initial;
+    }
 </style>
-  
-<h2>Rent a room:</h2>
-
-<form method="post", action="{{url_for('search_hotel_rooms')}}">
-
-    <label for="start_date">End date:</label>
-    <input type="date" id="start_date" name="start_date" placeholder="Today (by default)" required>
-
-    <label for="end_date">End date:</label>
-    <input type="date" id="end_date" name="end_date" placeholder="Tomorrow (by default)" required>
-
-    <label for="number of persons"># of persons:</label>
-    <input type="text" id="no_of_persons" name="no_of_persons" placeholder="Enter the number of persons " required>
-
-
-    <button type="submit">Search</button>
-   
-</form>
 {% endblock %}

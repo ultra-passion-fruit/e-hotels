@@ -1,0 +1,70 @@
+{% extends 'emp-base.html' %}
+{% block title %}Walk-in{% endblock %}
+{% block content%}
+<style>
+    /* Style for the container of the horizontal scroll list */
+    .container {
+      width: 100%;
+      overflow-x: scroll;
+      white-space: nowrap;
+    }
+
+    /* Style for each item in the horizontal scroll list */
+    .item {
+  display: inline-block;
+  width: 180px;
+  height: 180px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  background-color: #f2f2f2;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.2;
+  border-radius: 5px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+}
+
+.item-content p {
+  margin: 0;
+}
+
+#message {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 18px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+</style>
+  
+<h2>Rent a room:</h2>
+
+<form method="post", action="{{url_for('search_hotel_rooms')}}">
+
+    <label for="start_date">End date:</label>
+    <input type="date" id="start_date" name="start_date" placeholder="Today (by default)" required>
+
+    <label for="end_date">End date:</label>
+    <input type="date" id="end_date" name="end_date" placeholder="Tomorrow (by default)" required>
+
+    <label for="number of persons"># of persons:</label>
+    <input type="text" id="no_of_persons" name="no_of_persons" placeholder="Enter the number of persons " required>
+
+
+    <button type="submit">Search</button>
+   
+</form>
+{% endblock %}
