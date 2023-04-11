@@ -525,7 +525,7 @@ def display_employee_homepage():
         id = session["id"]
         role = session["role"]
         if role == "employee":
-            query = "select room_no, possible_extension, view, capacity, price, status from hotel_room_capacity where hotel_code in (select hotel_code from employee where emp_id = {});".format(
+            query = "select room_info_no, room_no, possible_extension, view, capacity, price, status from hotel_room_capacity where hotel_code in (select hotel_code from employee where emp_id = {});".format(
                 id
             )
             response = callDbWithStatement(query)
@@ -533,6 +533,52 @@ def display_employee_homepage():
             return render_template("emp-admin-console.html", rooms=rooms)
     return redirect(url_for("sign_in"))
 
+@app.route("/employee/console/edit-room", methods=["POST"])
+def view_edit_room():
+    if "id" in session and "role" in session:
+            id = session["id"]
+            role = session["role"]
+            print(id)
+            print(role)
+            room = {
+                "room info no": request.form['room info no'],
+                "room no": request.form['room no'],
+                "extension": request.form['extension'],
+                "view": request.form['view'],
+                "capacity": request.form['capacity'],
+                "price": request.form['price'],
+                "status": request.form['status'],
+            }
+            print(room)
+            if role == "employee":
+                return render_template("emp-console-room-edit.html", room=room)
+    return redirect(url_for("sign_in"))
+
+@app.route("/employee/console/edit-room/save", methods=["POST"])
+def save_edit_room():
+    if "id" in session and "role" in session:
+        id = session["id"]
+        role = session["role"]
+        print(id)
+        print(role)
+        if role == "employee":
+            # Getting values from form
+            room_info_no = request.form["room info no"]
+            room_no = request.form["room no"]
+            extension = request.form["extension"]
+            view = request.form["view"]
+            capacity = request.form["capacity"]
+            price = request.form["price"]
+            status = request.form["status"]
+
+            # Updating values on databse
+            query = "UPDATE RoomInfo SET room_no = '{}', possible_extension = '{}', view = '{}', capacity = '{}', price = '{}', status = '{}' WHERE room_info_no = '{}';".format(
+                room_no, extension, view, capacity, price, status, room_info_no
+            )
+            callDbWithStatement(query)
+
+            return redirect(url_for("display_employee_homepage"))
+    return redirect(url_for("sign_in"))
 
 @app.route("/employee/account", methods=["GET"])
 def emp_account():

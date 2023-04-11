@@ -1,0 +1,135 @@
+{% extends 'emp-base.html' %}
+{% block title %}Edit Rooms{% endblock %}
+{% block content%}
+<form method="POST" action="{{url_for('save_edit_room')}}">
+    <div class="account-info-container">
+        <div class="account-info">
+            <h2 class="d-inline-block">Edit Room Information</h2>
+            <hr>
+            <input type="hidden" name="room info no" value="{{room['room info no']}}">
+            <div class="input-group mb-3 narrow1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Room Number</span>
+                </div>
+                <input type="text" class="form-control" name="room no" placeholder="101" aria-label="room number"
+                    aria-describedby="basic-addon1" value="{{room['room no']}}">
+            </div>
+            <div class="input-group mb-3 narrow2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Extension</span>
+                </div>
+                <input type="text" class="form-control" name="extension" placeholder="Yes/No"
+                    aria-label="extension input" aria-describedby="basic-addon1" value="{{room['extension']}}">
+            </div>
+            <div class="input-group mb-3 narrow3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">View</span>
+                </div>
+                <input type="text" class="form-control" name="view" placeholder="Mountains" aria-label="view input"
+                    aria-describedby="basic-addon1" value="{{room['view']}}">
+            </div>
+            <div class="input-group mb-3 narrow4">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Capacity</span>
+                </div>
+                <input type="text" class="form-control" name="capacity" placeholder="5" aria-label="capacity input"
+                    aria-describedby="basic-addon1" value="{{room['capacity']}}">
+            </div>
+            <div class="input-group mb-3 narrow5">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Price</span>
+                </div>
+                <input type="text" class="form-control" name="price" placeholder="1000" aria-label="price"
+                    aria-describedby="basic-addon1" value="{{room['price']}}">
+            </div>
+            <div class="input-group mb-3 narrow6">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Status</span>
+                </div>
+                <input type="text" class="form-control" name="status" placeholder="Available/Occupied" aria-label="status"
+                    aria-describedby="basic-addon1" value="{{room['status']}}">
+            </div>
+            <br>
+            <div class="float-right" role="group" aria-label="confirm">
+                <button type="submit" class="btn btn-secondary">Confirm</button>
+            </div>
+            <div class="float-right butt" role="group" aria-label="cancel">
+                <a type="button" href="{{url_for('display_employee_homepage')}}" class="btn  btn-secondary">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>
+<style>
+    .account-info-container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 20px auto;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 70%;
+        width: 100%;
+        text-align: left;
+        overflow: auto;
+    }
+
+    .account-info-container h2 {
+        font-size: 24px;
+        margin-top: 0;
+    }
+
+    .account-info-container hr {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .account-info-container p {
+        margin: 10px 0;
+    }
+
+    .account-info-container strong {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .butt {
+        margin-right: 10px;
+    }
+
+    .narrow1 {
+        width: 200px;
+    }
+
+    .narrow2 {
+        width: 180px;
+    }
+
+    .narrow3 {
+        width: 170px;
+    }
+
+    .narrow4 {
+        width: 140px;
+    }
+
+    .narrow5 {
+        width: 150px;
+    }
+
+    .narrow6 {
+        width: 250px;
+    }
+
+    table.no_line {
+        outline-style: none;
+    }
+
+    main {
+        max-width: initial;
+        margin: 0;
+    }
+
+    body {
+        display: initial;
+    }
+</style>
+{% endblock %}

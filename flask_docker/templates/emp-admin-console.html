@@ -12,23 +12,34 @@
                 <th>Capacitiy</th>
                 <th>Price</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            {% for rooms in rooms %}
-            <tr>
-                <td>{{rooms[0]['longValue']}}</td> <!-- room no -->
-                <td>{{rooms[1]['stringValue']}}</td> <!-- extension (y/n) -->
-                <td>{{rooms[2]['stringValue']}}</td> <!-- view-->
-                <td>{{rooms[3]['longValue']}}</td> <!-- capacity -->
-                <td>{{rooms[4]['longValue']}}</td> <!-- price  -->
-                {% set status = rooms[5]['stringValue'] %}
-                {% if status == 'Occupied' %}
-                <td><span class="badge badge-pill badge-danger">{{status}}</span></td>
-                {% elif status == 'Available' %}
-                <td><span class="badge badge-pill badge-primary">{{status}}</span></td>
-                {% endif %}
-            </tr>
+            {% for room in rooms %}
+            <form method="POST" action="{{url_for('view_edit_room')}}">
+                <tr>
+                    <input type="hidden" name="room info no" value="{{room[0]['longValue']}}">
+                    <td>{{room[1]['longValue']}}</td> <!-- room no -->
+                    <input type="hidden" name="room no" value="{{room[1]['longValue']}}">
+                    <td>{{room[2]['stringValue']}}</td> <!-- extension (y/n) -->
+                    <input type="hidden" name="extension" value="{{room[2]['stringValue']}}">
+                    <td>{{room[3]['stringValue']}}</td> <!-- view-->
+                    <input type="hidden" name="view" value="{{room[3]['stringValue']}}">
+                    <td>{{room[4]['longValue']}}</td> <!-- capacity -->
+                    <input type="hidden" name="capacity" value="{{room[4]['longValue']}}">
+                    <td>{{room[5]['longValue']}}</td> <!-- price  -->
+                    <input type="hidden" name="price" value="{{room[5]['longValue']}}">
+                    {% set status = room[6]['stringValue'] %}
+                    {% if status == 'Occupied' %}
+                    <td><span class="badge badge-pill badge-danger">{{status}}</span></td>
+                    {% elif status == 'Available' %}
+                    <td><span class="badge badge-pill badge-primary">{{status}}</span></td>
+                    {% endif %}
+                    <input type="hidden" name="status" value="{{status}}">
+                    <td><button type="submit" class="btn btn-dark" role="button">Edit</button></td>
+                </tr>
+            </form>
             {% endfor %}
         </tbody>
     </table>
