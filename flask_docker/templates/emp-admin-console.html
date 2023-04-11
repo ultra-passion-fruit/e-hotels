@@ -3,39 +3,31 @@
 {% block content%}
 <div class="container">
     <table class="table">
+        <h2>Available Rooms</h2>
         <thead>
             <tr>
                 <th>Room Number</th>
                 <th>Extension</th>
-                <th>Description</th>
+                <th>View</th>
                 <th>Capacitiy</th>
                 <th>Price</th>
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            {% for booking in bookings %}
+            {% for rooms in rooms %}
             <tr>
-                <form method="POST" action="{{url_for('cancel_booking')}}">
-                    <td>{{booking[0]['stringValue']}}</td> <!-- hotel name -->
-                    <td>{{booking[1]['stringValue']}}</td> <!-- booking date -->
-                    <td>{{booking[2]['stringValue']}}</td> <!-- start date-->
-                    <td>{{booking[3]['stringValue']}}</td> <!-- end date -->
-                    <td>{{booking[4]['longValue']}}</td> <!-- no of peeople  -->
-                    <td >{{booking[5]['longValue']}}</td> <!-- booking id -->
-                    <input type="hidden" name="booking_id" value="{{booking[5]['longValue']}}">
-                    {% set status = booking[6]['stringValue'] %}
-                    {% if status == 'Archived' %}
-                    <td><span class="badge badge-pill badge-secondary">Archived</span></td>
-                    <td><button type="submit" class="btn btn-dark" role="button" disabled>Cancel Booking</button></td>
-                    {% elif status == 'Not rented yet' %}
-                    <td><span class="badge badge-pill badge-primary">Booked</span></td>
-                    <td><button type="submit" class="btn btn-dark" role="button">Cancel Booking</button></td>
-                    {% elif status == 'Cancelled' %}
-                    <td><span class="badge badge-pill badge-danger">Cancelled</span></td>
-                    <td><button type="submit" class="btn btn-dark" drole="button" disabled>Cancel Booking</button></td>
-                    {% endif %}
-                </form>
+                <td>{{rooms[0]['longValue']}}</td> <!-- room no -->
+                <td>{{rooms[1]['stringValue']}}</td> <!-- extension (y/n) -->
+                <td>{{rooms[2]['stringValue']}}</td> <!-- view-->
+                <td>{{rooms[3]['longValue']}}</td> <!-- capacity -->
+                <td>{{rooms[4]['longValue']}}</td> <!-- price  -->
+                {% set status = rooms[5]['stringValue'] %}
+                {% if status == 'Occupied' %}
+                <td><span class="badge badge-pill badge-danger">{{status}}</span></td>
+                {% elif status == 'Available' %}
+                <td><span class="badge badge-pill badge-primary">{{status}}</span></td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
@@ -69,6 +61,12 @@
         background-color: #f5f5f5;
         font-weight: bold;
         border-top: 0;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     main {

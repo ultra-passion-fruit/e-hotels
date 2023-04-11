@@ -525,7 +525,12 @@ def display_employee_homepage():
         id = session["id"]
         role = session["role"]
         if role == "employee":
-            return render_template("emp-admin-console.html")
+            query = "select room_no, possible_extension, view, capacity, price, status from hotel_room_capacity where hotel_code in (select hotel_code from employee where emp_id = {});".format(
+                id
+            )
+            response = callDbWithStatement(query)
+            rooms = response["records"]
+            return render_template("emp-admin-console.html", rooms=rooms)
     return redirect(url_for("sign_in"))
 
 
@@ -679,6 +684,7 @@ def emp_change_password():
                 return render_template("emp-change-password.html", error=True)
     return redirect(url_for("sign_in"))
 
+
 @app.route("/employee/walk-in/results", methods=["GET"])
 def view_walk_in_search():
     if "id" in session and "role" in session:
@@ -747,9 +753,7 @@ def search_hotel_rooms():
             }
             session.update(renting)
 
-            return render_template(
-                "emp-walk-in-results.html", rooms=available_rooms
-            )
+            return render_template("emp-walk-in-results.html", rooms=available_rooms)
 
     return redirect(url_for("sign_in"))
 
@@ -811,9 +815,7 @@ def emp_view_cust_checkin():
     if "id" in session and "role" in session:
         role = session["role"]
         if role == "employee":
-            return render_template(
-                "emp-check-in.html", message=" "
-            )  # no error message
+            return render_template("emp-check-in.html", message=" ")  # no error message
     return redirect(url_for("sign_in"))
 
 
@@ -891,7 +893,9 @@ def emp_search_booking():
                             message=" ",
                         )
 
-                    return render_template("emp-check-in-booking-view.html", booking=session)
+                    return render_template(
+                        "emp-check-in-booking-view.html", booking=session
+                    )
                 else:
                     return render_template(
                         "emp-check-in.html",
