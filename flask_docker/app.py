@@ -469,6 +469,28 @@ def complete_rent():
             return render_template('emp-complete-rent.html', renting=session)
     return redirect(url_for('sign_in'))
 
+@app.route('/employee/console/results/rent-confirmed', methods=['POST'])
+def confirm_rent():
+    if 'id' in session and 'role' in session:
+        if session['role'] == 'employee':
+            cust_ID = request.form['rt_cust_ID']
+            session['rt_cust_ID'] = cust_ID
+
+            response = callDbWithStatement("SELECT COALESCE(MAX(renting_no), 0) + 1 FROM Renting")
+            print(response)
+            new_rent_no = response['records'][0][0]['longValue']
+            print("New rent no: ", new_rent_no)
+
+            query = "INSERT INTO Renting VALUES ('{}', CAST( now() AS Date), '{}', '{}', '{}', 'In progress', '{}', '{}', '{}');".format(new_rent_no, session['rt_start_date'], session['rt_end_date'], session['rt_no_of_persons'], session['id'], session['rt_cust_ID'], session['rt_room_info_no'])
+            callDbWithStatement(query)
+            room_no = response['records'][0][0]['longValue']
+            session['rt_no'] = new_rent_no
+            session['rt_room_no'] = room_no
+            session['rt_status'] = 'In progress'
+
+            return render_template('emp-rent-confirmed.html', rent=session)
+    return redirect(url_for('sign_in'))
+
 @app.route('/employee/cust-checkin')
 def emp_view_cust_checkin():
     if 'id' in session and 'role' in session:
