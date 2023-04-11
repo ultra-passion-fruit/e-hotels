@@ -591,7 +591,7 @@ def bookRoom():
             room_no = request.form['room_info_no']
             print(room_no)
             
-            print(capacity)
+     
             try:
                     # Perform the search using the search parameters
 
@@ -607,7 +607,7 @@ def bookRoom():
                     response = callDbWithStatement("INSERT into booking values( "+ str(id) +", CAST( now() AS Date), '"
                     + session['checkin']+"', '"
                     + session['checkout']+"' , " 
-                    + capacity + "," 
+                    + session['capacity'] + "," 
                     + "'Not rented yet' ," 
                     +str(session['id']) + "," +room_no + ")"
                     )

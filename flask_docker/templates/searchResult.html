@@ -8,7 +8,7 @@
 {% block caption %}{% endblock %}
 {% block content%}
     
-    <form form method="post", action="/book">
+    
     <h3 class="text-center">Search Results</h3>
     
     <section>
@@ -17,7 +17,7 @@
             {% if rooms %}
                 {% for room in rooms %}
                     <div style="padding: 10px; background-color: #eeeeee; margin: 60px">
-                        
+                        <form  method="post", action="{{url_for('bookRoom')}}">
                         <!--hotel name-->
                         <p>{{ room[0]['stringValue'] }}</p>
                         
@@ -33,6 +33,7 @@
                         <input type="hidden" name="room_info_no" value="{{ room[8]['longValue'] }}">
                         
                         <button type="submit" name="room_info_no" value="{{ room[8]['longValue'] }}">Book</button>
+                    </form>
                     </div>
                 {% endfor %}
             {% else %}
@@ -40,6 +41,6 @@
             {% endif %}
         </div>
     </section>
-    </form>
+    
 
 {% endblock %}
