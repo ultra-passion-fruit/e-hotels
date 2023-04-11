@@ -411,6 +411,46 @@ def emp_change_password():
                 return render_template('emp-change-password.html', error=True)
     return redirect(url_for('sign_in'))
 
+@app.route('/employee/console/results', methods=['POST'])
+def search_hotel_rooms():
+    if 'id' in session and 'role' in session:
+
+        if request.form['start_date'] is None:
+            start_date = 'CAST( now() AS Date)' # checkin today by default
+        else:
+            start_date = request.form['start_date']
+
+        if request.form['end_date'] is None:
+            end_date = 'CAST( now() AS Date) + 1' # checkout tomorrow by default
+        else:
+            end_date = request.form['end_date']
+
+        if request.form['no_of_persons'] is None:
+            no_of_persons = 1
+        else:
+            no_of_persons = request.form['no_of_persons']
+            
+        query = "SELECT hotel_chain_code, hotel_code FROM Employee WHERE emp_ID = '{}';".format(session['id'])
+        response = callDbWithStatement(query)
+        print(response)
+        hotel_chain_code = response['records'][0][0]['stringValue']
+        hotel_code = response['records'][0][1]['longValue']
+
+        query = "WITH MyHotelRooms AS (SELECT * FROM Room WHERE hotel_chain_code = '"+hotel_chain_code+"' AND hotel_code = "+str(hotel_code)+"), " \
+        +"MyHotelRoomsInfo AS(SELECT * FROM MyHotelRooms JOIN RoomInfo USING(room_info_no, room_no)) " \
+        +"SELECT room_no, possible_extension, capacity, description, price FROM MyHotelRoomsInfo mhri " \
+        +"WHERE "+no_of_persons+" <= capacity AND NOT EXISTS (SELECT 1 FROM Booking b WHERE b.room_info_no = mhri.room_info_no AND " \
+        +"(('"+start_date+"' <= b.start_date AND b.end_date <= '"+end_date+"') " \
+        +"OR ('"+start_date+"' BETWEEN b.start_date AND b.end_date) " \
+        +"OR ('"+end_date+"' BETWEEN b.start_date AND b.end_date)));"
+        response = callDbWithStatement(query)
+        available_rooms = response['records']
+
+        return render_template("emp-avail-search-result.html", rooms=available_rooms)
+
+        
+    return redirect(url_for('sign_in'))
+
 @app.route('/employee/cust-checkin')
 def emp_view_cust_checkin():
     if 'id' in session and 'role' in session:
