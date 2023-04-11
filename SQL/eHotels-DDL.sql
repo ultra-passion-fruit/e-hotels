@@ -252,11 +252,8 @@ GROUP BY h.city;
 
 DROP VIEW hotel_room_capacity;
 
-CREATE VIEW hotel_room_capacity AS
-SELECT h.hotel_code, h.name, ri.capacity AS room_capacity
-FROM Hotel h
-JOIN Room r ON h.hotel_chain_code = r.hotel_chain_code AND h.hotel_code = r.hotel_code
-JOIN RoomInfo ri ON r.room_info_no = ri.room_info_no;
+create view hotel_room_capacity as 
+select room_info_no, hotel_code, room_no, possible_extension, view, capacity, price, status from RoomInfo;
 
 
 
