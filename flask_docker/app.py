@@ -95,56 +95,47 @@ def sign_in():
 def authenticate():
     role = request.form["role"]
     print(role)
-    try:
-        id = request.form["id"]
-        password = request.form["password"]
+    id = request.form["id"]
+    password = request.form["password"]
 
+    if role == "customer":
+        response = callDbWithStatement(
+            "SELECT * FROM Customer where cust_ID = '"
+            + id
+            + "' and password ='"
+            + password
+            + "';"
+        )
+    elif role == "employee":
+        response = callDbWithStatement(
+            "SELECT * FROM Employee where emp_ID = '"
+            + id
+            + "' and password ='"
+            + password
+            + "';"
+        )
+
+    # 1 entry was found in the database. This means the user exists and is authenticated.
+    if len(response["records"]) == 1:
+        session["id"] = id
+        session["role"] = role
         if role == "customer":
-            response = callDbWithStatement(
-                "SELECT * FROM Customer where cust_ID = '"
-                + id
-                + "' and password ='"
-                + password
-                + "';"
+            return redirect(url_for("home"))
+        elif role == "employee":
+            return redirect(url_for("display_employee_homepage"))
+    elif len(response["records"]) == 0:
+        if role == "customer":
+            return render_template(
+                "sign-in-customer.html",
+                error=True,
+                errorMessage="The Customer ID or Password is incorrect",
             )
         elif role == "employee":
-            response = callDbWithStatement(
-                "SELECT * FROM Employee where emp_ID = '"
-                + id
-                + "' and password ='"
-                + password
-                + "';"
+            return render_template(
+                "sign-in-employee.html",
+                error=True,
+                errorMessage="The Employee ID or Password is incorrect",
             )
-
-        # 1 entry was found in the database. This means the user exists and is authenticated.
-        if len(response["records"]) == 1:
-            session["id"] = id
-            session["role"] = role
-            if role == "customer":
-                return redirect(url_for("home"))
-            elif role == "employee":
-                return redirect(url_for("display_employee_homepage"))
-        elif len(response["records"]) == 0:
-            if role == "customer":
-                return render_template(
-                    "sign-in-customer.html",
-                    error=True,
-                    errorMessage="The Customer ID or Password is incorrect",
-                )
-            elif role == "employee":
-                return render_template(
-                    "sign-in-employee.html",
-                    error=True,
-                    errorMessage="The Employee ID or Password is incorrect",
-                )
-    ## Gotta fix this
-    except botocore.exceptions as error:
-        print(error.response)
-        return render_template(
-            "sign-in-customer.html",
-            error=True,
-            error_message="Incorrect ID or password ",
-        )
 
     return render_template("sign-in-roles.html")
 
