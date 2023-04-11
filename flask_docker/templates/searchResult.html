@@ -32,7 +32,7 @@
                         <!--this will be use for passing room_info_no-->
                         <input type="hidden" name="room_info_no" value="{{ room[8]['longValue'] }}">
                         
-                        <button type="submit">Book</button>
+                        <button type="submit" name="room_info_no" value="{{ room[8]['longValue'] }}">Book</button>
                     </div>
                 {% endfor %}
             {% else %}
