@@ -561,9 +561,9 @@ VALUES
 ('HYAT', 5005, 'HYAT House', -1, 3, 5, '654 Pine St', 'Houston', 'TX', '77001', 'hyathousehou@hyat.com'),
 ('HYAT', 5006, 'HYAT Centric', -1, 4, 5, '987 Cedar St', 'San Francisco', 'CA', '94101', 'hyatcentricsf@hyat.com'),
 ('HYAT', 5007, 'HYAT Garden', -1, 3, 5, '246 Birch St', 'Atlanta', 'GA', '30301', 'hyatgardenatl@hyat.com'),
-('HYAT', 5008, 'HYAT Place', -1, 4, 5, '135 Walnut St', 'Dallas', 'TX', '75201', 'hyatplacedal@hyat.com');
+('HYAT', 5008, 'HYAT Place, Dallas', -1, 4, 5, '135 Walnut St', 'Dallas', 'TX', '75201', 'hyatplacedal@hyat.com');
 
-
+-- update hotel set name = 'HYAT Place, Dallas' where hotel_code = 5008
 
 INSERT INTO Employee
 VALUES
@@ -577,7 +577,14 @@ VALUES
 (5008, 'Jenny', 'Wang', 890123456, '8 Acacia Court', 'Dallas', 'TX', '75201', 'jennywang@hyat.com', 'HYAT', 5008, '1234');
 
 
-
+UPDATE Hotel SET manager_ID = 5001 WHERE hotel_code = 5001;
+UPDATE Hotel SET manager_ID = 5002 WHERE hotel_code = 5002;
+UPDATE Hotel SET manager_ID = 5003 WHERE hotel_code = 5003;
+UPDATE Hotel SET manager_ID = 5004 WHERE hotel_code = 5004;
+UPDATE Hotel SET manager_ID = 5005 WHERE hotel_code = 5005;
+UPDATE Hotel SET manager_ID = 5006 WHERE hotel_code = 5006;
+UPDATE Hotel SET manager_ID = 5007 WHERE hotel_code = 5007;
+UPDATE Hotel SET manager_ID = 5008 WHERE hotel_code = 5008;
 
 
 
@@ -653,26 +660,12 @@ INSERT INTO Customer (cust_ID, f_name, l_name, ssn, number_street, city, state_p
 (8000, 'Jackson', 'Martinez', 890123456, '135 Walnut St', 'Dallas', 'TX', 'jackson.martinez@gmail.com', '2022-02-01 11:00:00', '1234');
 
 -- -------------------------------------------------------------------------------
-INSERT INTO EmployeePhone (emp_ID, phone_number)
-SELECT emp_ID, CONCAT('+1-', FLOOR(RAND() * 9000000000) + 1000000000) AS phone_number
-FROM Employee
-WHERE emp_ID BETWEEN 1000 AND 6000;
 
-INSERT INTO CustomerPhone (cust_ID, phone_number)
-SELECT cust_ID, CONCAT('+1-', FLOOR(RAND() * 9000000000) + 1000000000) AS phone_number
-FROM Customer
-WHERE cust_ID BETWEEN 1000 AND 6000;
 
 INSERT INTO EmployeePosition(emp_ID, position)
 SELECT emp_ID, 'manager' FROM Employee;
 
-INSERT INTO hotelphone
-SELECT hotel_chain_code, hotel_code, CONCAT('+1-', FLOOR(RAND() * 9000000000) + 1000000000) AS phone_number
-FROM hotel;
 
-INSERT INTO hotelchainphone
-SELECT hotel_chain_code, CONCAT('+1-', FLOOR(RAND() * 9000000000) + 1000000000) AS phone_number
-FROM hotelchain;
 
 
 insert into hotelchainemail values
