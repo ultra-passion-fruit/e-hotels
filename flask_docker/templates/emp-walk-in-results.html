@@ -2,7 +2,7 @@
 {% block title %}Admin Console{% endblock %}
 {% block content%}
 
-<form form method="post", action="{{url_for('complete_rent')}}">
+
     <br>
     <h2 class="text-center">Search Results</h2>
     <br>
@@ -14,7 +14,7 @@
             {% if rooms %}
                 {% for room in rooms %}
                     <div class="room-box">
-                        
+                        <form form method="post", action="{{url_for('complete_rent')}}">
                         <!--actual room info-->
                         <p style="font-size: 20px;"><strong>Room Number: {{ room[0]['longValue'] }}</strong></p>
                         <p>Extension: {{ room[1]['stringValue'] }}</p>
@@ -26,6 +26,7 @@
                         <input type="hidden" name="room_info_no" value="{{ room[5]['longValue'] }}">
                         
                         <button class="btn btn-dark" type="submit">Rent</button>
+                    </form>
                     </div>
                 {% endfor %}
             {% else %}
@@ -33,7 +34,7 @@
             {% endif %}
         </div>
     </section>
-</form>
+
 
 <style>
     .room-box {
